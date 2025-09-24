@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Confirmación de envío de Email</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-6xl mx-auto my-12 flex flex-col max-h-[90vh]">
+        <!-- Cabecera sticky -->
+        <div
+            class="sticky top-0 z-20 bg-white rounded-t-lg shadow p-6 border-b border-gray-200 flex justify-between items-start">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Confirmación de envío de Email</h1>
+                <p class="text-sm text-gray-500 mt-1">Se enviará un correo electrónico a los siguientes destinatarios
+                    con los queries seleccionados.</p>
+                <div class="mt-6 mb-0">
+                    <label class="block text-sm font-medium text-gray-700 mb-2" for="additional-emails">Incluir en la
+                        notificación a:</label>
+                    <div class="relative">
+                        <input
+                            class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                            id="additional-emails" name="additional-emails"
+                            placeholder="usuario1@example.com; usuario2@example.com" type="text"
+                            value="usuario1@example.com; usuario2@example.com; usuario3@example.com" />
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Seleccione otros usuarios que desee notificar.</p>
+                </div>
+            </div>
+            <button class="text-gray-400 hover:text-gray-600">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <!-- Contenido desplazable -->
+        <div class="flex-1 overflow-y-auto p-6">
+            <div class="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div class="mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">
+                        <span class="font-semibold">Coordinador:</span> Ledys Peña
+                        <span class="ml-4 text-sm"><span class="font-semibold">Correo:</span> lpena@cimedical.co</span>
+                    </h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3" scope="col">Estudio</th>
+                                <th class="px-6 py-3" scope="col">Paciente</th>
+                                <th class="px-6 py-3" scope="col">Descripción</th>
+                                <th class="px-6 py-3" scope="col">Fecha de apertura</th>
+                                <th class="px-6 py-3" scope="col">Estado</th>
+                                <th class="px-6 py-3" scope="col">Clasificación</th>
+                                <th class="px-6 py-3" scope="col">Días</th>
+                                <th class="px-6 py-3" scope="col"></th>
+                                <th class="px-6 py-3" scope="col">Incluir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b">
+                                <td class="px-6 py-4">CAIN457C22301</td>
+                                <td class="px-6 py-4">3101001</td>
+                                <td class="px-6 py-4">Please complete “Inclusion / Exclusion Criteria” CRF appropriately
+                                    else clarify</td>
+                                <td class="px-6 py-4 whitespace-nowrap">02-jul-2025</td>
+                                <td class="px-6 py-4">Sin Resolver - Fuera de Ventana</td>
+                                <td class="px-6 py-4">Clasificación</td>
+                                <td class="px-6 py-4">12</td>
+                                <td class="px-6 py-4">
+                                    <span class="h-3 w-3 bg-red-400 rounded-full inline-block"></span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <input checked=""
+                                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                        type="checkbox" />
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b">
+                                <td class="px-6 py-4">CAIN457C22301</td>
+                                <td class="px-6 py-4">3101002</td>
+                                <td class="px-6 py-4 max-w-xs line-clamp-2 align-middle"
+                                    title="Please complete “Inclusion / Exclusion Criteria” CRF appropriately else clarify">
+                                    Please complete “Inclusion / Exclusion Criteria” CRF appropriately else clarify
+                                </td>
+                                <td class="px-6 py-4  whitespace-nowrap">28-jun-2025</td>
+                                <td class="px-6 py-4">Sin Resolver - Dentro de ventana</td>
+                                <td class="px-6 py-4">Clasificación 2</td>
+                                <td class="px-6 py-4">3</td>
+                                <td class="px-6 py-4">
+                                    <span class="h-3 w-3 bg-yellow-400 rounded-full inline-block"></span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <input checked=""
+                                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                        type="checkbox" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4">
+                    <label class="sr-only" for="comment1">Comentario</label>
+                    <textarea
+                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        id="comment1" placeholder="Agregar un comentario general..." rows="2"></textarea>
+                </div>
+            </div>
+            <div class="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div class="mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">
+                        <span class="font-semibold">Coordinador:</span> Cecilia Fernandez
+                        <span class="ml-4 text-sm"><span class="font-semibold">Correo:</span>
+                            cfernandez@cimedical.co</span>
+                    </h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3" scope="col">Estudio</th>
+                                <th class="px-6 py-3" scope="col">Paciente</th>
+                                <th class="px-6 py-3" scope="col">Descripción</th>
+                                <th class="px-6 py-3" scope="col">Fecha de apertura</th>
+                                <th class="px-6 py-3" scope="col">Estado</th>
+                                <th class="px-6 py-3" scope="col">Clasificación</th>
+                                <th class="px-6 py-3" scope="col">Días</th>
+                                <th class="px-6 py-3" scope="col"></th>
+                                <th class="px-6 py-3" scope="col">Incluir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b">
+                                <td class="px-6 py-4">NN9388-4894</td>
+                                <td class="px-6 py-4">152001</td>
+                                <td class="px-6 py-4">Please complete “Inclusion / Exclusion Criteria” CRF appropriately
+                                    else clarify</td>
+                                <td class="px-6 py-4 whitespace-nowrap">02-jul-2025</td>
+                                <td class="px-6 py-4">Sin Resolver - Fuera de Ventana</td>
+                                <td class="px-6 py-4">Sin Clasificación</td>
+                                <td class="px-6 py-4">6</td>
+                                <td class="px-6 py-4">
+                                    <span class="h-3 w-3 bg-red-400 rounded-full inline-block"></span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <input checked=""
+                                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                        type="checkbox" />
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b">
+                                <td class="px-6 py-4">NN9388-4894</td>
+                                <td class="px-6 py-4">152002</td>
+                                <td class="px-6 py-4 max-w-xs line-clamp-2 align-middle"
+                                    title="The investigator did not observe mucosal ulceration at the current visit as evidenced by CLASI Mucous Membrane scored as '0'. The SLEDAl mucosal ulcers cannot be scored 'Present if no apparent ulcers was observed. Please review and make the correction.">
+                                    The investigator did not observe mucosal ulceration at the current visit as
+                                    evidenciado
+                                    por CLASI Mucous Membrane scored as "0". The SLEDAl mucosal ulcers cannot be scored
+                                    "Present if no apparent ulcers was observed. Please review and make the correction.
+                                </td>
+                                <td class="px-6 py-4  whitespace-nowrap">28-jun-2025</td>
+                                <td class="px-6 py-4">Sin Resolver - Fuera de Ventana</td>
+                                <td class="px-6 py-4">Clasificación</td>
+                                <td class="px-6 py-4">12</td>
+                                <td class="px-6 py-4">
+                                    <span class="h-3 w-3 bg-red-400 rounded-full inline-block"></span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <input checked=""
+                                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                        type="checkbox" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4">
+                    <label class="sr-only" for="comment1">Comentario</label>
+                    <textarea
+                        class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        id="comment1" placeholder="Agregar un comentario general..." rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- Botones sticky abajo -->
+        <div class="sticky bottom-0 z-20 bg-white rounded-b-lg shadow p-4 flex justify-end border-t border-gray-200">
+            <button
+                class="px-6 py-2 mr-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                type="button">
+                Cancelar
+            </button>
+            <button
+                class="px-6 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                type="button">
+                Enviar
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

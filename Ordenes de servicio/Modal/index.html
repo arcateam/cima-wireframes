@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Órdenes de Servicio</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="styles.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+    <div class="container mx-auto max-w-4xl bg-white rounded-lg shadow-xl">
+        <header class="p-6 border-b border-gray-200">
+            <h1 class="text-2xl font-semibold text-gray-800 mb-6">Órdenes de servicio</h1>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-700">
+                <div>
+                    <p><span class="font-medium text-gray-900">Paciente:</span> 3089002</p>
+                    <p><span class="font-medium text-gray-900">Sexo:</span> Femenino</p>
+                </div>
+                <div>
+                    <p><span class="font-medium text-gray-900">Peso:</span> 60 kg</p>
+                    <p><span class="font-medium text-gray-900">Talla:</span> 158 cm</p>
+                </div>
+                <div>
+                    <p><span class="font-medium text-gray-900">Estudio:</span> CNVT756K150L</p>
+                    <p><span class="font-medium text-gray-900">Visita:</span> Semana 19</p>
+                </div>
+            </div>
+        </header>
+        <main class="p-6">
+            <h2 class="text-lg font-medium text-gray-800 mb-4">Órdenes</h2>
+            <div class="space-y-4">
+                <div class="border border-gray-200 rounded-lg">
+                    <button aria-expanded="false" class="accordion-button w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none rounded-t-lg">
+                        <div class="flex items-center space-x-3">
+                            <span class="material-icons text-blue-600">expand_more</span>
+                            <span class="font-medium text-gray-700">#Orden: 10062</span>
+                            <span class="text-sm text-gray-600 ml-4">Proveedor de servicios: Laboratorio Central</span>
+                        </div>
+                        <div class="flex items-center space-x-4 text-sm text-gray-600">
+                            <span>Estado: Generada</span>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                <span class="text-gray-700">Ejecutar</span>
+                            </label>
+                        </div>
+                    </button>
+                    <div class="accordion-content border-t border-gray-200 p-4">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm mb-4">
+                            <thead class="bg-gray-50">
+                                <tr>                                
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Procedimiento</th>
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Indicación</th>
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Razón de cancelación</th>
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Cancelar</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                  <td class="px-4 py-2 whitespace-nowrap">Biometría Hemática</td>
+                                  <td class="px-4 py-2 whitespace-nowrap">Mañana</td>
+                                  <td class="px-4 py-2 whitespace-nowrap"></td>
+                                  <td class="px-4 py-2 whitespace-nowrap">
+                                      <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="px-4 py-2 whitespace-nowrap">Química Sanguínea</td>
+                                  <td class="px-4 py-2 whitespace-nowrap">Ayuno 12hrs</td>
+                                  <td class="px-4 py-2 whitespace-nowrap">Muestra coagulada</td>
+                                  <td class="px-4 py-2 whitespace-nowrap">
+                                      <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="px-4 py-2 whitespace-nowrap">Examen General de Orina</td>
+                                  <td class="px-4 py-2 whitespace-nowrap">Primera orina</td>
+                                  <td class="px-4 py-2 whitespace-nowrap"></td>
+                                  <td class="px-4 py-2 whitespace-nowrap">
+                                      <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                  </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="flex justify-end space-x-3 mt-4">
+                            <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+                                Cancelar
+                            </button>
+                            <button class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="border border-gray-200 rounded-lg">
+                    <button aria-expanded="false" class="accordion-button w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none rounded-t-lg">
+                        <div class="flex items-center space-x-3">
+                            <span class="material-icons text-blue-600">expand_more</span>
+                            <span class="font-medium text-gray-700">#Orden: 10063</span>
+                            <span class="text-sm text-gray-600 ml-4">Proveedor de servicios: Laboratorio Local</span>
+                        </div>
+                        <div class="flex items-center space-x-4 text-sm text-gray-600">
+                            <span>Estado: Generada</span>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                <span class="text-gray-700">Ejecutar</span>
+                            </label>
+                        </div>
+                    </button>
+                    <div class="accordion-content border-t border-gray-200 p-4">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm mb-4">
+                            <thead class="bg-gray-50">
+                                <tr>                                   
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Procedimiento</th>
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Indicación</th>
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Razón de cancelación</th>
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Cancelar</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                  <td class="px-4 py-2 whitespace-nowrap">Prueba de Esfuerzo</td>
+                                  <td class="px-4 py-2 whitespace-nowrap">Ropa cómoda</td>
+                                  <td class="px-4 py-2 whitespace-nowrap"></td>
+                                  <td class="px-4 py-2 whitespace-nowrap">
+                                      <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="px-4 py-2 whitespace-nowrap">Radiografía de Tórax</td>
+                                  <td class="px-4 py-2 whitespace-nowrap">N/A</td>
+                                  <td class="px-4 py-2 whitespace-nowrap"></td>
+                                  <td class="px-4 py-2 whitespace-nowrap">
+                                      <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                  </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="flex justify-end space-x-3 mt-4">
+                            <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+                                Cancelar
+                            </button>
+                            <button class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="border border-gray-200 rounded-lg">
+                    <button aria-expanded="false" class="accordion-button w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none rounded-t-lg">
+                        <div class="flex items-center space-x-3">
+                            <span class="material-icons text-blue-600">expand_more</span>
+                            <span class="font-medium text-gray-700">#Orden: 10064</span>
+                            <span class="text-sm text-gray-600 ml-4">Proveedor de servicios: Laboratorio Continental</span>
+                        </div>
+                        <div class="flex items-center space-x-4 text-sm text-gray-600">
+                            <span>Estado: Generada</span>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                <span class="text-gray-700">Ejecutar</span>
+                            </label>
+                        </div>
+                    </button>
+                    <div class="accordion-content border-t border-gray-200 p-4">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm mb-4">
+                            <thead class="bg-gray-50">
+                                <tr>                                    
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Procedimiento</th>
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Indicación</th>
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Razón de cancelación</th>
+                                    <th class="px-4 py-2 text-left font-medium text-gray-500 tracking-wider" scope="col">Cancelar</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                  <td class="px-4 py-2 whitespace-nowrap">Extracción de Sangre</td>
+                                  <td class="px-4 py-2 whitespace-nowrap">Ayuno 8hrs</td>
+                                  <td class="px-4 py-2 whitespace-nowrap"></td>
+                                  <td class="px-4 py-2 whitespace-nowrap text-center">
+                                      <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                  </td>
+                                </tr>
+                                <tr>                                    
+                                    <td class="px-4 py-2 whitespace-nowrap">Toma de Muestra</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">Orina Matutina</td>
+                                    <td class="px-4 py-2 whitespace-nowrap">Paciente no se presentó</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-center">
+                                      <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="px-4 py-2 whitespace-nowrap">Análisis de Sangre</td>
+                                  <td class="px-4 py-2 whitespace-nowrap">N/A</td>
+                                  <td class="px-4 py-2 whitespace-nowrap"></td>
+                                  <td class="px-4 py-2 whitespace-nowrap text-center">
+                                      <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="px-4 py-2 whitespace-nowrap">Recolección de Orina</td>
+                                  <td class="px-4 py-2 whitespace-nowrap">Primera Orina del Día</td>
+                                  <td class="px-4 py-2 whitespace-nowrap"></td>
+                                  <td class="px-4 py-2 whitespace-nowrap text-center">
+                                      <input class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" type="checkbox"/>
+                                  </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="flex justify-end space-x-3 mt-4">
+                            <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+                                Cancelar
+                            </button>
+                            <button class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+            <button class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+                Cancelar
+            </button>
+            <button class="px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Ejecutar y generar historia
+            </button>
+        </footer>
+    </div>
+    <script>
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const currentlyExpanded = button.getAttribute('aria-expanded') === 'true';
+                if (!currentlyExpanded) {
+                    accordionButtons.forEach(btn => {
+                        btn.setAttribute('aria-expanded', 'false');
+                    });
+                }
+                button.setAttribute('aria-expanded', currentlyExpanded ? 'false' : 'true');
+            });
+        });
+        const isAnyExpanded = Array.from(accordionButtons).some(btn => btn.getAttribute('aria-expanded') === 'true');
+        if (!isAnyExpanded && accordionButtons.length > 0) {
+            const lastAccordionButton = accordionButtons[accordionButtons.length - 1];
+            lastAccordionButton.setAttribute('aria-expanded', 'true');
+        }
+    </script>
+</body>
+</html>

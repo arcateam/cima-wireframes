@@ -1,0 +1,591 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link as="style"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B600%3B700&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+        onload="this.rel='stylesheet'" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title>Stitch Design</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <style type="text/tailwindcss">
+        details > summary {
+        list-style: none;
+      }
+      details > summary::-webkit-details-marker {
+        display: none;
+      }
+      details[open] .content {
+        animation: slide-down 0.3s ease-out;
+      }
+      @keyframes slide-down {
+        0% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .group:focus-within .group-focus-within\:block {
+        display: block;
+      }
+      #group-toggle:checked ~ #ungrouped-table {
+          display: none;
+      }
+      #group-toggle:not(:checked) ~ #grouped-accordion {
+          display: none;
+      }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <div class="relative flex size-full min-h-screen flex-col bg-black/50 group/design-root overflow-x-hidden"
+        style='font-family: Inter, "Noto Sans", sans-serif;'>
+        <div class="flex h-full grow items-center justify-center p-4">
+            <div class="w-full max-w-4xl rounded-xl bg-white shadow-2xl">
+                <div class="flex items-center justify-between border-b border-gray-200 px-6 py-4">
+                    <h2 class="text-lg font-semibold text-gray-800">Medicamentos del Paciente</h2>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="flex flex-col gap-4 p-6">
+                    <div class="flex items-center justify-end gap-4">
+                        <div class="flex items-center">
+                            <span class="mr-3 text-xs font-medium text-gray-900">Agrupar medicamentos</span>
+                            <label class="relative inline-flex cursor-pointer items-center">
+                                <input class="peer sr-only" id="group-toggle" type="checkbox" value="" />
+                                <div
+                                    class="peer h-5 w-9 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300">
+                                </div>
+                            </label>
+                        </div>
+                        <button
+                            class="flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            <span class="material-symbols-outlined text-sm">add</span>
+                            <span>Agregar medicamento</span>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto" id="ungrouped-table">
+                        <table class="w-full text-left text-xs text-gray-500">
+                            <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3" scope="col">Nombre medicamento</th>
+                                    <!-- Presentación y Vía movidos debajo del nombre -->
+                                    <th class="px-6 py-3" scope="col">Frecuencia</th>
+                                    <th class="px-6 py-3" scope="col">Indicación</th>
+                                    <th class="px-6 py-3" scope="col">Fecha inicio</th>
+                                    <th class="px-6 py-3" scope="col">Fecha fin</th>
+                                    <th class="px-6 py-3 text-right" scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b bg-white hover:bg-gray-50">
+                                    <td class="px-6 py-4">
+                                        <div class="font-medium text-gray-900">Paracetamol 500mg</div>
+                                        <div class="text-xs text-gray-500 mt-1">Tabletas · Oral</div>
+                                    </td>
+                                    <td class="px-6 py-4">Cada 8 horas</td>
+                                    <td class="px-6 py-4">Dolor y fiebre</td>
+                                    <td class="px-6 py-4">2023-10-26</td>
+                                    <td class="px-6 py-4">-</td>
+                                    <td class="relative px-6 py-4 text-right">
+                                        <div class="group relative inline-block">
+                                            <button class="text-gray-500 hover:text-gray-700">
+                                                <span class="material-symbols-outlined">more_vert</span>
+                                            </button>
+                                            <div
+                                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden group-focus-within:block">
+                                                <div class="py-1" role="none">
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="border-b bg-white hover:bg-gray-50">
+                                    <td class="px-6 py-4">
+                                        <div class="font-medium text-gray-900">Paracetamol 500mg</div>
+                                        <div class="text-xs text-gray-500 mt-1">Tabletas · Oral</div>
+                                    </td>
+                                    <td class="px-6 py-4">Cada 6 horas</td>
+                                    <td class="px-6 py-4">Dolor de cabeza</td>
+                                    <td class="px-6 py-4">2023-05-12</td>
+                                    <td class="px-6 py-4">2023-05-15</td>
+                                    <td class="relative px-6 py-4 text-right">
+                                        <div class="group relative inline-block">
+                                            <button class="text-gray-500 hover:text-gray-700">
+                                                <span class="material-symbols-outlined">more_vert</span>
+                                            </button>
+                                            <div
+                                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden group-focus-within:block">
+                                                <div class="py-1" role="none">
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b bg-white hover:bg-gray-50">
+                                    <td class="px-6 py-4">
+                                        <div class="font-medium text-gray-900">Paracetamol 500mg</div>
+                                        <div class="text-xs text-gray-500 mt-1">Tabletas · Oral</div>
+                                    </td>
+                                    <td class="px-6 py-4">Si es necesario</td>
+                                    <td class="px-6 py-4">Fiebre alta</td>
+                                    <td class="px-6 py-4">2023-01-20</td>
+                                    <td class="px-6 py-4">2023-01-22</td>
+                                    <td class="relative px-6 py-4 text-right">
+                                        <div class="group relative inline-block">
+                                            <button class="text-gray-500 hover:text-gray-700">
+                                                <span class="material-symbols-outlined">more_vert</span>
+                                            </button>
+                                            <div
+                                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden group-focus-within:block">
+                                                <div class="py-1" role="none">
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b bg-white hover:bg-gray-50">
+                                    <td class="px-6 py-4">
+                                        <div class="font-medium text-gray-900">Ibuprofeno 600mg</div>
+                                        <div class="text-xs text-gray-500 mt-1">Cápsulas · Oral</div>
+                                    </td>
+                                    <td class="px-6 py-4">Cada 12 horas</td>
+                                    <td class="px-6 py-4">Inflamación</td>
+                                    <td class="px-6 py-4">2023-09-15</td>
+                                    <td class="px-6 py-4">2023-09-25</td>
+                                    <td class="relative px-6 py-4 text-right">
+                                        <div class="group relative inline-block">
+                                            <button class="text-gray-500 hover:text-gray-700">
+                                                <span class="material-symbols-outlined">more_vert</span>
+                                            </button>
+                                            <div
+                                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden group-focus-within:block">
+                                                <div class="py-1" role="none">
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b bg-white hover:bg-gray-50">
+                                    <td class="px-6 py-4">
+                                        <div class="font-medium text-gray-900">Ibuprofeno 600mg</div>
+                                        <div class="text-xs text-gray-500 mt-1">Cápsulas · Oral</div>
+                                    </td>
+                                    <td class="px-6 py-4">Cada 8 horas</td>
+                                    <td class="px-6 py-4">Dolor muscular</td>
+                                    <td class="px-6 py-4">2022-11-05</td>
+                                    <td class="px-6 py-4">2022-11-10</td>
+                                    <td class="relative px-6 py-4 text-right">
+                                        <div class="group relative inline-block">
+                                            <button class="text-gray-500 hover:text-gray-700">
+                                                <span class="material-symbols-outlined">more_vert</span>
+                                            </button>
+                                            <div
+                                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden group-focus-within:block">
+                                                <div class="py-1" role="none">
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="border-b bg-white hover:bg-gray-50">
+                                    <td class="px-6 py-4">
+                                        <div class="font-medium text-gray-900">Amoxicilina
+                                        250mg/5ml</div>
+                                        <div class="text-xs text-gray-500 mt-1">Suspensión · Oral</div>
+                                    </td>
+                                    <td class="px-6 py-4">Cada 8 horas</td>
+                                    <td class="px-6 py-4">Infección bacteriana</td>
+                                    <td class="px-6 py-4">2023-08-01</td>
+                                    <td class="px-6 py-4">2023-08-10</td>
+                                    <td class="relative px-6 py-4 text-right">
+                                        <div class="group relative inline-block">
+                                            <button class="text-gray-500 hover:text-gray-700">
+                                                <span class="material-symbols-outlined">more_vert</span>
+                                            </button>
+                                            <div
+                                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden group-focus-within:block">
+                                                <div class="py-1" role="none">
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-6 py-4">
+                                        <div class="font-medium text-gray-900">Amoxicilina
+                                        250mg/5ml</div>
+                                        <div class="text-xs text-gray-500 mt-1">Suspensión · Oral</div>
+                                    </td>
+                                    <td class="px-6 py-4">Cada 12 horas</td>
+                                    <td class="px-6 py-4">Infección de garganta</td>
+                                    <td class="px-6 py-4">2022-03-20</td>
+                                    <td class="px-6 py-4">2022-03-27</td>
+                                    <td class="relative px-6 py-4 text-right">
+                                        <div class="group relative inline-block">
+                                            <button class="text-gray-500 hover:text-gray-700">
+                                                <span class="material-symbols-outlined">more_vert</span>
+                                            </button>
+                                            <div
+                                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden group-focus-within:block">
+                                                <div class="py-1" role="none">
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100"
+                                                        href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="hidden" id="grouped-accordion">
+                        <div class="space-y-2">
+                            <!-- Paracetamol -->
+                            <details class="group rounded-lg border border-gray-200 bg-white"
+                                     data-status="activo"
+                                     data-presentation="Tabletas · Oral"
+                                     data-frequency="Cada 8 horas"
+                                     data-indication="Dolor y fiebre">
+                                <summary class="flex cursor-pointer items-center justify-between p-4">
+                                    <!-- left: name + presentation (presentation below name) -->
+                                    <div class="flex-1 min-w-0">
+                                        <div class="truncate">
+                                            <span class="text-sm font-medium text-gray-900 block">Paracetamol 500mg</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-1 block presentation">Tabletas · Oral</span>
+                                    </div>
+
+                                    <!-- right: status + frequency/indication (inline) -->
+                                    <div class="ml-4 flex items-center gap-3 whitespace-nowrap">
+                                        <span class="status-badge inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">Activo</span>
+                                        <span class="freq-indication text-xs text-gray-700 hidden">Cada 8 horas · Dolor y fiebre Desde 19-Abr-2025</span>
+                                    </div>
+
+                                    <span class="material-symbols-outlined ml-3 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+                                </summary>
+                                <div class="content overflow-hidden">
+                                    <div class="overflow-x-auto border-t border-gray-200">
+                                        <!-- table content unchanged -->
+                                        <table class="w-full text-left text-xs text-gray-500">
+                                            <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+                                                <tr>
+                                                    <th class="px-6 py-3" scope="col">Frecuencia</th>
+                                                    <th class="px-6 py-3" scope="col">Indicación</th>
+                                                    <th class="px-6 py-3" scope="col">Fecha inicio</th>
+                                                    <th class="px-6 py-3" scope="col">Fecha Fin</th>
+                                                    <th class="px-6 py-3 text-right" scope="col">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="border-b bg-white hover:bg-gray-50">
+                                                    <td class="px-6 py-4">Cada 8 horas</td>
+                                                    <td class="px-6 py-4">Dolor y fiebre</td>
+                                                    <td class="px-6 py-4">2023-10-26</td>
+                                                    <td class="px-6 py-4">-</td>
+                                                    <td class="relative px-6 py-4 text-right">
+                                                        <div class="group relative inline-block">
+                                                            <button class="text-gray-500 hover:text-gray-700"><span class="material-symbols-outlined">more_vert</span></button>
+                                                            <div
+                                                                class="absolute right-0 z-10 mt-2 hidden w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none group-focus-within:block">
+                                                                <div class="py-1" role="none">
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="border-b bg-white hover:bg-gray-50">
+                                                   
+                                                    <td class="px-6 py-4">Cada 6 horas</td>
+                                                    <td class="px-6 py-4">Dolor de cabeza</td>
+                                                    <td class="px-6 py-4">2023-05-12</td>
+                                                    <td class="px-6 py-4">2023-05-15</td>
+                                                    <td class="relative px-6 py-4 text-right">
+                                                        <div class="group relative inline-block">
+                                                            <button class="text-gray-500 hover:text-gray-700"><span class="material-symbols-outlined">more_vert</span></button>
+                                                            <div
+                                                                class="absolute right-0 z-10 mt-2 hidden w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none group-focus-within:block">
+                                                                <div class="py-1" role="none">
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="bg-white hover:bg-gray-50">
+                                                    <td class="px-6 py-4">Si es necesario</td>
+                                                    <td class="px-6 py-4">Fiebre alta</td>
+                                                    <td class="px-6 py-4">2023-01-20</td>
+                                                    <td class="px-6 py-4">2023-01-22</td>
+                                                    <td class="relative px-6 py-4 text-right">
+                                                        <div class="group relative inline-block">
+                                                            <button class="text-gray-500 hover:text-gray-700"><span class="material-symbols-outlined">more_vert</span></button>
+                                                            <div
+                                                                class="absolute right-0 z-10 mt-2 hidden w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none group-focus-within:block">
+                                                                <div class="py-1" role="none">
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </details>
+
+                            <!-- Ibuprofeno -->
+                            <details class="group rounded-lg border border-gray-200 bg-white"
+                                     data-status="inactivo"
+                                     data-presentation="Cápsulas · Oral"
+                                     data-frequency="Cada 12 horas"
+                                     data-indication="Inflamación">
+                                <summary class="flex cursor-pointer items-center justify-between p-4">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="truncate">
+                                            <span class="text-sm font-medium text-gray-900 block">Ibuprofeno 600mg</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-1 block presentation">Cápsulas · Oral</span>
+                                    </div>
+
+                                    <div class="ml-4 flex items-center gap-3 whitespace-nowrap">
+                                        <span class="status-badge inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">Inactivo</span>
+                                        <span class="freq-indication text-xs text-gray-700 hidden">Cada 12 horas · Inflamación</span>
+                                    </div>
+
+                                    <span class="material-symbols-outlined ml-3 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+                                </summary>
+                                <div class="content overflow-hidden">
+                                    <div class="overflow-x-auto border-t border-gray-200">
+                                        <!-- ...table content... -->
+                                        <table class="w-full text-left text-xs text-gray-500">
+                                            <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+                                                <tr>
+                                                    <th class="px-6 py-3" scope="col">Frecuencia</th>
+                                                    <th class="px-6 py-3" scope="col">Indicación</th>
+                                                    <th class="px-6 py-3" scope="col">Fecha inicio</th>
+                                                    <th class="px-6 py-3" scope="col">Fecha Fin</th>
+                                                    <th class="px-6 py-3 text-right" scope="col">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="border-b bg-white hover:bg-gray-50">
+                                                    <td class="px-6 py-4">Cada 12 horas</td>
+                                                    <td class="px-6 py-4">Inflamación</td>
+                                                    <td class="px-6 py-4">2023-09-15</td>
+                                                    <td class="px-6 py-4">2023-09-25</td>
+                                                    <td class="relative px-6 py-4 text-right">
+                                                        <div class="group relative inline-block">
+                                                            <button class="text-gray-500 hover:text-gray-700"><span class="material-symbols-outlined">more_vert</span></button>
+                                                            <div
+                                                                class="absolute right-0 z-10 mt-2 hidden w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none group-focus-within:block">
+                                                                <div class="py-1" role="none">
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="bg-white hover:bg-gray-50">
+                                                    <td class="px-6 py-4">Cada 8 horas</td>
+                                                    <td class="px-6 py-4">Dolor muscular</td>
+                                                    <td class="px-6 py-4">2022-11-05</td>
+                                                    <td class="px-6 py-4">2022-11-10</td>
+                                                    <td class="relative px-6 py-4 text-right">
+                                                        <div class="group relative inline-block">
+                                                            <button class="text-gray-500 hover:text-gray-700"><span class="material-symbols-outlined">more_vert</span></button>
+                                                            <div
+                                                                class="absolute right-0 z-10 mt-2 hidden w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none group-focus-within:block">
+                                                                <div class="py-1" role="none">
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </details>
+
+                            <!-- Amoxicilina -->
+                            <details class="group rounded-lg border border-gray-200 bg-white"
+                                     data-status="activo"
+                                     data-presentation="Suspensión · Oral"
+                                     data-frequency="Cada 8 horas"
+                                     data-indication="Infección bacteriana">
+                                <summary class="flex cursor-pointer items-center justify-between p-4">
+                                    <div class="flex-1 min-w-0">
+                                        <div class="truncate">
+                                            <span class="text-sm font-medium text-gray-900 block">Amoxicilina 250mg/5ml</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-1 block presentation">Suspensión · Oral</span>
+                                    </div>
+
+                                    <div class="ml-4 flex items-center gap-3 whitespace-nowrap">
+                                        <span class="status-badge inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">Activo</span>
+                                        <span class="freq-indication text-xs text-gray-700 hidden">Cada 8 horas · Infección bacteriana</span>
+                                    </div>
+
+                                    <span class="material-symbols-outlined ml-3 transition-transform duration-300 group-open:rotate-180">expand_more</span>
+                                </summary>
+                                <div class="content overflow-hidden">
+                                    <div class="overflow-x-auto border-t border-gray-200">
+                                        <!-- ...table content... -->
+                                        <table class="w-full text-left text-xs text-gray-500">
+                                            <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+                                                <tr>
+                                                    <th class="px-6 py-3" scope="col">Frecuencia</th>
+                                                    <th class="px-6 py-3" scope="col">Indicación</th>
+                                                    <th class="px-6 py-3" scope="col">Fecha inicio</th>
+                                                    <th class="px-6 py-3" scope="col">Fecha Fin</th>
+                                                    <th class="px-6 py-3 text-right" scope="col">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="border-b bg-white hover:bg-gray-50">
+                                                    <td class="px-6 py-4">Cada 8 horas</td>
+                                                    <td class="px-6 py-4">Infección bacteriana</td>
+                                                    <td class="px-6 py-4">2023-08-01</td>
+                                                    <td class="px-6 py-4">2023-08-10</td>
+                                                    <td class="relative px-6 py-4 text-right">
+                                                        <div class="group relative inline-block">
+                                                            <button class="text-gray-500 hover:text-gray-700"><span class="material-symbols-outlined">more_vert</span></button>
+                                                            <div
+                                                                class="absolute right-0 z-10 mt-2 hidden w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none group-focus-within:block">
+                                                                <div class="py-1" role="none">
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Modificar tratamiento</a>
+                                                                    <a class="block px-4 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem" tabindex="-1">Finalizar tratamiento</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-end gap-4 border-t border-gray-200 bg-gray-50 px-6 py-4">
+                    <button
+                        class="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Cerrar </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      (function () {
+        const toggle = document.getElementById('group-toggle');
+        const ungrouped = document.getElementById('ungrouped-table');
+        const grouped = document.getElementById('grouped-accordion');
+
+        if (!toggle || !ungrouped || !grouped) return;
+
+        function updateView() {
+          if (toggle.checked) {
+            ungrouped.classList.add('hidden');
+            grouped.classList.remove('hidden');
+            toggle.setAttribute('aria-checked', 'true');
+          } else {
+            ungrouped.classList.remove('hidden');
+            grouped.classList.add('hidden');
+            toggle.setAttribute('aria-checked', 'false');
+          }
+        }
+
+        toggle.addEventListener('change', updateView);
+        // inicializar según estado actual del checkbox
+        updateView();
+
+        // --- enhance grouped accordion headers based on data-* attributes ---
+        grouped.querySelectorAll('details').forEach(details => {
+          const status = (details.dataset.status || '').toLowerCase();
+          const presentation = details.dataset.presentation || '';
+          const frequency = details.dataset.frequency || '';
+          const indication = details.dataset.indication || '';
+
+          const summary = details.querySelector('summary');
+          if (!summary) return;
+
+          // ensure presentation span updated
+          const presSpan = summary.querySelector('.presentation');
+          if (presSpan && presentation) presSpan.textContent = presentation;
+
+          // badge
+          const badge = summary.querySelector('.status-badge');
+          if (badge) {
+            if (status === 'activo') {
+              badge.textContent = 'Activo';
+              badge.classList.remove('bg-gray-100','text-gray-600');
+              badge.classList.add('bg-green-100','text-green-800');
+            } else {
+              badge.textContent = 'Inactivo';
+              badge.classList.remove('bg-green-100','text-green-800');
+              badge.classList.add('bg-gray-100','text-gray-600');
+            }
+          }
+
+          // frequency + indication visible only when activo
+          const fi = summary.querySelector('.freq-indication');
+          if (fi) {
+            if (status === 'activo' && (frequency || indication)) {
+              fi.textContent = [frequency, indication].filter(Boolean).join(' · ');
+              fi.classList.remove('hidden');
+            } else {
+              fi.classList.add('hidden');
+            }
+          }
+        });
+      })();
+    </script>
+</body>
+
+</html>

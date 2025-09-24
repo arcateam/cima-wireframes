@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Órdenes de servicio</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a0a0a0;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="max-w-4xl mx-auto my-10 p-5 bg-white rounded-lg shadow-lg">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-semibold text-gray-800">Órdenes de servicio</h1>
+            <button class="text-gray-500 hover:text-gray-800">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <div class="grid grid-cols-3 gap-6 text-sm text-gray-600 mb-8 pb-4 border-b">
+            <div>
+                <p><span class="font-semibold text-gray-800">Paciente:</span> 8624-A3A-101A</p>
+                <p><span class="font-semibold text-gray-800">Sexo:</span> Femenino</p>
+            </div>
+            <div>
+                <p><span class="font-semibold text-gray-800">Peso:</span> 79.2</p>
+                <p><span class="font-semibold text-gray-800">Talla:</span> 167</p>
+            </div>
+            <div>
+                <p><span class="font-semibold text-gray-800">Estudio:</span> 230LE305</p>
+                <p><span class="font-semibold text-gray-800">Visita:</span> Semana 8</p>
+            </div>
+        </div>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Órdenes</h2>
+        <div class="border border-gray-200 rounded-lg overflow-y-auto max-h-[550px] custom-scrollbar">
+            <div class="bg-white rounded-lg">
+                <div class="p-4 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <span class="material-icons text-gray-600 cursor-pointer">expand_less</span>
+                            <p class="font-semibold text-gray-800">#Orden: 11207</p>
+                            <p class="text-gray-600">Proveedor: Cimedical Sas Laboratorio Local</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <p class="text-gray-600"><span class="font-semibold">Estado:</span> Realizada</p>
+                            <div class="relative inline-block text-left group">
+                                <button
+                                    class="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                    type="button">
+                                    <span class="material-icons text-gray-600">more_vert</span>
+                                </button>
+                                <div
+                                    class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden group-hover:block z-10">
+                                    <div aria-labelledby="options-menu" aria-orientation="vertical" class="py-1"
+                                        role="menu">
+                                        <a class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                            href="#" role="menuitem">
+                                            <span class="material-icons mr-3">download</span>
+                                            Descargar PDF
+                                        </a>
+                                        <a class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                            href="#" role="menuitem">
+                                            <span class="material-icons mr-3">refresh</span>
+                                            Volver a generar PDF
+                                        </a>
+                                        <button
+                                            class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                            onclick="document.getElementById('comment-section-11207').style.display = 'block'"
+                                            role="menuitem">
+                                            <span class="material-icons mr-3">add_comment</span>
+                                            Agregar comentario
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <input checked="" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                type="checkbox" />
+                        </div>
+                    </div>
+                    <div class="mt-4 hidden" id="comment-section-11207">
+                        <div class="flex items-center space-x-2">
+                            <label class="block text-sm font-medium text-gray-700 whitespace-nowrap"
+                                for="comentario-11207">Comentario:</label>
+                            <input
+                                class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                id="comentario-11207" name="comentario" type="text" />
+                            <button class="text-gray-500 hover:text-gray-800"
+                                onclick="document.getElementById('comment-section-11207').style.display = 'none'">
+                                <span class="material-icons">close</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div
+                        class="bg-gray-100 rounded-t-lg p-3 grid grid-cols-3 gap-4 text-sm font-semibold text-gray-600">
+                        <div>PROCEDIMIENTO</div>
+                        <div>RAZÓN DE CANCELACIÓN</div>
+                        <div class="text-right">EJECUTAR</div>
+                    </div>
+                    <div class="bg-white rounded-b-lg p-3 grid grid-cols-3 gap-4 items-center text-sm">
+                        <div>Prueba de embarazo en orina</div>
+                        <div>
+                            <input
+                                class="w-full bg-gray-100 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                type="text" />
+                        </div>
+                        <div class="text-right">
+                            <input checked="" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                type="checkbox" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-end gap-4 mt-8">
+            <button class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Cancelar</button>
+            <button class="px-6 py-2 bg-gray-400 text-white rounded-md cursor-not-allowed">Ejecutar y Generar historia
+                (0)</button>
+        </div>
+    </div>
+
+</body>
+
+</html>

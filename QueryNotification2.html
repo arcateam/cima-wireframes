@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmación de Envío de Email</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+  <div class="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-semibold text-gray-800 mb-2">Confirmación de envío de Email</h2>
+    <p class="text-sm text-gray-600 mb-4">Se enviará un correo electrónico a los siguientes destinatarios con los queries seleccionados.</p>
+
+    <label class="text-sm font-medium text-gray-700">Incluir en la notificación a:</label>
+    <input type="text" class="w-full border border-gray-300 rounded mt-1 p-2 mb-6" value="usuario1@example.com; usuario2@example.com; usuario3@example.com" />
+
+    <!-- Repetir por fecha -->
+    <div class="space-y-8">
+
+      <!-- Fecha: 18 de julio de 2025 -->
+      <div>
+        <h3 class="text-lg font-semibold text-blue-800 mb-4">📅 Notificación del 18 de julio de 2025</h3>
+
+        <!-- Coordinador 1 -->
+        <div class="bg-gray-50 rounded-lg border border-gray-200 p-4 mb-6">
+          <p class="font-medium text-gray-700 mb-2">Coordinador: Ledys Peña &nbsp;&nbsp;|&nbsp;&nbsp; <span class="text-gray-500">Correo: lpena@cimedical.co</span></p>
+          <table class="w-full text-sm text-left border-separate border-spacing-y-2">
+            <thead class="text-gray-600">
+              <tr>
+                <th>ESTUDIO</th><th>PACIENTE</th><th>DESCRIPCIÓN</th><th>FECHA DE APERTURA</th><th>ESTADO</th><th>CLASIFICACIÓN</th><th>DÍAS</th><th>INCLUIR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white">
+                <td>CAIN457C22301</td><td>3101001</td><td>Please complete inclusion CRF</td><td>02-jul-2025</td><td>Fuera de Ventana</td><td>1</td><td class="text-red-500 font-bold">12</td><td><input type="checkbox" checked /></td>
+              </tr>
+              <tr class="bg-white">
+                <td>CAIN457C22301</td><td>3101002</td><td>Check exclusion criteria</td><td>28-jun-2025</td><td>Dentro de Ventana</td><td>2</td><td class="text-yellow-500 font-bold">3</td><td><input type="checkbox" checked /></td>
+              </tr>
+            </tbody>
+          </table>
+          <textarea class="mt-4 w-full p-2 border rounded text-sm" placeholder="Agregar un comentario general..."></textarea>
+        </div>
+
+        <!-- Coordinador 2 -->
+        <div class="bg-gray-50 rounded-lg border border-gray-200 p-4 mb-6">
+          <p class="font-medium text-gray-700 mb-2">Coordinador: Cecilia Fernandez &nbsp;&nbsp;|&nbsp;&nbsp; <span class="text-gray-500">Correo: cfernandez@cimedical.co</span></p>
+          <table class="w-full text-sm text-left border-separate border-spacing-y-2">
+            <thead class="text-gray-600">
+              <tr>
+                <th>ESTUDIO</th><th>PACIENTE</th><th>DESCRIPCIÓN</th><th>FECHA DE APERTURA</th><th>ESTADO</th><th>CLASIFICACIÓN</th><th>DÍAS</th><th>INCLUIR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white">
+                <td>FLU445X</td><td>2100211</td><td>Inconsistent DOB in CRF</td><td>10-jul-2025</td><td>Dentro de Ventana</td><td>1</td><td class="text-yellow-500 font-bold">5</td><td><input type="checkbox" checked /></td>
+              </tr>
+              <tr class="bg-white">
+                <td>FLU445X</td><td>2100345</td><td>Missing lab result</td><td>01-jul-2025</td><td>Fuera de Ventana</td><td>3</td><td class="text-red-500 font-bold">17</td><td><input type="checkbox" checked /></td>
+              </tr>
+            </tbody>
+          </table>
+          <textarea class="mt-4 w-full p-2 border rounded text-sm" placeholder="Agregar un comentario general..."></textarea>
+        </div>
+      </div>
+
+      <!-- Otra Fecha -->
+      <div>
+        <h3 class="text-lg font-semibold text-blue-800 mb-4">📅 Notificación del 15 de julio de 2025</h3>
+
+         <!-- Coordinador 1 -->
+        <div class="bg-gray-50 rounded-lg border border-gray-200 p-4 mb-6">
+          <p class="font-medium text-gray-700 mb-2">Coordinador: Ledys Peña &nbsp;&nbsp;|&nbsp;&nbsp; <span class="text-gray-500">Correo: lpena@cimedical.co</span></p>
+          <table class="w-full text-sm text-left border-separate border-spacing-y-2">
+            <thead class="text-gray-600">
+              <tr>
+                <th>ESTUDIO</th><th>PACIENTE</th><th>DESCRIPCIÓN</th><th>FECHA DE APERTURA</th><th>ESTADO</th><th>CLASIFICACIÓN</th><th>DÍAS</th><th>INCLUIR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white">
+                <td>CAIN457C22301</td><td>3101001</td><td>Please complete inclusion CRF</td><td>02-jul-2025</td><td>Fuera de Ventana</td><td>1</td><td class="text-red-500 font-bold">12</td><td><input type="checkbox" checked /></td>
+              </tr>
+              <tr class="bg-white">
+                <td>CAIN457C22301</td><td>3101002</td><td>Check exclusion criteria</td><td>28-jun-2025</td><td>Dentro de Ventana</td><td>2</td><td class="text-yellow-500 font-bold">3</td><td><input type="checkbox" checked /></td>
+              </tr>
+            </tbody>
+          </table>
+          <textarea class="mt-4 w-full p-2 border rounded text-sm" placeholder="Agregar un comentario general..."></textarea>
+        </div>
+
+        <!-- Coordinador 2 -->
+        <div class="bg-gray-50 rounded-lg border border-gray-200 p-4 mb-6">
+          <p class="font-medium text-gray-700 mb-2">Coordinador: Cecilia Fernandez &nbsp;&nbsp;|&nbsp;&nbsp; <span class="text-gray-500">Correo: cfernandez@cimedical.co</span></p>
+          <table class="w-full text-sm text-left border-separate border-spacing-y-2">
+            <thead class="text-gray-600">
+              <tr>
+                <th>ESTUDIO</th><th>PACIENTE</th><th>DESCRIPCIÓN</th><th>FECHA DE APERTURA</th><th>ESTADO</th><th>CLASIFICACIÓN</th><th>DÍAS</th><th>INCLUIR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-white">
+                <td>FLU445X</td><td>2100211</td><td>Inconsistent DOB in CRF</td><td>10-jul-2025</td><td>Dentro de Ventana</td><td>1</td><td class="text-yellow-500 font-bold">5</td><td><input type="checkbox" checked /></td>
+              </tr>
+              <tr class="bg-white">
+                <td>FLU445X</td><td>2100345</td><td>Missing lab result</td><td>01-jul-2025</td><td>Fuera de Ventana</td><td>3</td><td class="text-red-500 font-bold">17</td><td><input type="checkbox" checked /></td>
+              </tr>
+            </tbody>
+          </table>
+          <textarea class="mt-4 w-full p-2 border rounded text-sm" placeholder="Agregar un comentario general..."></textarea>
+        </div>
+      </div>
+
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="mt-6 flex justify-end space-x-3">
+      <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded">Cancelar</button>
+      <button class="px-4 py-2 bg-blue-600 text-white rounded">Enviar</button>
+    </div>
+  </div>
+</body>
+</html>
