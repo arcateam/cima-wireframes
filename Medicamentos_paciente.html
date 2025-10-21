@@ -82,10 +82,10 @@
                                 </div>
                                 <div>
                                     <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                        for="presentation">Presentación</label>
+                                        for="presentationSelect">Presentación</label>
                                     <select
                                         class="form-input mt-2 flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark focus:border-primary h-12 bg-[image:var(--select-button-svg)] placeholder:text-slate-400 dark:placeholder:text-slate-500 p-[15px] text-base font-normal leading-normal"
-                                        id="presentation">
+                                        id="presentationSelect">
                                         <option>Tableta</option>
                                         <option>Cápsula</option>
                                         <option>Jarabe</option>
@@ -231,7 +231,7 @@
                                 <div class="space-y-3" id="simple-dose-wrapper">
                                     <div class="hidden" id="daily-quantity-wrapper">
                                         <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                            for="simple-quantity">Cantidad</label>
+                                            for="simple-quantity">Cantidad de <span id="presentation-label">Tableta</span></label>
                                         <input
                                             class="mt-2 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
                                             id="simple-quantity" placeholder="p. ej. 3" type="number" />
@@ -359,6 +359,10 @@
             // Variable para el select de unidad de tiempo
             const timeUnitSelect = document.getElementById('time-unit-select');
             
+            // Variables para presentación
+            const presentationSelect = document.getElementById('presentation');
+            const presentationLabel = document.getElementById('presentation-label');
+            
             function toggleWeekDaysPanel() {
                 if (weeklyRadio.checked) {
                     weekDaysPanel.classList.remove('hidden');
@@ -374,8 +378,8 @@
                 timeUnitSelect.innerHTML = '';
                 
                 if (weeklyRadio.checked) {
-                    // Solo mostrar "horas" cuando está seleccionado Semanal
-                     const optionHoras = document.createElement('option');
+                    // Solo mostrar "días" cuando está seleccionado Semanal
+                    const optionHoras = document.createElement('option');
                     optionHoras.value = 'horas';
                     optionHoras.textContent = 'horas';
                     timeUnitSelect.appendChild(optionHoras);
@@ -391,6 +395,12 @@
                     optionDias.textContent = 'días';
                     timeUnitSelect.appendChild(optionDias);
                 }
+            }
+            
+            function updatePresentationLabel() {
+                // Actualizar el texto del label con la presentación seleccionada
+                const selectedPresentation = presentationSelect.value;
+                presentationLabel.textContent = selectedPresentation;
             }
             
             function toggleDosePanels() {
@@ -421,10 +431,14 @@
             simpleRadio.addEventListener('change', toggleDosePanels);
             specificRadio.addEventListener('change', toggleDosePanels);
             
+            // Evento para cambiar el label de presentación
+            presentationSelect.addEventListener('change', updatePresentationLabel);
+            
             // Inicializar estados al cargar la página
             toggleWeekDaysPanel();
             toggleDosePanels();
             updateTimeUnitSelect();
+            updatePresentationLabel();
             
             // Funcionalidad para el panel de dosis específicas
             const doseEntriesContainer = document.getElementById('dose-entries-container');
