@@ -244,10 +244,10 @@
                                         <input
                                             class="w-20 rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
                                             placeholder="8" type="number" />
-                                        <select
+                                        <select id="time-unit-select"
                                             class="form-input w-full flex-1 rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 bg-[image:var(--select-button-svg)] placeholder:text-slate-400 dark:placeholder:text-slate-500 p-[15px] text-base font-normal leading-normal">
-                                            <option>horas</option>
-                                            <option>días</option>
+                                            <option value="horas">horas</option>
+                                            <option value="dias">días</option>
                                         </select>
                                     </div>
                                 </div>
@@ -356,6 +356,9 @@
             const simpleDosePanel = document.getElementById('simple-dose-wrapper');
             const specificDosePanel = document.getElementById('specific-dose-wrapper');
             
+            // Variable para el select de unidad de tiempo
+            const timeUnitSelect = document.getElementById('time-unit-select');
+            
             function toggleWeekDaysPanel() {
                 if (weeklyRadio.checked) {
                     weekDaysPanel.classList.remove('hidden');
@@ -363,6 +366,30 @@
                 } else {
                     weekDaysPanel.classList.add('hidden');
                     weekDaysPanel.classList.remove('flex');
+                }
+            }
+            
+            function updateTimeUnitSelect() {
+                // Limpiar opciones existentes
+                timeUnitSelect.innerHTML = '';
+                
+                if (weeklyRadio.checked) {
+                    // Solo mostrar "horas" cuando está seleccionado Semanal
+                     const optionHoras = document.createElement('option');
+                    optionHoras.value = 'horas';
+                    optionHoras.textContent = 'horas';
+                    timeUnitSelect.appendChild(optionHoras);
+                } else if (dailyRadio.checked) {
+                    // Mostrar "horas" y "días" cuando está seleccionado Diario
+                    const optionHoras = document.createElement('option');
+                    optionHoras.value = 'horas';
+                    optionHoras.textContent = 'horas';
+                    timeUnitSelect.appendChild(optionHoras);
+                    
+                    const optionDias = document.createElement('option');
+                    optionDias.value = 'dias';
+                    optionDias.textContent = 'días';
+                    timeUnitSelect.appendChild(optionDias);
                 }
             }
             
@@ -380,9 +407,15 @@
                 }
             }
             
-            // Eventos para panel de días de la semana
-            weeklyRadio.addEventListener('change', toggleWeekDaysPanel);
-            dailyRadio.addEventListener('change', toggleWeekDaysPanel);
+            // Eventos para panel de días de la semana y select de unidad de tiempo
+            weeklyRadio.addEventListener('change', function() {
+                toggleWeekDaysPanel();
+                updateTimeUnitSelect();
+            });
+            dailyRadio.addEventListener('change', function() {
+                toggleWeekDaysPanel();
+                updateTimeUnitSelect();
+            });
             
             // Eventos para paneles de dosis
             simpleRadio.addEventListener('change', toggleDosePanels);
@@ -391,6 +424,7 @@
             // Inicializar estados al cargar la página
             toggleWeekDaysPanel();
             toggleDosePanels();
+            updateTimeUnitSelect();
             
             // Funcionalidad para el panel de dosis específicas
             const doseEntriesContainer = document.getElementById('dose-entries-container');
