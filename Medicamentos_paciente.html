@@ -147,9 +147,9 @@
                                 <div id="frequency-wrapper">
                                     <label class="text-sm font-medium text-slate-700 dark:text-slate-300">Frecuencia de
                                         Administración</label>
-                                    <div class="mt-2 grid grid-cols-2 gap-4">
+                                    <div class="mt-2 grid grid-cols-12 gap-4 items-center">
                                         <label
-                                            class="flex items-center gap-3 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-3 has-[:checked]:border-primary has-[:checked]:bg-primary/10">
+                                            class="col-span-3 flex items-center gap-3 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-3 has-[:checked]:border-primary has-[:checked]:bg-primary/10">
                                             <input checked=""
                                                 class="h-5 w-5 border-2 border-slate-300 dark:border-slate-600 bg-transparent text-transparent checked:border-primary checked:bg-[image:var(--radio-dot-svg)] focus:outline-none focus:ring-0 focus:ring-offset-0"
                                                 id="frequency-type-daily" name="frequency-type" type="radio"
@@ -157,55 +157,55 @@
                                             <span class="text-slate-800 dark:text-slate-200">Diario</span>
                                         </label>
                                         <label
-                                            class="flex items-center gap-3 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-3 has-[:checked]:border-primary has-[:checked]:bg-primary/10">
+                                            class="col-span-3 flex items-center gap-3 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-3 has-[:checked]:border-primary has-[:checked]:bg-primary/10">
                                             <input
                                                 class="h-5 w-5 border-2 border-slate-300 dark:border-slate-600 bg-transparent text-transparent checked:border-primary checked:bg-[image:var(--radio-dot-svg)] focus:outline-none focus:ring-0 focus:ring-offset-0"
                                                 id="frequency-type-weekly" name="frequency-type" type="radio"
                                                 value="weekly" />
                                             <span class="text-slate-800 dark:text-slate-200">Semanal</span>
                                         </label>
-                                    </div>
-                                    <div class="mt-4 hidden" id="week-days">
-                                        <div
-                                            class="flex w-full justify-around rounded-lg bg-slate-100 dark:bg-slate-800 p-2">
-                                            <label
-                                                class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                <span>Lu</span>
-                                            </label>
-                                            <label
-                                                class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                <span>Ma</span>
-                                            </label>
-                                            <label
-                                                class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                <span>Mi</span>
-                                            </label>
-                                            <label
-                                                class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                <span>Ju</span>
-                                            </label>
-                                            <label
-                                                class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                <span>Vi</span>
-                                            </label>
-                                            <label
-                                                class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                <span>Sá</span>
-                                            </label>
-                                            <label
-                                                class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                <span>Do</span>
-                                            </label>
+                                        <div class="col-span-6 hidden" id="week-days">
+                                            <div
+                                                class="flex w-full justify-around rounded-lg bg-slate-100 dark:bg-slate-800 p-2">
+                                                <label
+                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
+                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
+                                                    <span>Lu</span>
+                                                </label>
+                                                <label
+                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
+                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
+                                                    <span>Ma</span>
+                                                </label>
+                                                <label
+                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
+                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
+                                                    <span>Mi</span>
+                                                </label>
+                                                <label
+                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
+                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
+                                                    <span>Ju</span>
+                                                </label>
+                                                <label
+                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
+                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
+                                                    <span>Vi</span>
+                                                </label>
+                                                <label
+                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
+                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
+                                                    <span>Sá</span>
+                                                </label>
+                                                <label
+                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
+                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
+                                                    <span>Do</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                                 <div id="dosage-type-wrapper">
                                     <label class="text-sm font-medium text-slate-700 dark:text-slate-300">Tipo de
                                         Dosis</label>
@@ -252,27 +252,27 @@
                                     </div>
                                 </div>
                                 <div class="hidden space-y-3" id="specific-dose-wrapper">
-                                    <div class="flex items-end gap-3">
-                                        <div class="flex-grow">
-                                            <label class="text-xs font-medium text-slate-600 dark:text-slate-400"
-                                                for="quantity-1">Cantidad</label>
-                                            <input
-                                                class="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                                id="quantity-1" placeholder="1" type="number" />
+                                    <div id="dose-entries-container">
+                                        <div class="dose-entry flex items-end gap-3 mb-3">
+                                            <div class="flex-grow">
+                                                <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Cantidad</label>
+                                                <input
+                                                    class="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
+                                                    placeholder="1" type="number" />
+                                            </div>
+                                            <div class="flex-grow">
+                                                <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Hora</label>
+                                                <input
+                                                    class="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
+                                                    type="time" />
+                                            </div>
+                                            <button type="button"
+                                                class="delete-dose-btn flex h-12 w-12 items-center justify-center rounded-lg bg-rose-500 text-white hover:bg-rose-600">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
                                         </div>
-                                        <div class="flex-grow">
-                                            <label class="text-xs font-medium text-slate-600 dark:text-slate-400"
-                                                for="time-1">Hora</label>
-                                            <input
-                                                class="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                                id="time-1" type="time" />
-                                        </div>
-                                        <button
-                                            class="flex h-12 w-12 items-center justify-center rounded-lg bg-rose-500 text-white hover:bg-rose-600">
-                                            <span class="material-symbols-outlined">delete</span>
-                                        </button>
                                     </div>
-                                    <button
+                                    <button type="button" id="add-dose-btn"
                                         class="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-700 py-3 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
                                         <span class="material-symbols-outlined">add</span>
                                         <span>Agregar Dosis</span>
@@ -391,6 +391,85 @@
             // Inicializar estados al cargar la página
             toggleWeekDaysPanel();
             toggleDosePanels();
+            
+            // Funcionalidad para el panel de dosis específicas
+            const doseEntriesContainer = document.getElementById('dose-entries-container');
+            const addDoseBtn = document.getElementById('add-dose-btn');
+            
+            // Función para actualizar el estado de los botones eliminar
+            function updateDeleteButtons() {
+                const doseEntries = doseEntriesContainer.querySelectorAll('.dose-entry');
+                const deleteButtons = doseEntriesContainer.querySelectorAll('.delete-dose-btn');
+                
+                // Si solo hay una entrada, deshabilitar el botón eliminar
+                deleteButtons.forEach(btn => {
+                    if (doseEntries.length <= 1) {
+                        btn.disabled = true;
+                        btn.classList.add('opacity-50', 'cursor-not-allowed');
+                    } else {
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    }
+                });
+            }
+            
+            // Función para eliminar una entrada de dosis
+            function deleteDoseEntry(button) {
+                const doseEntries = doseEntriesContainer.querySelectorAll('.dose-entry');
+                
+                // Solo eliminar si hay más de una entrada
+                if (doseEntries.length > 1) {
+                    const doseEntry = button.closest('.dose-entry');
+                    doseEntry.remove();
+                    updateDeleteButtons();
+                }
+            }
+            
+            // Función para agregar una nueva entrada de dosis
+            function addDoseEntry() {
+                const newEntry = document.createElement('div');
+                newEntry.className = 'dose-entry flex items-end gap-3 mb-3';
+                newEntry.innerHTML = `
+                    <div class="flex-grow">
+                        <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Cantidad</label>
+                        <input
+                            class="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
+                            placeholder="1" type="number" />
+                    </div>
+                    <div class="flex-grow">
+                        <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Hora</label>
+                        <input
+                            class="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
+                            type="time" />
+                    </div>
+                    <button type="button"
+                        class="delete-dose-btn flex h-12 w-12 items-center justify-center rounded-lg bg-rose-500 text-white hover:bg-rose-600">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                `;
+                
+                // Agregar evento al botón eliminar
+                const deleteBtn = newEntry.querySelector('.delete-dose-btn');
+                deleteBtn.addEventListener('click', function() {
+                    deleteDoseEntry(this);
+                });
+                
+                doseEntriesContainer.appendChild(newEntry);
+                updateDeleteButtons();
+            }
+            
+            // Evento para el botón agregar dosis
+            addDoseBtn.addEventListener('click', addDoseEntry);
+            
+            // Eventos para los botones eliminar existentes
+            doseEntriesContainer.addEventListener('click', function(e) {
+                if (e.target.closest('.delete-dose-btn')) {
+                    deleteDoseEntry(e.target.closest('.delete-dose-btn'));
+                }
+            });
+            
+            // Inicializar estado de botones eliminar
+            updateDeleteButtons();
         });
     </script>
 </body>
