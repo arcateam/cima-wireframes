@@ -1,524 +1,382 @@
 <!DOCTYPE html>
-<html class="light" lang="es">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Interfaz de Prescripción de Medicamentos</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+    <title>Agregar Medicamento</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
-    <script id="tailwind-config">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#13a4ec",
-                        "background-light": "#f6f7f8",
-                        "background-dark": "#101c22",
+                        primary: "#0ea5e9", // sky-500
+                        "background-light": "#f3f4f6", // gray-100
+                        "background-dark": "#111827", // gray-900
                     },
                     fontFamily: {
-                        "display": ["Inter", "sans-serif"]
+                        display: ["Inter", "sans-serif"],
                     },
                     borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
+                        DEFAULT: "0.5rem", // md
                     },
                 },
             },
-        }
+        };
     </script>
     <style>
-        :root {
-            --radio-dot-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27%2313a4ec%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e');
-            --select-button-svg: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27%234c809a%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48-48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e');
-        }
-
-        #frequency-type-weekly:checked~#week-days {
-            display: flex;
-        }
-
-        #frequency-type-daily:checked~#daily-quantity-wrapper {
-            display: block;
-        }
-
-        #dosage-type-specific:checked~#specific-dose-wrapper {
-            display: block;
-        }
-
-        #dosage-type-specific:checked~#simple-dose-wrapper {
-            display: none;
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
         }
     </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark font-display">
-    <div class="relative flex min-h-screen w-full flex-col">
-        <div class="flex-grow">
-            <div class="container mx-auto px-4 py-8">
-                <div class="mb-8">
-                    <p class="text-3xl font-bold text-slate-900 dark:text-white">Prescribir Medicamento</p>
-                    <p class="text-slate-500 dark:text-slate-400">Ingrese los detalles para la nueva prescripción.</p>
-                </div>
-                <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
-                    <div class="lg:col-span-2">
-                        <div
-                            class="space-y-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                                <div class="relative sm:col-span-2">
-                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                        for="medication">Medicamento</label>
-                                    <div class="relative mt-2">
-                                        <span
-                                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">search</span>
-                                        <input
-                                            class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 pl-10 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                            id="medication" placeholder="Buscar medicamento..." type="text" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                        for="presentationSelect">Presentación</label>
-                                    <select
-                                        class="form-input mt-2 flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark focus:border-primary h-12 bg-[image:var(--select-button-svg)] placeholder:text-slate-400 dark:placeholder:text-slate-500 p-[15px] text-base font-normal leading-normal"
-                                        id="presentationSelect">
-                                        <option>Tableta</option>
-                                        <option>Cápsula</option>
-                                        <option>Jarabe</option>
-                                        <option>Inyección</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                                <div class="sm:col-span-1">
-                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                        for="dosage">Dosis</label>
-                                    <input
-                                        class="mt-2 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                        id="dosage" placeholder="p. ej., 500" type="number" />
-                                </div>
-                                <div class="sm:col-span-1">
-                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                        for="unit">Unidad</label>
-                                    <select
-                                        class="form-input mt-2 flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark focus:border-primary h-12 bg-[image:var(--select-button-svg)] placeholder:text-slate-400 dark:placeholder:text-slate-500 p-[15px] text-base font-normal leading-normal"
-                                        id="unit">
-                                        <option>mg</option>
-                                        <option>ml</option>
-                                        <option>mcg</option>
-                                        <option>g</option>
-                                    </select>
-                                </div>
-                                <div class="sm:col-span-1">
-                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                        for="route">Vía de Administración</label>
-                                    <select
-                                        class="form-input mt-2 flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark focus:border-primary h-12 bg-[image:var(--select-button-svg)] placeholder:text-slate-400 dark:placeholder:text-slate-500 p-[15px] text-base font-normal leading-normal"
-                                        id="route">
-                                        <option>Seleccionar vía</option>
-                                        <option>Oral</option>
-                                        <option>Intravenosa</option>
-                                        <option>Intramuscular</option>
-                                        <option>Tópica</option>
-                                    </select>
-                                </div>
-                            </div>
-                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                <div>
-                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                        for="start-date">Fecha de Inicio <span class="text-rose-500">*</span></label>
-                                    <input
-                                        class="mt-2 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                        id="start-date" required="" type="date" />
-                                </div>
-                                <div>
-                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                        for="end-date">Fecha de Fin</label>
-                                    <input
-                                        class="mt-2 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                        id="end-date" type="date" />
-                                </div>                                
-                            </div>
-                            <div class="space-y-4 rounded-lg border border-slate-200 dark:border-slate-800 p-4">
-                                <div id="frequency-wrapper">
-                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">Frecuencia de
-                                        Administración</label>
-                                    <div class="mt-2 grid grid-cols-12 gap-4 items-center">
-                                        <label
-                                            class="col-span-3 flex items-center gap-3 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-3 has-[:checked]:border-primary has-[:checked]:bg-primary/10">
-                                            <input checked=""
-                                                class="h-5 w-5 border-2 border-slate-300 dark:border-slate-600 bg-transparent text-transparent checked:border-primary checked:bg-[image:var(--radio-dot-svg)] focus:outline-none focus:ring-0 focus:ring-offset-0"
-                                                id="frequency-type-daily" name="frequency-type" type="radio"
-                                                value="daily" />
-                                            <span class="text-slate-800 dark:text-slate-200">Diario</span>
-                                        </label>
-                                        <label
-                                            class="col-span-3 flex items-center gap-3 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-3 has-[:checked]:border-primary has-[:checked]:bg-primary/10">
-                                            <input
-                                                class="h-5 w-5 border-2 border-slate-300 dark:border-slate-600 bg-transparent text-transparent checked:border-primary checked:bg-[image:var(--radio-dot-svg)] focus:outline-none focus:ring-0 focus:ring-offset-0"
-                                                id="frequency-type-weekly" name="frequency-type" type="radio"
-                                                value="weekly" />
-                                            <span class="text-slate-800 dark:text-slate-200">Semanal</span>
-                                        </label>
-                                        <div class="col-span-6 hidden" id="week-days">
-                                            <div
-                                                class="flex w-full justify-around rounded-lg bg-slate-100 dark:bg-slate-800 p-2">
-                                                <label
-                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                    <span>Lu</span>
-                                                </label>
-                                                <label
-                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                    <span>Ma</span>
-                                                </label>
-                                                <label
-                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                    <span>Mi</span>
-                                                </label>
-                                                <label
-                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                    <span>Ju</span>
-                                                </label>
-                                                <label
-                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                    <span>Vi</span>
-                                                </label>
-                                                <label
-                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                    <span>Sá</span>
-                                                </label>
-                                                <label
-                                                    class="relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-md text-sm font-semibold text-slate-600 dark:text-slate-300 has-[:checked]:bg-primary has-[:checked]:text-white">
-                                                    <input class="absolute h-0 w-0 opacity-0" type="checkbox" />
-                                                    <span>Do</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="dosage-type-wrapper">
-                                    <label class="text-sm font-medium text-slate-700 dark:text-slate-300">Tipo de
-                                        Dosis</label>
-                                    <div class="mt-2 grid grid-cols-2 gap-4">
-                                        <label
-                                            class="flex items-center gap-3 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-3 has-[:checked]:border-primary has-[:checked]:bg-primary/10">
-                                            <input checked=""
-                                                class="h-5 w-5 border-2 border-slate-300 dark:border-slate-600 bg-transparent text-transparent checked:border-primary checked:bg-[image:var(--radio-dot-svg)] focus:outline-none focus:ring-0 focus:ring-offset-0"
-                                                id="dosage-type-simple" name="dosage-type" type="radio"
-                                                value="simple" />
-                                            <span class="text-slate-800 dark:text-slate-200">Dosis Simple</span>
-                                        </label>
-                                        <label
-                                            class="flex items-center gap-3 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-3 has-[:checked]:border-primary has-[:checked]:bg-primary/10">
-                                            <input
-                                                class="h-5 w-5 border-2 border-slate-300 dark:border-slate-600 bg-transparent text-transparent checked:border-primary checked:bg-[image:var(--radio-dot-svg)] focus:outline-none focus:ring-0 focus:ring-offset-0"
-                                                id="dosage-type-specific" name="dosage-type" type="radio"
-                                                value="specific" />
-                                            <span class="text-slate-800 dark:text-slate-200">Dosis Específica</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="space-y-3" id="simple-dose-wrapper">
-                                    <div class="hidden" id="daily-quantity-wrapper">
-                                        <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                            for="simple-quantity">Cantidad de <span id="presentation-label">Tableta</span></label>
-                                        <input
-                                            class="mt-2 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                            id="simple-quantity" placeholder="p. ej. 3" type="number" />
-                                    </div>
-                                    <div class="flex items-center gap-3">
-                                        <input
-                                            class="w-20 rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                            placeholder="1" type="number" />
-                                        <span class="text-sm text-slate-600 dark:text-slate-400">Cada</span>
-                                        <input
-                                            class="w-20 rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                            placeholder="8" type="number" />
-                                        <select id="time-unit-select"
-                                            class="form-input w-full flex-1 rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 bg-[image:var(--select-button-svg)] placeholder:text-slate-400 dark:placeholder:text-slate-500 p-[15px] text-base font-normal leading-normal">
-                                            <option value="horas">horas</option>
-                                            <option value="dias">días</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="hidden space-y-3" id="specific-dose-wrapper">
-                                    <div id="dose-entries-container">
-                                        <div class="dose-entry flex items-end gap-3 mb-3">
-                                            <div class="flex-grow">
-                                                <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Cantidad</label>
-                                                <input
-                                                    class="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                                    placeholder="1" type="number" />
-                                            </div>
-                                            <div class="flex-grow">
-                                                <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Hora</label>
-                                                <input
-                                                    class="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                                    type="time" />
-                                            </div>
-                                            <button type="button"
-                                                class="delete-dose-btn flex h-12 w-12 items-center justify-center rounded-lg bg-rose-500 text-white hover:bg-rose-600">
-                                                <span class="material-symbols-outlined">delete</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <button type="button" id="add-dose-btn"
-                                        class="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-700 py-3 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
-                                        <span class="material-symbols-outlined">add</span>
-                                        <span>Agregar Dosis</span>
-                                    </button>
-                                </div>
-                            </div>                           
+<body class="font-display bg-background-light dark:bg-background-dark">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div
+            class="w-full max-w-5xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-2xl text-gray-800 dark:text-gray-200">
+            <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+                <h2 class="text-2xl font-bold">Agregar Medicamento</h2>
+                <button class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-100">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="text-sm font-medium text-slate-700 dark:text-slate-300"
-                                    for="instructions">Instrucciones Adicionales</label>
-                                <textarea
-                                    class="mt-2 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                                    id="instructions" placeholder="p. ej., Tomar con alimentos." rows="3"></textarea>
-                                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Máx 250 caracteres.</p>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                    for="medicamento">Medicamento <span class="text-red-500">*</span></label>
+                                <input
+                                    class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                    id="medicamento" placeholder="buscar..." type="text" />
                             </div>
-                            <div class="flex items-center justify-end gap-4 pt-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                    for="presentacion">Presentación</label>
+                                <input
+                                    class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                    id="presentacion" type="text" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                    for="dosis">Dosis</label>
+                                <input
+                                    class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                    id="dosis" type="text" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                    for="unidad">Unidad</label>
+                                <input
+                                    class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                    id="unidad" type="text" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                    for="via">Vía</label>
+                                <input
+                                    class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                    id="via" type="text" />
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                    for="indicacion">Indicación <span class="text-red-500">*</span></label>
+                                <input
+                                    class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                    id="indicacion" type="text" />
+                            </div>
+                            <div class="relative">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                    for="fecha_inicio">Fecha de inicio <span class="text-red-500">*</span></label>
+                                <input
+                                    class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary pr-10"
+                                    id="fecha_inicio" type="date" />
+                                <span
+                                    class="material-symbols-outlined absolute right-3 top-9 text-gray-400 dark:text-gray-500 pointer-events-none">calendar_today</span>
+                            </div>
+                            <div class="relative">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                    for="fecha_fin">Fecha de fin</label>
+                                <input
+                                    class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary pr-10"
+                                    id="fecha_fin" type="date" />
+                                <span
+                                    class="material-symbols-outlined absolute right-3 top-9 text-gray-400 dark:text-gray-500 pointer-events-none">calendar_today</span>
+                            </div>
+                        </div>
+                        <div class="space-y-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Régimen de administración
+                            </h3>
+                            <div class="flex items-center gap-6">
+                                <div class="flex items-center">
+                                    <input checked="" class="h-4 w-4 border-gray-300 text-primary focus:ring-primary"
+                                        id="tipo_regimen_intervalo" name="tipo_regimen" type="radio"
+                                        value="intervalo" />
+                                    <label class="ml-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
+                                        for="tipo_regimen_intervalo">Por intervalo</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input class="h-4 w-4 border-gray-300 text-primary focus:ring-primary"
+                                        id="tipo_regimen_dias" name="tipo_regimen" type="radio" value="dias" />
+                                    <label class="ml-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
+                                        for="tipo_regimen_dias">Por días específicos</label>
+                                </div>
+                            </div>
+                            <div id="regimen_intervalo">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                    for="frecuencia_num">Frecuencia de administración</label>
+                                <div
+                                    class="flex items-center gap-2 border border-gray-300 dark:border-gray-600 rounded-DEFAULT bg-gray-50 dark:bg-gray-700 px-3 focus-within:ring-2 focus-within:ring-primary focus-within:border-primary">
+                                    <span class="text-gray-500 dark:text-gray-400">Cada</span>
+                                    <input class="w-16 p-2 bg-transparent border-0 focus:ring-0 text-center"
+                                        id="frecuencia_num" placeholder="2" type="number" />
+                                    <select
+                                        class="bg-transparent border-0 focus:ring-0 text-gray-800 dark:text-gray-200"
+                                        id="frecuencia_unidad">
+                                        <option>días</option>
+                                        <option selected="">semanas</option>
+                                        <option>meses</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hidden space-y-2" id="regimen_dias_especificos">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                    for="dias-administracion-wrapper">Seleccione uno o varios días de la semana</label>
+                                <div id="dias-administracion-wrapper">
+                                    <div class="flex flex-wrap gap-2">
+                                        <div><input class="sr-only peer" id="lu" type="checkbox" /><label
+                                                class="flex items-center justify-center w-10 h-10 text-sm font-medium border rounded-DEFAULT cursor-pointer transition-colors text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary"
+                                                for="lu">Lu</label></div>
+                                        <div><input class="sr-only peer" id="ma" type="checkbox" /><label
+                                                class="flex items-center justify-center w-10 h-10 text-sm font-medium border rounded-DEFAULT cursor-pointer transition-colors text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary"
+                                                for="ma">Ma</label></div>
+                                        <div><input class="sr-only peer" id="mi" type="checkbox" /><label
+                                                class="flex items-center justify-center w-10 h-10 text-sm font-medium border rounded-DEFAULT cursor-pointer transition-colors text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary"
+                                                for="mi">Mi</label></div>
+                                        <div><input class="sr-only peer" id="ju" type="checkbox" /><label
+                                                class="flex items-center justify-center w-10 h-10 text-sm font-medium border rounded-DEFAULT cursor-pointer transition-colors text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary"
+                                                for="ju">Ju</label></div>
+                                        <div><input class="sr-only peer" id="vi" type="checkbox" /><label
+                                                class="flex items-center justify-center w-10 h-10 text-sm font-medium border rounded-DEFAULT cursor-pointer transition-colors text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary"
+                                                for="vi">Vi</label></div>
+                                        <div><input class="sr-only peer" id="sa" type="checkbox" /><label
+                                                class="flex items-center justify-center w-10 h-10 text-sm font-medium border rounded-DEFAULT cursor-pointer transition-colors text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary"
+                                                for="sa">Sá</label></div>
+                                        <div><input class="sr-only peer" id="do" type="checkbox" /><label
+                                                class="flex items-center justify-center w-10 h-10 text-sm font-medium border rounded-DEFAULT cursor-pointer transition-colors text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary"
+                                                for="do">Do</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Dosis</h3>
+                            <div class="flex items-center gap-6">
+                                <div class="flex items-center">
+                                    <input checked class="h-4 w-4 border-gray-300 text-primary focus:ring-primary"
+                                        id="dosis_simple_radio" name="tipo_dosis" type="radio" value="simple" />
+                                    <label class="ml-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
+                                        for="dosis_simple_radio">Dosis simple</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input class="h-4 w-4 border-gray-300 text-primary focus:ring-primary"
+                                        id="dosis_especifica_radio" name="tipo_dosis" type="radio" value="especifica" />
+                                    <label class="ml-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
+                                        for="dosis_especifica_radio">Dosis específica</label>
+                                </div>
+                            </div>
+                            <div id="dosis_simple" class="flex items-center gap-2">
+                                <label for="cantidad_simple"
+                                    class="text-sm font-medium text-gray-700 dark:text-gray-300">Cantidad</label>
+                                <input id="cantidad_simple" type="number" min="1"
+                                    class="w-20 rounded-md border-gray-300 text-sm" placeholder="1" />
+
+                                <span class="text-sm text-gray-700 dark:text-gray-300">cada</span>
+
+                                <input id="intervalo_horas" type="number" min="1"
+                                    class="w-20 rounded-md border-gray-300 text-sm" placeholder="8" />
+
+                                <span class="text-sm text-gray-700 dark:text-gray-300">horas</span>
+                            </div>
+                            <div class="hidden" id="dosis_avanzada_lista">
+                                <div class="space-y-4">
+                                    <div class="grid grid-cols-[1fr_1fr_auto] items-end gap-4">
+                                        <div>
+                                            <label
+                                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                                for="cantidad_adv_1">Cantidad <span
+                                                    class="text-red-500">*</span></label>
+                                            <input
+                                                class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                                id="cantidad_adv_1" type="number" />
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                                for="hora_adv_1">Hora <span class="text-red-500">*</span></label>
+                                            <input
+                                                class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                                id="hora_adv_1" type="time" />
+                                        </div>
+                                        <button
+                                            class="flex items-center justify-center h-10 w-10 bg-red-500/10 text-red-500 rounded-DEFAULT hover:bg-red-500/20 transition-colors">
+                                            <span class="material-symbols-outlined text-xl">delete</span>
+                                        </button>
+                                    </div>
+                                    <div class="grid grid-cols-[1fr_1fr_auto] items-end gap-4">
+                                        <div>
+                                            <label
+                                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                                for="cantidad_adv_2">Cantidad <span
+                                                    class="text-red-500">*</span></label>
+                                            <input
+                                                class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                                id="cantidad_adv_2" type="number" />
+                                        </div>
+                                        <div>
+                                            <label
+                                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                                for="hora_adv_2">Hora <span class="text-red-500">*</span></label>
+                                            <input
+                                                class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                                id="hora_adv_2" type="time" />
+                                        </div>
+                                        <button
+                                            class="flex items-center justify-center h-10 w-10 bg-red-500/10 text-red-500 rounded-DEFAULT hover:bg-red-500/20 transition-colors">
+                                            <span class="material-symbols-outlined text-xl">delete</span>
+                                        </button>
+                                    </div>
+                                </div>
                                 <button
-                                    class="rounded-lg px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">Limpiar
-                                    Formulario</button>
-                                <button
-                                    class="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary/90">
-                                    <span class="material-symbols-outlined text-base">signature</span>
-                                    Finalizar y Firmar Prescripción
+                                    class="mt-4 flex items-center gap-2 text-sm font-medium text-primary hover:text-sky-600 dark:hover:text-sky-400">
+                                    <span class="material-symbols-outlined text-xl">add_circle</span>
+                                    <span>Agregar Dosis</span>
                                 </button>
                             </div>
                         </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                                for="instrucciones">Instrucciones adicionales</label>
+                            <textarea
+                                class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-DEFAULT focus:ring-primary focus:border-primary"
+                                id="instrucciones" rows="3"></textarea>
+                        </div>
                     </div>
                     <div class="lg:col-span-1">
-                        <div
-                            class="sticky top-8 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6">
-                            <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Resumen de la Prescripción
-                            </h2>
-                            <div class="mt-6 space-y-4 border-t border-slate-200 dark:border-slate-800 pt-6">
+                        <div class="bg-gray-50 dark:bg-gray-700/50 p-6 rounded-lg sticky top-6">
+                            <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Resumen de
+                                Prescripción</h3>
+                            <div class="space-y-3 text-sm">
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-slate-500 dark:text-slate-400">Medicamento</span>
-                                    <span class="text-sm font-medium text-slate-800 dark:text-slate-200">Amoxicilina
-                                        500mg Tableta</span>
+                                    <span class="text-gray-500 dark:text-gray-400">MEDICAMENTO:</span>
+                                    <span class="font-medium">- / - / -</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-slate-500 dark:text-slate-400">Dosis</span>
-                                    <span class="text-sm font-medium text-slate-800 dark:text-slate-200">1
-                                        Tableta</span>
+                                    <span class="text-gray-500 dark:text-gray-400">VÍA:</span>
+                                    <span class="font-medium">-</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-sm text-slate-500 dark:text-slate-400">Vía</span>
-                                    <span class="text-sm font-medium text-slate-800 dark:text-slate-200">Oral</span>
+                                    <span class="text-gray-500 dark:text-gray-400">FRECUENCIA:</span>
+                                    <span class="font-medium">Semanal</span>
                                 </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-slate-500 dark:text-slate-400">Frecuencia</span>
-                                    <span class="text-sm font-medium text-slate-800 dark:text-slate-200">Cada 8
-                                        horas</span>
+                                <div class="pt-3 border-t border-gray-200 dark:border-gray-600"></div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-500 dark:text-gray-400">Días de dosificación:</span>
+                                    <span
+                                        class="font-semibold text-base bg-gray-200 dark:bg-gray-600 rounded-full px-3 py-1">0</span>
                                 </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-slate-500 dark:text-slate-400">Duración</span>
-                                    <span class="text-sm font-medium text-slate-800 dark:text-slate-200">2024-07-25 a
-                                        2024-08-04 (10 días)</span>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-500 dark:text-gray-400">Dosis por día:</span>
+                                    <span
+                                        class="font-semibold text-base bg-gray-200 dark:bg-gray-600 rounded-full px-3 py-1">1</span>
                                 </div>
-                                <div class="space-y-2">
-                                    <span class="text-sm text-slate-500 dark:text-slate-400">Instrucciones</span>
-                                    <p class="text-sm font-medium text-slate-800 dark:text-slate-200">Tomar con un vaso
-                                        lleno de agua. Completar todo el tratamiento aunque se sienta mejor.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-500 dark:text-gray-400">Total de dosis:</span>
+                                    <span
+                                        class="font-semibold text-base bg-gray-200 dark:bg-gray-600 rounded-full px-3 py-1">0</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="flex items-center justify-end p-6 border-t border-gray-200 dark:border-gray-700 space-x-4">
+                <button
+                    class="px-6 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-DEFAULT hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600">
+                    Cancelar
+                </button>
+                <button
+                    class="px-6 py-2 text-sm font-medium text-white bg-primary rounded-DEFAULT hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-gray-800">
+                    Guardar
+                </button>
+            </div>
         </div>
     </div>
+    <script>
+        const radioDosisSimple = document.getElementById('dosis_simple_radio');
+        const radioDosisEspecifica = document.getElementById('dosis_especifica_radio');
+        const divDosisSimple = document.getElementById('dosis_simple');
+        const divDosisAvanzada = document.getElementById('dosis_avanzada_lista');
+
+        function actualizarTipoDosis() {
+            if (radioDosisSimple.checked) {
+                divDosisSimple.classList.remove('hidden');
+                divDosisAvanzada.classList.add('hidden');
+            } else if (radioDosisEspecifica.checked) {
+                divDosisSimple.classList.add('hidden');
+                divDosisAvanzada.classList.remove('hidden');
+            }
+        }
+
+        // Escucha los cambios en ambos radios
+        radioDosisSimple.addEventListener('change', actualizarTipoDosis);
+        radioDosisEspecifica.addEventListener('change', actualizarTipoDosis);
+
+        // Inicializa el estado al cargar la página
+        actualizarTipoDosis();
+    </script>
 
     <script>
-        // Script para mostrar/ocultar paneles
-        document.addEventListener('DOMContentLoaded', function() {
-            // Variables para panel de días de la semana
-            const weeklyRadio = document.getElementById('frequency-type-weekly');
-            const dailyRadio = document.getElementById('frequency-type-daily');
-            const weekDaysPanel = document.getElementById('week-days');
-            
-            // Variables para paneles de dosis
-            const simpleRadio = document.getElementById('dosage-type-simple');
-            const specificRadio = document.getElementById('dosage-type-specific');
-            const simpleDosePanel = document.getElementById('simple-dose-wrapper');
-            const specificDosePanel = document.getElementById('specific-dose-wrapper');
-            
-            // Variable para el select de unidad de tiempo
-            const timeUnitSelect = document.getElementById('time-unit-select');
-            
-            // Variables para presentación
-            const presentationSelect = document.getElementById('presentation');
-            const presentationLabel = document.getElementById('presentation-label');
-            
-            function toggleWeekDaysPanel() {
-                if (weeklyRadio.checked) {
-                    weekDaysPanel.classList.remove('hidden');
-                    weekDaysPanel.classList.add('flex');
-                } else {
-                    weekDaysPanel.classList.add('hidden');
-                    weekDaysPanel.classList.remove('flex');
-                }
+        const radioIntervalo = document.getElementById('tipo_regimen_intervalo');
+        const radioDias = document.getElementById('tipo_regimen_dias');
+        const regimenIntervalo = document.getElementById('regimen_intervalo');
+        const regimenDias = document.getElementById('regimen_dias_especificos');
+
+        function actualizarRegimen() {
+            if (radioIntervalo.checked) {
+                regimenIntervalo.classList.remove('hidden');
+                regimenDias.classList.add('hidden');
+            } else if (radioDias.checked) {
+                regimenIntervalo.classList.add('hidden');
+                regimenDias.classList.remove('hidden');
             }
-            
-            function updateTimeUnitSelect() {
-                // Limpiar opciones existentes
-                timeUnitSelect.innerHTML = '';
-                
-                if (weeklyRadio.checked) {
-                    // Solo mostrar "días" cuando está seleccionado Semanal
-                    const optionHoras = document.createElement('option');
-                    optionHoras.value = 'horas';
-                    optionHoras.textContent = 'horas';
-                    timeUnitSelect.appendChild(optionHoras);
-                } else if (dailyRadio.checked) {
-                    // Mostrar "horas" y "días" cuando está seleccionado Diario
-                    const optionHoras = document.createElement('option');
-                    optionHoras.value = 'horas';
-                    optionHoras.textContent = 'horas';
-                    timeUnitSelect.appendChild(optionHoras);
-                    
-                    const optionDias = document.createElement('option');
-                    optionDias.value = 'dias';
-                    optionDias.textContent = 'días';
-                    timeUnitSelect.appendChild(optionDias);
-                }
-            }
-            
-            function updatePresentationLabel() {
-                // Actualizar el texto del label con la presentación seleccionada
-                const selectedPresentation = presentationSelect.value;
-                presentationLabel.textContent = selectedPresentation;
-            }
-            
-            function toggleDosePanels() {
-                if (simpleRadio.checked) {
-                    // Mostrar panel de dosis simple
-                    simpleDosePanel.classList.remove('hidden');
-                    // Ocultar panel de dosis específica
-                    specificDosePanel.classList.add('hidden');
-                } else if (specificRadio.checked) {
-                    // Ocultar panel de dosis simple
-                    simpleDosePanel.classList.add('hidden');
-                    // Mostrar panel de dosis específica
-                    specificDosePanel.classList.remove('hidden');
-                }
-            }
-            
-            // Eventos para panel de días de la semana y select de unidad de tiempo
-            weeklyRadio.addEventListener('change', function() {
-                toggleWeekDaysPanel();
-                updateTimeUnitSelect();
-            });
-            dailyRadio.addEventListener('change', function() {
-                toggleWeekDaysPanel();
-                updateTimeUnitSelect();
-            });
-            
-            // Eventos para paneles de dosis
-            simpleRadio.addEventListener('change', toggleDosePanels);
-            specificRadio.addEventListener('change', toggleDosePanels);
-            
-            // Evento para cambiar el label de presentación
-            presentationSelect.addEventListener('change', updatePresentationLabel);
-            
-            // Inicializar estados al cargar la página
-            toggleWeekDaysPanel();
-            toggleDosePanels();
-            updateTimeUnitSelect();
-            updatePresentationLabel();
-            
-            // Funcionalidad para el panel de dosis específicas
-            const doseEntriesContainer = document.getElementById('dose-entries-container');
-            const addDoseBtn = document.getElementById('add-dose-btn');
-            
-            // Función para actualizar el estado de los botones eliminar
-            function updateDeleteButtons() {
-                const doseEntries = doseEntriesContainer.querySelectorAll('.dose-entry');
-                const deleteButtons = doseEntriesContainer.querySelectorAll('.delete-dose-btn');
-                
-                // Si solo hay una entrada, deshabilitar el botón eliminar
-                deleteButtons.forEach(btn => {
-                    if (doseEntries.length <= 1) {
-                        btn.disabled = true;
-                        btn.classList.add('opacity-50', 'cursor-not-allowed');
-                    } else {
-                        btn.disabled = false;
-                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                    }
-                });
-            }
-            
-            // Función para eliminar una entrada de dosis
-            function deleteDoseEntry(button) {
-                const doseEntries = doseEntriesContainer.querySelectorAll('.dose-entry');
-                
-                // Solo eliminar si hay más de una entrada
-                if (doseEntries.length > 1) {
-                    const doseEntry = button.closest('.dose-entry');
-                    doseEntry.remove();
-                    updateDeleteButtons();
-                }
-            }
-            
-            // Función para agregar una nueva entrada de dosis
-            function addDoseEntry() {
-                const newEntry = document.createElement('div');
-                newEntry.className = 'dose-entry flex items-end gap-3 mb-3';
-                newEntry.innerHTML = `
-                    <div class="flex-grow">
-                        <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Cantidad</label>
-                        <input
-                            class="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                            placeholder="1" type="number" />
-                    </div>
-                    <div class="flex-grow">
-                        <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Hora</label>
-                        <input
-                            class="mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-background-light dark:bg-background-dark py-3 px-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-primary focus:ring-primary"
-                            type="time" />
-                    </div>
-                    <button type="button"
-                        class="delete-dose-btn flex h-12 w-12 items-center justify-center rounded-lg bg-rose-500 text-white hover:bg-rose-600">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
-                `;
-                
-                // Agregar evento al botón eliminar
-                const deleteBtn = newEntry.querySelector('.delete-dose-btn');
-                deleteBtn.addEventListener('click', function() {
-                    deleteDoseEntry(this);
-                });
-                
-                doseEntriesContainer.appendChild(newEntry);
-                updateDeleteButtons();
-            }
-            
-            // Evento para el botón agregar dosis
-            addDoseBtn.addEventListener('click', addDoseEntry);
-            
-            // Eventos para los botones eliminar existentes
-            doseEntriesContainer.addEventListener('click', function(e) {
-                if (e.target.closest('.delete-dose-btn')) {
-                    deleteDoseEntry(e.target.closest('.delete-dose-btn'));
-                }
-            });
-            
-            // Inicializar estado de botones eliminar
-            updateDeleteButtons();
-        });
+        }
+
+        // Escucha cambios en ambos radio buttons
+        radioIntervalo.addEventListener('change', actualizarRegimen);
+        radioDias.addEventListener('change', actualizarRegimen);
+
+        // Inicializa el estado al cargar la página
+        actualizarRegimen();
     </script>
 </body>
 
