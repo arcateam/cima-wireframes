@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>School Structure - Expanded State Variant</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#06b6d4", // Teal color from the screenshot
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0d151c", // Dark background from reference
+                        "surface-dark": "#121d26", // Slightly lighter surface
+                        "input-dark": "#1a2730", // Input background
+                        "border-dark": "#2d3748",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "8px",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d151c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3748;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a5568;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<div class="max-w-6xl mx-auto w-full p-6 md:p-10 flex-1 flex flex-col">
+<header class="mb-8">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+<span class="material-icons-round text-primary text-3xl">account_tree</span>
+</div>
+<div>
+<h1 class="text-2xl font-bold tracking-tight">Estructura Escolar</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Configura los niveles, grados y grupos para el año académico actual.</p>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 bg-surface-dark/50 dark:bg-surface-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="space-y-1.5">
+<label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Año Académico</label>
+<select class="w-full bg-white dark:bg-input-dark border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary py-2.5">
+<option>2024</option>
+<option>2023</option>
+</select>
+</div>
+<div class="md:col-span-2 space-y-1.5">
+<label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sede Educativa</label>
+<select class="w-full bg-white dark:bg-input-dark border-slate-200 dark:border-slate-700 rounded-lg focus:ring-primary focus:border-primary py-2.5">
+<option>Sede Principal - Jornada Mañana</option>
+<option>Sede Norte - Jornada Tarde</option>
+</select>
+</div>
+<div class="flex items-end">
+<button class="w-full bg-slate-800 dark:bg-slate-700 hover:bg-slate-700 dark:hover:bg-slate-600 text-white font-medium py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-icons-round text-lg">search</span>
+                    Buscar
+                </button>
+</div>
+</div>
+<div class="space-y-4 flex-1">
+<div class="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-surface-dark">
+<div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<div class="flex items-center gap-4">
+<input class="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
+<span class="font-semibold text-lg">Educación Básica Primaria</span>
+</div>
+<span class="material-icons-round text-slate-400">expand_more</span>
+</div>
+</div>
+<div class="border border-primary/30 dark:border-primary/30 rounded-xl overflow-hidden bg-white dark:bg-surface-dark ring-1 ring-primary/20">
+<div class="p-4 flex items-center justify-between bg-primary/5 dark:bg-primary/10 border-b border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<input checked="" class="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
+<span class="font-semibold text-lg">Educación Básica Secundaria</span>
+</div>
+<span class="material-icons-round text-primary">expand_less</span>
+</div>
+<div class="p-6 space-y-6">
+<p class="text-sm text-slate-500 dark:text-slate-400">Seleccione los grados activos y defina el número de grupos para cada uno.</p>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-input-dark/40 border border-slate-200 dark:border-slate-700/50">
+<div class="flex items-center gap-4 mb-4 md:mb-0">
+<input checked="" class="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
+<div>
+<span class="font-medium">Sexto Grado</span>
+<p class="text-xs text-slate-400">Educación Media Inicial</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400 mr-2">Grupos:</span>
+<div class="flex items-center bg-white dark:bg-input-dark border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 transition-colors">
+<span class="material-icons-round text-lg">remove</span>
+</button>
+<input class="w-12 text-center border-none bg-transparent focus:ring-0 font-bold" type="text" value="4"/>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 transition-colors">
+<span class="material-icons-round text-lg">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-input-dark/40 border border-slate-200 dark:border-slate-700/50">
+<div class="flex items-center gap-4 mb-4 md:mb-0">
+<input checked="" class="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
+<div>
+<span class="font-medium">Séptimo Grado</span>
+<p class="text-xs text-slate-400">Educación Media Inicial</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400 mr-2">Grupos:</span>
+<div class="flex items-center bg-white dark:bg-input-dark border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 transition-colors">
+<span class="material-icons-round text-lg">remove</span>
+</button>
+<input class="w-12 text-center border-none bg-transparent focus:ring-0 font-bold" type="text" value="3"/>
+<button class="p-2 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 transition-colors">
+<span class="material-icons-round text-lg">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-input-dark/40 border border-slate-200 dark:border-slate-700/50 opacity-60">
+<div class="flex items-center gap-4 mb-4 md:mb-0">
+<input class="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
+<div>
+<span class="font-medium">Octavo Grado</span>
+<p class="text-xs text-slate-400">Educación Media Inicial</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-sm font-medium text-slate-500 dark:text-slate-400 mr-2">Grupos:</span>
+<div class="flex items-center bg-white dark:bg-input-dark border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden opacity-50 pointer-events-none">
+<button class="p-2 text-slate-500">
+<span class="material-icons-round text-lg">remove</span>
+</button>
+<input class="w-12 text-center border-none bg-transparent focus:ring-0 font-bold" type="text" value="0"/>
+<button class="p-2 text-slate-500">
+<span class="material-icons-round text-lg">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-surface-dark">
+<div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<div class="flex items-center gap-4">
+<input class="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
+<span class="font-semibold text-lg">Educación Media</span>
+</div>
+<span class="material-icons-round text-slate-400">expand_more</span>
+</div>
+</div>
+</div>
+<div class="mt-12 py-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-end gap-4">
+<button class="px-8 py-3 rounded-lg font-semibold text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                Cancelar
+            </button>
+<button class="px-8 py-3 rounded-lg font-bold bg-primary hover:bg-primary/90 text-slate-900 transition-all shadow-lg shadow-primary/20 flex items-center gap-2">
+<span class="material-icons-round text-xl">save</span>
+                Guardar Configuración
+            </button>
+</div>
+</div>
+
+</body></html>
