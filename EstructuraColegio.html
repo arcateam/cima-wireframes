@@ -1,216 +1,236 @@
-<!DOCTYPE html>
-<html class="dark" lang="es"><head>
+<html class="dark" lang="es"><head></head><body class="text-white min-h-screen flex items-center justify-center p-4">```html
+
+
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Configuración de Estructura Escolar</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
-<script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#06b6d4", // Teal color from the image
-              "background-light": "#f8fafc",
-              "background-dark": "#0f172a",
-              "card-dark": "#1e293b",
-              "input-dark": "#162031",
-              "border-dark": "#334155"
-            },
-            fontFamily: {
-              display: ["Inter", "sans-serif"],
-            },
-            borderRadius: {
-              DEFAULT: "0.5rem",
-            },
-          },
-        },
-      };
-    </script>
-<style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }.dark ::-webkit-scrollbar {
-            width: 8px;
+<style type="text/tailwindcss">
+        :root {
+            --bg-dark: #0B0E14;
+            --surface-dark: #12161D;
+            --header-gradient-start: #1A3C4A;
+            --header-gradient-end: #0B0E14;
+            --btn-gradient-start: #00D1FF;
+            --btn-gradient-end: #0072FF;
+            --input-bg: #1A1F26;
+            --border-color: #2D343F;
+            --text-secondary: #94A3B8;
         }
-        .dark ::-webkit-scrollbar-track {
-            background: #0f172a;
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-dark);
         }
-        .dark ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 10px;
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #2D343F; border-radius: 10px; }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
         }
-        .dark ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+        .accordion-trigger:checked ~ .accordion-content {
+            max-height: 2000px;
+        }
+        .rotate-icon {
+            transition: transform 0.2s;
+        }
+        .accordion-trigger:checked ~ label .rotate-icon {
+            transform: rotate(180deg);
+        }
+        .btn-primary-gradient {
+            background: linear-gradient(135deg, var(--btn-gradient-start) 0%, var(--btn-gradient-end) 100%);
+        }
+        .checkbox-gradient:checked {
+            background-image: linear-gradient(135deg, var(--btn-gradient-start) 0%, var(--btn-gradient-end) 100%);
+            border-color: transparent;
+        }
+        input[type="checkbox"] {
+            @apply rounded border-white/10 bg-white/5;
+        }
+        .grade-row:has(.grade-toggle:not(:checked)) .group-inputs-container {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .group-input-wrapper {
+            @apply flex items-center bg-black/40 border border-white/10 rounded-lg overflow-hidden transition-all focus-within:border-cyan-500/50;
         }
     </style>
-</head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen p-4 md:p-8">
-<div class="max-w-5xl mx-auto bg-white dark:bg-[#111827] rounded-xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-<div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-<div class="flex items-center gap-4">
-<div class="p-2 bg-primary/10 rounded-lg">
-<span class="material-icons-round text-primary text-2xl">account_tree</span>
-</div>
+
+
+<div class="w-full max-w-6xl bg-[var(--surface-dark)] rounded-3xl shadow-2xl overflow-hidden border border-white/5">
+<div class="p-8 bg-gradient-to-r from-[var(--header-gradient-start)] to-[var(--header-gradient-end)] border-b border-white/10">
+<div class="flex items-center justify-between mb-2">
 <div>
-<h1 class="text-xl font-bold tracking-tight">Configuración de Estructura Escolar</h1>
-<p class="text-sm text-slate-500 dark:text-slate-400">Define los niveles, grados y grupos para el año académico.</p>
+<h1 class="text-3xl font-bold tracking-tight text-white mb-1">Estructura Escolar</h1>
+<p class="text-slate-300 text-sm opacity-80">Configura los niveles, grados y grupos individuales para el año lectivo.</p>
 </div>
-</div>
-<button class="text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
-<span class="material-icons-round">close</span>
+<button class="text-white/60 hover:text-white transition-colors bg-white/5 p-2 rounded-full">
+<span class="material-symbols-outlined">close</span>
 </button>
 </div>
-<div class="p-6 bg-slate-50 dark:bg-[#111827] grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-<div class="md:col-span-3">
-<label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Año Académico</label>
-<select class="w-full bg-white dark:bg-input-dark border-slate-300 dark:border-border-dark rounded-md text-sm focus:ring-primary focus:border-primary transition-all">
+</div>
+<div class="p-8 bg-black/20 flex flex-wrap gap-6 items-end border-b border-white/5">
+<div class="flex-1 min-w-[200px]">
+<label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Año Lectivo</label>
+<div class="relative">
+<select class="w-full bg-[var(--input-bg)] border-[var(--border-color)] text-white rounded-xl focus:ring-2 focus:ring-[var(--btn-gradient-start)] focus:border-transparent py-3 px-4 text-sm appearance-none outline-none transition-all">
 <option>2026</option>
 <option>2027</option>
 <option>2028</option>
-<option>2029</option>
-<option>2030</option>
 </select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">expand_more</span>
 </div>
-<div class="md:col-span-6">
-<label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Escuela / Sede</label>
-<select class="w-full bg-white dark:bg-input-dark border-slate-300 dark:border-border-dark rounded-md text-sm focus:ring-primary focus:border-primary transition-all">
-<option>Seleccione una escuela</option>
-<option>Sede Principal - Santa María</option>
-<option>Sede B - Los Olivos</option>
+</div>
+<div class="flex-1 min-w-[280px]">
+<label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Sede / Institución</label>
+<div class="relative">
+<select class="w-full bg-[var(--input-bg)] border-[var(--border-color)] text-white rounded-xl focus:ring-2 focus:ring-[var(--btn-gradient-start)] focus:border-transparent py-3 px-4 text-sm appearance-none outline-none transition-all">
+<option>Institución Educativa Central del Norte</option>
+<option>Sede Primaria Santa Fe</option>
 </select>
-</div>
-<div class="md:col-span-3">
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded-md flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary/20">
-<span class="material-icons-round text-sm">search</span>
-                    Buscar
-                </button>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">expand_more</span>
 </div>
 </div>
-<div class="p-6 space-y-4">
-<div class="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden transition-all duration-300">
-<div class="bg-slate-50 dark:bg-slate-800/50 p-4 flex items-center justify-between cursor-pointer group" onclick="toggleAccordion('primary-content')">
-<div class="flex items-center gap-3">
-<input checked="" class="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" onclick="event.stopPropagation()" type="checkbox"/>
-<span class="font-semibold text-lg">Educación Básica Primaria</span>
+<button class="btn-primary-gradient hover:brightness-110 text-white font-bold py-3 px-8 rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/20 active:scale-[0.98]">
+<span class="material-symbols-outlined text-xl">search</span>
+                BUSCAR
+            </button>
 </div>
-<span class="material-icons-round text-slate-400 group-hover:text-primary transition-transform duration-300" id="primary-icon">expand_less</span>
+<div class="p-8 custom-scrollbar max-h-[55vh] overflow-y-auto bg-black/10">
+<div class="space-y-6">
+<div class="border border-white/5 rounded-2xl overflow-hidden bg-white/5">
+<input checked="" class="hidden accordion-trigger" id="check-primary" type="checkbox"/>
+<label class="flex items-center justify-between p-5 cursor-pointer hover:bg-white/10 transition-colors" for="check-primary">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-cyan-400">school</span>
 </div>
-<div class="p-6 space-y-6" id="primary-content">
-<div class="space-y-4">
-<div class="flex items-center gap-3">
-<input checked="" class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Primero</span>
+<span class="font-bold text-lg text-slate-100">Educación Básica Primaria</span>
 </div>
-<div class="pl-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-<div class="flex items-center gap-2 bg-slate-100 dark:bg-input-dark p-2 rounded-lg border border-slate-200 dark:border-border-dark">
-<span class="text-xs font-bold text-slate-500 px-2 uppercase">Grupo</span>
-<input class="w-10 bg-transparent border-none text-center font-bold text-primary focus:ring-0 p-0" readonly="" type="text" value="A"/>
-<div class="flex gap-1 ml-auto">
-<button class="w-6 h-6 flex items-center justify-center rounded bg-slate-200 dark:bg-slate-700 hover:bg-red-500 hover:text-white transition-colors">
-<span class="material-icons-round text-sm">remove</span>
+<span class="material-symbols-outlined rotate-icon text-slate-500">expand_more</span>
+</label>
+<div class="accordion-content">
+<div class="p-6 space-y-4 border-t border-white/5">
+<div class="grade-row flex items-center gap-6 p-4 rounded-xl bg-[var(--input-bg)] border border-transparent hover:border-cyan-500/30 transition-all">
+<div class="flex items-center gap-4 min-w-[150px]">
+<input checked="" class="grade-toggle w-6 h-6 rounded checkbox-gradient text-cyan-500 focus:ring-cyan-500/50 cursor-pointer" type="checkbox"/>
+<span class="text-sm font-semibold text-slate-200">Primero</span>
+</div>
+<div class="group-inputs-container flex-1 flex items-center gap-4">
+<div class="flex flex-wrap items-center gap-3">
+<div class="group-input-wrapper">
+<div class="pl-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-tighter border-r border-white/5 bg-white/5">Grupo:</div>
+<input class="w-12 h-10 bg-transparent border-none text-center text-sm font-bold text-cyan-400 focus:ring-0 outline-none uppercase" type="text" value="A"/>
+<button class="h-10 px-2 flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors border-l border-white/5">
+<span class="material-symbols-outlined text-lg">remove</span>
+</button>
+</div>
+<div class="group-input-wrapper">
+<div class="pl-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-tighter border-r border-white/5 bg-white/5">Grupo:</div>
+<input class="w-12 h-10 bg-transparent border-none text-center text-sm font-bold text-cyan-400 focus:ring-0 outline-none uppercase" type="text" value="B"/>
+<button class="h-10 px-2 flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors border-l border-white/5">
+<span class="material-symbols-outlined text-lg">remove</span>
+</button>
+</div>
+<button class="w-10 h-10 rounded-lg bg-white/5 hover:bg-cyan-500/20 text-cyan-400 flex items-center justify-center transition-all border border-dashed border-cyan-500/30">
+<span class="material-symbols-outlined text-xl">add</span>
 </button>
 </div>
 </div>
-<div class="flex items-center gap-2 bg-slate-100 dark:bg-input-dark p-2 rounded-lg border border-slate-200 dark:border-border-dark">
-<span class="text-xs font-bold text-slate-500 px-2 uppercase">Grupo</span>
-<input class="w-10 bg-transparent border-none text-center font-bold text-primary focus:ring-0 p-0" readonly="" type="text" value="B"/>
-<div class="flex gap-1 ml-auto">
-<button class="w-6 h-6 flex items-center justify-center rounded bg-slate-200 dark:bg-slate-700 hover:bg-red-500 hover:text-white transition-colors">
-<span class="material-icons-round text-sm">remove</span>
+</div>
+<div class="grade-row flex items-center gap-6 p-4 rounded-xl bg-[var(--input-bg)] border border-transparent hover:border-cyan-500/30 transition-all">
+<div class="flex items-center gap-4 min-w-[150px]">
+<input checked="" class="grade-toggle w-6 h-6 rounded checkbox-gradient text-cyan-500 focus:ring-cyan-500/50 cursor-pointer" type="checkbox"/>
+<span class="text-sm font-semibold text-slate-200">Segundo</span>
+</div>
+<div class="group-inputs-container flex-1 flex items-center gap-4">
+<div class="flex flex-wrap items-center gap-3">
+<div class="group-input-wrapper">
+<div class="pl-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-tighter border-r border-white/5 bg-white/5">Grupo:</div>
+<input class="w-12 h-10 bg-transparent border-none text-center text-sm font-bold text-cyan-400 focus:ring-0 outline-none uppercase" type="text" value="A"/>
+<button class="h-10 px-2 flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors border-l border-white/5">
+<span class="material-symbols-outlined text-lg">remove</span>
+</button>
+</div>
+<button class="w-10 h-10 rounded-lg bg-white/5 hover:bg-cyan-500/20 text-cyan-400 flex items-center justify-center transition-all border border-dashed border-cyan-500/30">
+<span class="material-symbols-outlined text-xl">add</span>
 </button>
 </div>
 </div>
-<button class="flex items-center justify-center gap-2 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg py-2 px-4 text-slate-400 hover:border-primary hover:text-primary transition-all group">
-<span class="material-icons-round text-sm">add_circle_outline</span>
-<span class="text-xs font-bold uppercase">Agregar Grupo</span>
+</div>
+<div class="grade-row flex items-center gap-6 p-4 rounded-xl bg-[var(--input-bg)] border border-transparent hover:border-cyan-500/30 transition-all">
+<div class="flex items-center gap-4 min-w-[150px]">
+<input class="grade-toggle w-6 h-6 rounded checkbox-gradient text-cyan-500 focus:ring-cyan-500/50 cursor-pointer" type="checkbox"/>
+<span class="text-sm font-semibold text-slate-400">Tercero</span>
+</div>
+<div class="group-inputs-container flex-1 flex items-center gap-4">
+<div class="flex flex-wrap items-center gap-3">
+<div class="group-input-wrapper">
+<div class="pl-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-tighter border-r border-white/5 bg-white/5">Grupo:</div>
+<input class="w-12 h-10 bg-transparent border-none text-center text-sm font-bold text-cyan-400 focus:ring-0 outline-none uppercase" placeholder="-" type="text"/>
+<button class="h-10 px-2 flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors border-l border-white/5">
+<span class="material-symbols-outlined text-lg">remove</span>
+</button>
+</div>
+<button class="w-10 h-10 rounded-lg bg-white/5 hover:bg-cyan-500/20 text-cyan-400 flex items-center justify-center transition-all border border-dashed border-cyan-500/30">
+<span class="material-symbols-outlined text-xl">add</span>
 </button>
 </div>
 </div>
-<div class="flex items-center gap-3">
-<input class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Segundo</span>
-</div>
-<div class="flex items-center gap-3">
-<input class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Tercero</span>
-</div>
-<div class="flex items-center gap-3">
-<input class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Cuarto</span>
-</div>
-<div class="flex items-center gap-3">
-<input class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Quinto</span>
-</div>
-</div>
-</div>
-<div class="border border-slate-200 dark:border-slate-800 rounded-lg overflow-hidden">
-<div class="bg-slate-50 dark:bg-slate-800/50 p-4 flex items-center justify-between cursor-pointer group" onclick="toggleAccordion('secondary-content')">
-<div class="flex items-center gap-3">
-<input class="w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" onclick="event.stopPropagation()" type="checkbox"/>
-<span class="font-semibold text-lg">Educación Básica Secundaria</span>
-</div>
-<span class="material-icons-round text-slate-400 group-hover:text-primary transition-transform" id="secondary-icon">expand_more</span>
-</div>
-<div class="hidden p-6 space-y-4" id="secondary-content">
-<div class="flex items-center gap-3">
-<input class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Sexto</span>
-</div>
-<div class="flex items-center gap-3">
-<input class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Séptimo</span>
-</div>
-<div class="flex items-center gap-3">
-<input class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Octavo</span>
-</div>
-<div class="flex items-center gap-3">
-<input class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Noveno</span>
-</div>
-<div class="flex items-center gap-3">
-<input class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Décimo</span>
-</div>
-<div class="flex items-center gap-3">
-<input class="w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary bg-transparent" type="checkbox"/>
-<span class="font-medium text-slate-700 dark:text-slate-300">Grado Undécimo</span>
 </div>
 </div>
 </div>
 </div>
-<div class="p-6 bg-slate-50 dark:bg-[#111827] border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row justify-end gap-3">
-<button class="px-6 py-2.5 rounded-lg border border-slate-300 dark:border-border-dark text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<div class="border border-white/5 rounded-2xl overflow-hidden bg-white/5">
+<input class="hidden accordion-trigger" id="check-secondary" type="checkbox"/>
+<label class="flex items-center justify-between p-5 cursor-pointer hover:bg-white/10 transition-colors" for="check-secondary">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-400">auto_stories</span>
+</div>
+<span class="font-bold text-lg text-slate-100">Educación Básica Secundaria</span>
+</div>
+<span class="material-symbols-outlined rotate-icon text-slate-500">expand_more</span>
+</label>
+<div class="accordion-content">
+<div class="p-6 space-y-4 border-t border-white/5">
+<div class="grade-row flex items-center gap-6 p-4 rounded-xl bg-[var(--input-bg)] border border-transparent hover:border-cyan-500/30 transition-all">
+<div class="flex items-center gap-4 min-w-[150px]">
+<input class="grade-toggle w-6 h-6 rounded checkbox-gradient text-cyan-500 focus:ring-cyan-500/50 cursor-pointer" type="checkbox"/>
+<span class="text-sm font-semibold text-slate-400">Sexto</span>
+</div>
+<div class="group-inputs-container flex-1 flex items-center gap-4">
+<div class="flex flex-wrap items-center gap-3">
+<div class="group-input-wrapper">
+<div class="pl-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-tighter border-r border-white/5 bg-white/5">Grupo:</div>
+<input class="w-12 h-10 bg-transparent border-none text-center text-sm font-bold text-cyan-400 focus:ring-0 outline-none uppercase" placeholder="-" type="text"/>
+<button class="h-10 px-2 flex items-center justify-center text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors border-l border-white/5">
+<span class="material-symbols-outlined text-lg">remove</span>
+</button>
+</div>
+<button class="w-10 h-10 rounded-lg bg-white/5 hover:bg-cyan-500/20 text-cyan-400 flex items-center justify-center transition-all border border-dashed border-cyan-500/30">
+<span class="material-symbols-outlined text-xl">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-8 bg-black/40 flex justify-end items-center gap-6 border-t border-white/10">
+<button class="px-8 py-3 rounded-xl font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all uppercase tracking-widest text-sm">
                 Cancelar
             </button>
-<button class="px-6 py-2.5 rounded-lg bg-primary text-white font-semibold flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
-<span class="material-icons-round text-sm">save</span>
+<button class="btn-primary-gradient hover:brightness-110 text-white font-bold py-3 px-10 rounded-xl transition-all shadow-xl shadow-cyan-500/20 active:scale-[0.98] uppercase tracking-widest text-sm">
                 Guardar Configuración
             </button>
 </div>
 </div>
-<script>
-        function toggleAccordion(id) {
-            const content = document.getElementById(id);
-            const icon = document.getElementById(id.replace('content', 'icon'));
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.innerText = 'expand_less';
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                content.classList.add('hidden');
-                icon.innerText = 'expand_more';
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-    </script>
 
 </body></html>
