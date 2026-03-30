@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Información del Paciente - Formulario</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="custom-styles">
+    /* Specific styles to match the image precisely where standard Tailwind might need nudging */
+    body {
+      background-color: #f3f4f6; /* Light gray background for the page */
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    
+    .form-container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    .form-input-custom {
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      width: 100%;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      color: #374151;
+      background-color: #ffffff;
+    }
+
+    .form-input-custom:focus {
+      border-color: #3b82f6;
+      ring-color: #3b82f6;
+      outline: none;
+    }
+
+    .form-label-custom {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.25rem;
+    }
+
+    .required-star {
+      color: #dc2626;
+      margin-left: 0.125rem;
+    }
+
+    .readonly-field {
+      background-color: #e5e7eb;
+      cursor: not-allowed;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111827;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* To match the header layout exactly */
+    .modal-header {
+      border-bottom: 1px solid #f3f4f6;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8">
+<!-- BEGIN: Main Form Container -->
+<div class="form-container overflow-hidden">
+<!-- BEGIN: Modal Header -->
+<header class="modal-header">
+<h1 class="text-xl font-bold text-gray-800">Información del Paciente</h1>
+<button class="text-gray-400 hover:text-gray-600 transition-colors" type="button">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</header>
+<!-- END: Modal Header -->
+<div class="px-6 py-4 border-b border-gray-100">
+<nav aria-label="Progress" class="flex items-center justify-between">
+<ol class="flex items-center w-full" role="list">
+<li class="relative flex-1">
+<div aria-current="step" class="flex items-center">
+<span class="h-8 w-8 rounded-full bg-[#2a82c4] flex items-center justify-center text-white text-sm font-bold">1</span>
+<span class="ml-3 text-sm font-bold text-[#2a82c4]">Datos Personales</span>
+</div>
+<div class="absolute top-4 left-0 w-full h-0.5 bg-gray-200 -z-10" style="margin-left: 2rem;"></div>
+</li>
+<li class="relative flex-1">
+<div class="flex items-center">
+<span class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm font-bold">2</span>
+<span class="ml-3 text-sm font-medium text-gray-500">Información de Contacto</span>
+</div>
+<div class="absolute top-4 left-0 w-full h-0.5 bg-gray-200 -z-10" style="margin-left: 2rem;"></div>
+</li>
+<li class="relative">
+<div class="flex items-center">
+<span class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm font-bold">3</span>
+<span class="ml-3 text-sm font-medium text-gray-500">Demográficos</span>
+</div>
+</li>
+</ol>
+</nav>
+</div><form action="#" class="p-6 space-y-6" method="POST">
+<!-- BEGIN: Section 1 - Datos Personales -->
+<section data-purpose="personal-data">
+<h2 class="hidden">1. Datos Personales</h2>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+<!-- Tipo de Identificación -->
+<div class="md:col-span-4">
+<label class="form-label-custom">Tipo de identificación<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="id-type" type="text" value="Cédula de ciudadanía"/>
+</div>
+<!-- Número de Identificación -->
+<div class="md:col-span-5">
+<label class="form-label-custom">Número de identificación<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="id-number" type="text" value="8624-B3B-028A"/>
+</div>
+<!-- Edad -->
+<div class="md:col-span-3">
+<label class="form-label-custom">Edad</label>
+<input class="form-input-custom readonly-field" data-purpose="age" readonly="" type="text" value="79 años"/>
+</div>
+<!-- Primer Nombre -->
+<div class="md:col-span-3">
+<label class="form-label-custom">Primer nombre<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="first-name" type="text" value="Ana"/>
+</div>
+<!-- Segundo Nombre -->
+<div class="md:col-span-3">
+<label class="form-label-custom">Segundo nombre</label>
+<input class="form-input-custom" data-purpose="second-name" type="text" value="Julia"/>
+</div>
+<!-- Primer Apellido -->
+<div class="md:col-span-3">
+<label class="form-label-custom">Primer apellido<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="last-name-1" type="text" value="Navarro"/>
+</div>
+<!-- Segundo Apellido -->
+<div class="md:col-span-3">
+<label class="form-label-custom">Segundo apellido</label>
+<input class="form-input-custom" data-purpose="last-name-2" type="text" value="Herazo"/>
+</div>
+<!-- Género -->
+<div class="md:col-span-3">
+<label class="form-label-custom">Género<span class="required-star">*</span></label>
+<select class="form-input-custom" data-purpose="gender">
+<option selected="">Femenino</option>
+<option>Masculino</option>
+<option>Otro</option>
+</select>
+</div>
+<!-- Identidad de Género -->
+<div class="md:col-span-3">
+<label class="form-label-custom">Identidad de género</label>
+<select class="form-input-custom" data-purpose="gender-identity">
+<option selected="">Mujer</option>
+<option>Hombre</option>
+<option>No binario</option>
+</select>
+</div>
+<!-- Fecha de Nacimiento -->
+<div class="md:col-span-6 relative">
+<label class="form-label-custom">Fecha nacimiento<span class="required-star">*</span></label>
+<div class="relative">
+<input class="form-input-custom pr-10" data-purpose="birth-date" type="text" value="11/05/1946"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+<svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Section 1 -->
+<!-- BEGIN: Section 2 - Información de Contacto -->
+<section class="hidden" data-purpose="contact-info">
+<h2 class="hidden">2. Información de Contacto</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Teléfono -->
+<div>
+<label class="form-label-custom">Teléfono<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="phone" type="text" value="3148728136"/>
+</div>
+<!-- Correo Electrónico -->
+<div>
+<label class="form-label-custom">Correo electrónico</label>
+<input class="form-input-custom" data-purpose="email" type="email" value="ana.navarro@example.com"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+<!-- Departamento -->
+<div>
+<label class="form-label-custom">Departamento residencia<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="state" type="text" value="Atlantico"/>
+</div>
+<!-- Ciudad -->
+<div>
+<label class="form-label-custom">Ciudad residencia<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="city" type="text" value="Soledad"/>
+</div>
+<!-- Dirección -->
+<div>
+<label class="form-label-custom">Dirección<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="address" type="text" value="Calle 74a #13a-05"/>
+</div>
+<!-- Barrio/Localidad -->
+<div>
+<label class="form-label-custom">Barrio/Localidad</label>
+<input class="form-input-custom" data-purpose="neighborhood" type="text" value="Villa de las moras segunda etapa"/>
+</div>
+</div>
+</section>
+<!-- END: Section 2 -->
+<!-- BEGIN: Section 3 - Datos Demográficos y Socioeconómicos -->
+<section class="hidden" data-purpose="demographic-data">
+<h2 class="hidden">3. Datos Demográficos y Socioeconómicos</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Eps -->
+<div>
+<label class="form-label-custom">Eps<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="eps" type="text" value="Asociacion Barrios Unidos Ess"/>
+</div>
+<!-- Tipo de Afiliación -->
+<div>
+<label class="form-label-custom">Tipo de afiliación<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="membership-type" type="text" value="Contributivo"/>
+</div>
+<!-- Estado Civil -->
+<div>
+<label class="form-label-custom">Estado civil<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="civil-status" type="text" value="Viudo"/>
+</div>
+<!-- Tipo de Discapacidad -->
+<div>
+<label class="form-label-custom">Tipo de discapacidad</label>
+<input class="form-input-custom" data-purpose="disability" placeholder="buscar..." type="text"/>
+</div>
+<!-- Ocupación -->
+<div>
+<label class="form-label-custom">Ocupación</label>
+<input class="form-input-custom" data-purpose="occupation" type="text" value="Pensionada"/>
+</div>
+<!-- Estrato -->
+<div>
+<label class="form-label-custom">Estrato<span class="required-star">*</span></label>
+<select class="form-input-custom" data-purpose="stratum">
+<option>1</option>
+<option selected="">2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+</select>
+</div>
+<!-- País Nacimiento -->
+<div>
+<label class="form-label-custom">País de nacimiento<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="birth-country" type="text" value="COLOMBIA"/>
+</div>
+<!-- Dpto Nacimiento -->
+<div>
+<label class="form-label-custom">Dpto. nacimiento<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="birth-state" type="text" value="Sucre"/>
+</div>
+<!-- Ciudad Nacimiento -->
+<div>
+<label class="form-label-custom">Ciudad de nacimiento<span class="required-star">*</span></label>
+<input class="form-input-custom" data-purpose="birth-city" type="text" value="San Pedro"/>
+</div>
+</div>
+<!-- Etnia / Raza Row -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+<div>
+<label class="form-label-custom">Etnia</label>
+<input class="form-input-custom" data-purpose="ethnicity" type="text" value="Hispano o latino"/>
+</div>
+<div>
+<label class="form-label-custom">Escriba la etnia</label>
+<input class="form-input-custom readonly-field" data-purpose="ethnicity-detail" type="text"/>
+</div>
+<div>
+<label class="form-label-custom">Raza</label>
+<input class="form-input-custom" data-purpose="race" type="text" value="Indio americano o nativo"/>
+</div>
+<div>
+<label class="form-label-custom">Escriba la raza</label>
+<input class="form-input-custom readonly-field" data-purpose="race-detail" type="text"/>
+</div>
+</div>
+</section>
+<!-- END: Section 3 -->
+<!-- BEGIN: Form Footer Buttons -->
+<footer class="flex justify-end items-center gap-3 pt-6 border-t border-gray-100">
+<button class="px-6 py-2 border border-gray-300 rounded text-gray-700 font-medium hover:bg-gray-50 transition-colors mr-auto" id="cancel-btn" type="button">
+    Cancelar
+  </button>
+<div class="flex gap-3">
+<button class="px-6 py-2 border border-gray-300 rounded text-gray-700 font-medium hover:bg-gray-50 transition-colors hidden" id="prev-btn" type="button">
+      Anterior
+    </button>
+<button class="px-6 py-2 bg-[#2a82c4] hover:bg-[#226aa1] text-white rounded font-medium shadow-sm transition-colors" id="next-btn" type="button">
+      Siguiente
+    </button>
+<button class="px-6 py-2 bg-[#2a82c4] hover:bg-[#226aa1] text-white rounded font-medium shadow-sm transition-colors hidden" id="submit-btn" type="submit">
+      Actualizar
+    </button>
+</div>
+</footer>
+<!-- END: Form Footer Buttons -->
+</form>
+</div>
+<!-- END: Main Form Container -->
+<script>
+  let currentStep = 1;
+  const totalSteps = 3;
+
+  const sections = [
+    document.querySelector('[data-purpose="personal-data"]'),
+    document.querySelector('[data-purpose="contact-info"]'),
+    document.querySelector('[data-purpose="demographic-data"]')
+  ];
+
+  const stepperItems = document.querySelectorAll('nav[aria-label="Progress"] li');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const submitBtn = document.getElementById('submit-btn');
+
+  function updateStep() {
+    // Update Sections Visibility
+    sections.forEach((section, index) => {
+      if (index === currentStep - 1) {
+        section.classList.remove('hidden');
+      } else {
+        section.classList.add('hidden');
+      }
+    });
+
+    // Update Stepper Visuals
+    stepperItems.forEach((item, index) => {
+      const stepNum = index + 1;
+      const circle = item.querySelector('span:first-child');
+      const label = item.querySelector('span:last-child');
+
+      if (stepNum === currentStep) {
+        // Active
+        circle.className = 'h-8 w-8 rounded-full bg-[#2a82c4] flex items-center justify-center text-white text-sm font-bold';
+        label.className = 'ml-3 text-sm font-bold text-[#2a82c4]';
+      } else if (stepNum < currentStep) {
+        // Completed
+        circle.className = 'h-8 w-8 rounded-full bg-green-500 flex items-center justify-center text-white text-sm font-bold';
+        label.className = 'ml-3 text-sm font-medium text-gray-700';
+      } else {
+        // Upcoming
+        circle.className = 'h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm font-bold';
+        label.className = 'ml-3 text-sm font-medium text-gray-500';
+      }
+    });
+
+    // Button Visibility Logic
+    if (currentStep === 1) {
+      prevBtn.classList.add('hidden');
+    } else {
+      prevBtn.classList.remove('hidden');
+    }
+
+    if (currentStep === totalSteps) {
+      nextBtn.classList.add('hidden');
+      submitBtn.classList.remove('hidden');
+    } else {
+      nextBtn.classList.remove('hidden');
+      submitBtn.classList.add('hidden');
+    }
+  }
+
+  nextBtn.addEventListener('click', () => {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      updateStep();
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentStep > 1) {
+      currentStep--;
+      updateStep();
+    }
+  });
+
+  // Initial call to ensure state is correct
+  updateStep();
+</script></body></html>

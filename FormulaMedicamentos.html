@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bfc7d4;
+            border-radius: 10px;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#9ecaff",
+                        "on-surface-variant": "#404752",
+                        "surface-container-high": "#e6e8eb",
+                        "on-secondary-container": "#646464",
+                        "secondary": "#5e5e5e",
+                        "on-primary-container": "#002c4f",
+                        "on-tertiary-container": "#452200",
+                        "error-container": "#ffdad6",
+                        "primary": "#0061a4",
+                        "tertiary-container": "#db7900",
+                        "surface-variant": "#e0e3e6",
+                        "tertiary-fixed": "#ffdcc2",
+                        "on-tertiary-fixed": "#2e1500",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#eff1f4",
+                        "inverse-surface": "#2d3133",
+                        "primary-fixed-dim": "#9ecaff",
+                        "on-background": "#191c1e",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f7f9fc",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "background": "#f7f9fc",
+                        "secondary-fixed": "#e3e2e2",
+                        "outline": "#707883",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f2f4f7",
+                        "surface-tint": "#0061a4",
+                        "surface-container": "#eceef1",
+                        "on-tertiary-fixed-variant": "#6d3900",
+                        "secondary-container": "#e3e2e2",
+                        "on-primary-fixed": "#001d36",
+                        "surface-bright": "#f7f9fc",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "surface-container-highest": "#e0e3e6",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#d1e4ff",
+                        "surface-dim": "#d8dadd",
+                        "on-secondary-fixed-variant": "#464747",
+                        "tertiary-fixed-dim": "#ffb77b",
+                        "on-primary-fixed-variant": "#00497d",
+                        "tertiary": "#904d00",
+                        "primary-container": "#2196f3",
+                        "outline-variant": "#bfc7d4"
+                    },
+                    fontFamily: {
+                        "headline": ["Public Sans"],
+                        "body": ["Public Sans"],
+                        "label": ["Public Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-slate-200 flex items-center justify-center min-h-screen p-4">
+    <!-- Modal Backdrop Overlay -->
+    <div class="fixed inset-0 bg-on-background/20 backdrop-blur-sm z-0"></div>
+    <!-- Main Modal Container -->
+    <div
+        class="relative z-10 w-full max-w-5xl bg-surface-container-lowest rounded-xl shadow-[0_12px_40px_rgba(25,28,30,0.08)] overflow-hidden flex flex-col max-h-[921px]">
+        <!-- Header -->
+        <header class="flex items-center justify-between px-8 py-5 w-full bg-slate-50 dark:bg-slate-900 shadow-sm z-20">
+            <h1 class="font-public-sans text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-100">Agregar
+                Medicamento</h1>
+            <button
+                class="w-10 h-10 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors active:scale-95 duration-150">
+                <span class="material-symbols-outlined" data-icon="close">close</span>
+            </button>
+        </header>
+        <!-- Main Content Area: Now Single Column Form + Summary -->
+        <div class="flex flex-1 overflow-hidden">
+            <!-- Form Canvas -->
+            <main class="flex-1 overflow-y-auto custom-scrollbar p-8 bg-surface">
+                <div class="max-w-3xl mx-auto space-y-8">
+                    <!-- MEDICAMENTO Row -->
+                    <section class="space-y-4">
+                        <div class="flex gap-6">
+                            <div class="flex-1 flex flex-col gap-1.5">
+                                <label
+                                    class="text-[0.75rem] font-semibold text-on-surface-variant uppercase tracking-wider">Medicamento*</label>
+                                <div class="relative">
+                                    <input
+                                        class="w-full h-10 px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-md text-sm font-body italic focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-on-surface-variant/50"
+                                        placeholder="buscar..." type="text" />
+                                    <span
+                                        class="material-symbols-outlined absolute right-3 top-2.5 text-outline text-lg"
+                                        data-icon="search">search</span>
+                                </div>
+                            </div>
+                            <div class="w-48 flex flex-col gap-1.5 shrink-0">
+                                <label
+                                    class="text-[0.75rem] font-semibold text-on-surface-variant uppercase tracking-wider">Presentación</label>
+                                <input
+                                    class="w-full h-10 px-3 py-2 bg-surface-container-low border border-outline-variant/30 rounded-md text-sm font-body text-outline cursor-not-allowed"
+                                    readonly="" type="text" value="--" />
+                            </div>
+                        </div>
+                    </section>
+                    <!-- DOSIS Row -->
+                    <section class="space-y-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label
+                                class="text-[0.75rem] font-semibold text-on-surface-variant uppercase tracking-wider">Dosis*</label>
+                            <div class="flex gap-2">
+                                <input
+                                    class="w-32 h-10 px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-md text-sm font-body focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                                    placeholder="cantidad" type="number" />
+                                <select
+                                    class="flex-1 h-10 px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-md text-sm font-body focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+                                    <option>unidad</option>
+                                    <option>mg</option>
+                                    <option>g</option>
+                                    <option>ml</option>
+                                    <option>cápsulas</option>
+                                    <option>tabletas</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- FRECUENCIA Row -->
+                    <section class="space-y-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label
+                                class="text-[0.75rem] font-semibold text-on-surface-variant uppercase tracking-wider">Frecuencia*</label>
+                            <div class="flex items-center gap-3">
+                                <input
+                                    class="w-20 h-10 px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-md text-sm font-body focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                                    type="number" />
+                                <span class="text-sm font-medium text-secondary">vez cada</span>
+                                <select
+                                    class="flex-1 h-10 px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-md text-sm font-body focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+                                    <option>horas</option>
+                                    <option>días</option>
+                                    <option>semanas</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- DURACIÓN Row -->
+                    <section class="space-y-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label
+                                class="text-[0.75rem] font-semibold text-on-surface-variant uppercase tracking-wider">Duración
+                                del tratamiento*</label>
+                            <div class="flex gap-2">
+                                <input
+                                    class="w-32 h-10 px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-md text-sm font-body focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                                    type="number" />
+                                <select
+                                    class="flex-1 h-10 px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-md text-sm font-body focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+                                    <option>días</option>
+                                    <option>semanas</option>
+                                    <option>meses</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Clinical Tip -->
+                    <div class="p-4 bg-primary/5 rounded-lg border border-primary/10 flex gap-4">
+                        <span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+                        <p class="text-sm text-on-primary-fixed-variant leading-relaxed">
+                            Asegúrese de verificar las alergias conocidas del paciente antes de confirmar la
+                            prescripción de nuevos medicamentos.
+                        </p>
+                    </div>
+                </div>
+            </main>
+            <!-- Right Side: Resumen Panel -->
+            <aside class="w-80 bg-surface-container-low p-6 shrink-0 border-l border-slate-200/60 hidden lg:block">
+                <div
+                    class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/20 sticky top-0">
+                    <h2 class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-6">Resumen</h2>
+                    <div class="space-y-6">
+                        <div class="space-y-1">
+                            <p class="text-[10px] font-bold text-outline uppercase tracking-tighter">Medicamento:</p>
+                            <p class="text-sm font-semibold text-on-surface">- / - -</p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-[10px] font-bold text-outline uppercase tracking-tighter">Frecuencia:</p>
+                            <div class="flex items-start gap-3 p-3 bg-surface-container rounded-lg">
+                                <span class="material-symbols-outlined text-primary text-xl" data-icon="event_repeat"
+                                    style="font-variation-settings: 'FILL' 1;">event_repeat</span>
+                                <p class="text-sm font-medium text-on-surface leading-snug">Tomar 1 cápsula cada 8 horas
+                                </p>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-dashed border-outline-variant/40">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-outline">Estado</span>
+                                <span
+                                    class="px-2 py-0.5 bg-tertiary-container/20 text-tertiary font-bold rounded">Borrador</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Abstract Visual Element -->
+                <div class="mt-8 opacity-40 grayscale pointer-events-none">
+                    <img alt="Medicine conceptual" class="rounded-lg h-32 w-full object-cover"
+                        data-alt="Close-up of white medical tablets and pills arranged in a clean geometric pattern on a light blue background"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ57sJv5Q2cWmenm2vPSyJdrbnsuOn3WZ2uIHOItuURqQ2ONOyH_Ci5GfK-J4g3g5xlfDoXbcmfgEmcc6U2AKX8mDeY0XcCgSXffeuaRPNSOP-LDQUTI_xTPkJHe70EXiI0YZIEzwjecur-8u9AcUp2J7TZd_fika-yCFue6j6fsjUxvLnKnMfl38NpMCo3aowhI_DpIfpRQQqZvcdABCmR_BOg4M8WFy1_OIlWSEVGZrMFsDFpodQWRmz45bQUU0EMAt6GeRigFY" />
+                </div>
+            </aside>
+        </div>
+        <!-- Footer -->
+        <footer
+            class="sticky bottom-0 left-0 w-full z-50 flex justify-end items-center px-8 py-4 gap-4 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <button
+                class="bg-transparent text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-700 px-6 py-2 rounded-md font-public-sans text-xs font-semibold uppercase tracking-wider hover:brightness-110 active:scale-[0.98] transition-all duration-200">
+                Cancelar
+            </button>
+            <button
+                class="bg-blue-600 dark:bg-blue-500 text-white px-6 py-2 rounded-md shadow-sm font-public-sans text-xs font-semibold uppercase tracking-wider hover:brightness-110 active:scale-[0.98] transition-all duration-200">
+                Guardar
+            </button>
+        </footer>
+    </div>
+</body>
+
+</html>
