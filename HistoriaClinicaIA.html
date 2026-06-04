@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .ai-gradient-border {
+            position: relative;
+            background: #fff;
+            background-clip: padding-box;
+            border: 1px solid transparent;
+        }
+        .ai-gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            z-index: -1;
+            margin: -1px;
+            border-radius: inherit;
+            background: linear-gradient(to bottom right, #8B5CF6, #0066FF);
+        }
+        .editor-cursor-line {
+            border-left: 2px solid #0066FF;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "ai-purple": "#8B5CF6",
+                        "on-primary-fixed": "#001849",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-error-container": "#93000a",
+                        "secondary": "#6b38d4",
+                        "secondary-container": "#8455ef",
+                        "outline": "#727687",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "background": "#f8f9ff",
+                        "background-subtle": "#F1F5F9",
+                        "outline-variant": "#c2c6d8",
+                        "border-light": "#E2E8F0",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#23005c",
+                        "inverse-primary": "#b3c5ff",
+                        "primary": "#0050cb",
+                        "surface-container": "#e5eeff",
+                        "on-surface-variant": "#424656",
+                        "tertiary-container": "#6f7274",
+                        "surface-variant": "#d3e4fe",
+                        "status-error": "#EF4444",
+                        "surface-dim": "#cbdbf5",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#e9ddff",
+                        "on-primary-container": "#f8f7ff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "surface-container-high": "#dce9ff",
+                        "clinical-blue": "#0066FF",
+                        "primary-container": "#0066ff",
+                        "surface-container-low": "#eff4ff",
+                        "status-warning": "#F59E0B",
+                        "primary-fixed": "#dae1ff",
+                        "on-surface": "#0b1c30",
+                        "on-background": "#0b1c30",
+                        "status-success": "#10B981",
+                        "surface-container-highest": "#d3e4fe",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#fffbff",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "tertiary-fixed": "#e0e3e5",
+                        "surface-tint": "#0054d6",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#f6f8fa",
+                        "tertiary": "#565a5b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sidebar-width": "280px",
+                        "element-gap": "12px",
+                        "max-content-width": "1200px",
+                        "container-padding": "24px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "mono-editor": ["JetBrains Mono"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-base": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "mono-editor": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-base": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-base antialiased">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky z-40 bg-surface border-b border-border-light flex justify-between items-center w-full px-container-padding h-16">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-clinical-blue">MediFlow AI</span>
+<div class="hidden md:flex gap-6 items-center">
+<nav class="flex gap-4">
+<a class="text-clinical-blue border-b-2 border-clinical-blue pb-1 font-body-sm" href="#">Hoy</a>
+<a class="text-on-surface-variant hover:text-clinical-blue transition-all font-body-sm" href="#">Pendientes</a>
+<a class="text-on-surface-variant hover:text-clinical-blue transition-all font-body-sm" href="#">Archivo</a>
+</nav>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant text-sm" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-1.5 text-body-sm w-80 focus:ring-1 focus:ring-clinical-blue transition-all" placeholder="Buscar pacientes o expedientes (Cmd+K)" type="text"/>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="p-2 hover:text-clinical-blue transition-all"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="p-2 hover:text-clinical-blue transition-all"><span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span></button>
+</div>
+<button class="bg-clinical-blue text-on-primary px-4 py-1.5 rounded-lg text-body-sm font-semibold hover:opacity-80 transition-all">Finalizar Consulta</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-border-light">
+<img alt="Avatar médico" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a doctor with a calm and confident expression, set in a bright, modern medical facility with soft high-key lighting. The doctor has a kind smile and is wearing clean white medical attire. The background is slightly blurred with clinical blue and white tones, maintaining a high-density, minimalist, and precise professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6U8YPQIPlFvPhRI1F9TiP7f2L7TXCe8LyzhmjH9qotf7h9mhdk2nfLbecsc9eGWvL_ZkLQ1qf_dKcPb3gWCkO8-gF6YNLmVtFSfYqYrFceMXxBOveQ9pcjrOvfb-GcM34SMTtQOgbPLt2IRiXzI0e_W6tVel4FRVnK_djbHGfnTOnU-oWEIygrGQODIyzjJXvtOQZxqlHXx1pUoPbyv4op9wD89jwd6nEhASPS0W92jm9itVcSHjq8WFsiuCmS8zbI-Zz3onXQPk"/>
+</div>
+</div>
+</header>
+<div class="flex h-[calc(100vh-64px)]">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-container-padding bg-background-subtle border-r border-border-light w-sidebar-width shrink-0">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-clinical-blue flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="folder_shared">folder_shared</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-clinical-blue">Dr. Clinical</p>
+<p class="text-[12px] text-on-surface-variant">Cardiólogo</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="folder_shared">folder_shared</span> Expediente
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-clinical-blue font-bold border-r-2 border-clinical-blue bg-surface-container transition-colors rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span> Pacientes
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="event">event</span> Citas
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span> Reportes
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span> Ajustes
+                </a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full bg-surface-container text-clinical-blue py-3 rounded-lg font-bold text-label-caps mb-4 flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 duration-100">
+<span class="material-symbols-outlined" data-icon="add">add</span> Nueva Consulta
+                </button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span> Ayuda
+                </a>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Left Panel: Smart Editor -->
+<section class="flex-1 bg-white flex flex-col relative overflow-hidden">
+<!-- Patient Header -->
+<div class="px-container-padding py-4 border-b border-border-light flex items-center justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Alejandro Rodríguez</h2>
+<div class="flex gap-4 mt-1">
+<span class="text-body-sm text-on-surface-variant">Edad: <strong>58 años</strong></span>
+<span class="text-body-sm text-on-surface-variant">ID: <strong>102938475</strong></span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-surface-container text-clinical-blue uppercase tracking-wider">Historial Crítico</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 border border-border-light rounded hover:bg-background transition-colors"><span class="material-symbols-outlined text-[18px]" data-icon="print">print</span></button>
+<button class="p-2 border border-border-light rounded hover:bg-background transition-colors"><span class="material-symbols-outlined text-[18px]" data-icon="share">share</span></button>
+</div>
+</div>
+<!-- Editor Canvas -->
+<div class="flex-1 overflow-y-auto px-container-padding py-8 flex gap-8">
+<!-- Gutter/Line Numbers -->
+<div class="w-8 select-none text-right flex flex-col font-mono-editor text-[12px] text-outline-variant leading-6 opacity-50">
+<span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span>07</span><span>08</span>
+</div>
+<!-- Main Text Area -->
+<div class="flex-1 relative">
+<div class="font-mono-editor text-mono-editor leading-8 text-on-surface">
+<div class="flex items-center gap-1">
+                                Paciente de <span class="bg-surface-container-high text-clinical-blue px-2 py-0.5 rounded-full text-[13px] font-bold inline-flex items-center">#edad</span> años con antecedente de 
+                            </div>
+<div class="flex items-center gap-1 mt-2">
+<span class="bg-surface-container-high text-clinical-blue px-2 py-0.5 rounded-full text-[13px] font-bold inline-flex items-center">#antecedentes</span>. Consulta por
+                            </div>
+<!-- Active Line -->
+<div class="editor-cursor-line pl-2 -ml-2.5 mt-2 flex items-center relative">
+<span class="text-clinical-blue font-bold tracking-tight">//mc</span> Dolor abdominal|
+                                
+                                <!-- Contextual Command Menu -->
+<div class="absolute top-8 left-0 w-64 bg-white border border-border-light shadow-xl rounded-xl z-10 overflow-hidden ring-1 ring-black/5 animate-in fade-in slide-in-from-top-2 duration-200">
+<div class="p-2 border-b border-border-light bg-background-subtle flex justify-between items-center">
+<span class="text-[11px] font-bold text-on-surface-variant uppercase">Comandos de Nota</span>
+<span class="text-[10px] text-outline-variant font-mono-editor">Esc para cerrar</span>
+</div>
+<div class="py-1">
+<button class="w-full text-left px-4 py-2 hover:bg-surface-container flex items-center justify-between group">
+<span class="flex items-center gap-2"><span class="text-clinical-blue font-bold">//mc</span> <span class="text-body-sm">Motivo de Consulta</span></span>
+<span class="text-outline-variant text-[12px] font-mono-editor">↵</span>
+</button>
+<button class="w-full text-left px-4 py-2 hover:bg-surface-container flex items-center justify-between group">
+<span class="flex items-center gap-2"><span class="text-clinical-blue font-bold">//ea</span> <span class="text-body-sm">Enfermedad Actual</span></span>
+</button>
+<button class="w-full text-left px-4 py-2 hover:bg-surface-container flex items-center justify-between group">
+<span class="flex items-center gap-2"><span class="text-clinical-blue font-bold">//med</span> <span class="text-body-sm">Medicamentos</span></span>
+</button>
+<button class="w-full text-left px-4 py-2 hover:bg-surface-container flex items-center justify-between group">
+<span class="flex items-center gap-2"><span class="text-clinical-blue font-bold">//sv</span> <span class="text-body-sm">Signos Vitales</span></span>
+</button>
+<button class="w-full text-left px-4 py-2 hover:bg-surface-container flex items-center justify-between group">
+<span class="flex items-center gap-2"><span class="text-clinical-blue font-bold">//dx</span> <span class="text-body-sm">Diagnóstico</span></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Editor Hint -->
+<div class="mt-20 text-outline-variant text-body-sm italic">
+                            Presiona <kbd class="px-1.5 py-0.5 rounded border border-border-light bg-background-subtle not-italic font-mono-editor text-[12px]">Cmd+Enter</kbd> para guardar este bloque.
+                        </div>
+</div>
+</div>
+<!-- Floating AI Copilot -->
+<div class="absolute bottom-6 right-6 w-80 ai-gradient-border rounded-xl shadow-2xl p-4 glass-panel animate-in fade-in slide-in-from-bottom-4 duration-300">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-ai-purple" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-bold text-on-surface text-body-sm">MediFlow AI Copilot</span>
+</div>
+<p class="text-on-surface-variant text-body-sm mb-4 leading-relaxed">
+                        Detectado en el relato: <strong class="text-on-surface">Hipertensión arterial</strong> y uso de <strong class="text-on-surface">Losartan</strong>.
+                    </p>
+<div class="flex flex-col gap-2">
+<button class="w-full py-2 px-3 bg-surface-container-low border border-clinical-blue/20 text-clinical-blue rounded-lg text-body-sm font-semibold hover:bg-surface-container transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span> Agregar a Antecedentes
+                        </button>
+<button class="w-full py-2 px-3 bg-surface-container-low border border-ai-purple/20 text-ai-purple rounded-lg text-body-sm font-semibold hover:bg-secondary-fixed transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="medication">medication</span> Agregar a Medicamentos
+                        </button>
+</div>
+</div>
+</section>
+<!-- Right Panel: Structured Clinical Record -->
+<section class="w-[400px] border-l border-border-light bg-background-subtle flex flex-col shrink-0">
+<div class="px-6 py-4 border-b border-border-light flex items-center justify-between bg-white/50 backdrop-blur-sm sticky top-0 z-10">
+<h3 class="font-bold text-on-surface text-body-base">Registro Estructurado <span class="ml-2 inline-block w-2 h-2 rounded-full bg-status-success animate-pulse"></span></h3>
+<button class="p-1.5 hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-3">
+<!-- Motivo de Consulta (Open) -->
+<div class="bg-white border-l-4 border-clinical-blue rounded shadow-sm ring-1 ring-border-light overflow-hidden transition-all">
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-lg">📋</span>
+<span class="font-bold text-body-sm text-on-surface">Motivo de consulta</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="expand_more">expand_more</span>
+</div>
+<div class="px-4 pb-4 pl-11">
+<p class="text-on-surface-variant text-body-sm bg-background-subtle p-2 rounded italic">"Dolor abdominal agudo en fosa ilíaca derecha, intensidad 7/10."</p>
+</div>
+</div>
+<!-- Antecedentes (Open) -->
+<div class="bg-white border-l-4 border-status-warning rounded shadow-sm ring-1 ring-border-light overflow-hidden transition-all">
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-lg">📖</span>
+<span class="font-bold text-body-sm text-on-surface">Antecedentes</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="expand_more">expand_more</span>
+</div>
+<div class="px-4 pb-4 pl-11 flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-status-warning/10 text-status-warning rounded text-[12px] font-bold border border-status-warning/20">Hipertensión arterial</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface-variant rounded text-[12px] border border-border-light">Fumador (Ex)</span>
+</div>
+</div>
+<!-- Signos Vitales (Closed) -->
+<div class="bg-white border-l-4 border-outline-variant rounded shadow-sm ring-1 ring-border-light overflow-hidden hover:bg-surface-container transition-all cursor-pointer">
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-lg">🧬</span>
+<span class="font-bold text-body-sm text-on-surface">Signos vitales</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-[11px] text-outline-variant">Sin datos hoy</span>
+<span class="material-symbols-outlined text-outline-variant rotate-0" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Medicamentos (Closed) -->
+<div class="bg-white border-l-4 border-outline-variant rounded shadow-sm ring-1 ring-border-light overflow-hidden hover:bg-surface-container transition-all cursor-pointer">
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-lg">💊</span>
+<span class="font-bold text-body-sm text-on-surface">Medicamentos</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-[11px] text-outline-variant">2 Activos</span>
+<span class="material-symbols-outlined text-outline-variant rotate-0" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Plan (Closed) -->
+<div class="bg-white border-l-4 border-outline-variant rounded shadow-sm ring-1 ring-border-light overflow-hidden hover:bg-surface-container transition-all cursor-pointer">
+<div class="p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-lg">📅</span>
+<span class="font-bold text-body-sm text-on-surface">Plan</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline-variant rotate-0" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Context -->
+<div class="p-4 bg-white border-t border-border-light">
+<div class="flex items-center gap-2 text-ai-purple mb-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="lightbulb">lightbulb</span>
+<span class="text-[11px] font-bold uppercase tracking-tight">Análisis Predictivo</span>
+</div>
+<p class="text-[12px] text-on-surface-variant leading-tight">Sugiriendo laboratorios de función renal basados en historial de HTA y edad.</p>
+</div>
+</section>
+</main>
+</div>
+<!-- Command Menu (Universal) - Interaction Demo -->
+<div class="fixed inset-0 bg-on-surface/20 backdrop-blur-[2px] z-[100] hidden items-center justify-center p-4" id="cmd-palette">
+<div class="w-full max-w-xl bg-white rounded-xl shadow-2xl ring-1 ring-black/5 overflow-hidden">
+<div class="p-4 flex items-center gap-3 border-b border-border-light">
+<span class="material-symbols-outlined text-clinical-blue" data-icon="search">search</span>
+<input class="w-full border-none focus:ring-0 text-body-base bg-transparent" placeholder="Acceso rápido a comandos, pacientes, archivos..." type="text"/>
+<span class="text-[11px] font-bold text-outline-variant bg-background-subtle px-2 py-1 rounded">ESC</span>
+</div>
+<div class="max-h-[400px] overflow-y-auto py-2">
+<div class="px-4 py-2 text-[11px] font-bold text-outline-variant uppercase">Recientes</div>
+<button class="w-full text-left px-6 py-3 hover:bg-surface-container flex items-center justify-between">
+<span class="flex items-center gap-3"><span class="material-symbols-outlined text-on-surface-variant" data-icon="description">description</span> <span class="text-body-sm">Abrir última nota de Alejandro</span></span>
+<span class="text-outline-variant text-[12px] font-mono-editor">Enter ↵</span>
+</button>
+<button class="w-full text-left px-6 py-3 hover:bg-surface-container flex items-center justify-between">
+<span class="flex items-center gap-3"><span class="material-symbols-outlined text-on-surface-variant" data-icon="medication">medication</span> <span class="text-body-sm">Prescribir Losartan 50mg</span></span>
+</button>
+<div class="px-4 py-2 text-[11px] font-bold text-outline-variant uppercase mt-2">Navegación</div>
+<button class="w-full text-left px-6 py-3 hover:bg-surface-container flex items-center justify-between">
+<span class="flex items-center gap-3"><span class="material-symbols-outlined text-on-surface-variant" data-icon="calendar_month">calendar_month</span> <span class="text-body-sm">Ir a Agenda de Mañana</span></span>
+</button>
+</div>
+</div>
+</div>
+<script>
+        // Simple Interaction logic
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                const palette = document.getElementById('cmd-palette');
+                palette.classList.toggle('hidden');
+                palette.classList.toggle('flex');
+            }
+            if (e.key === 'Escape') {
+                const palette = document.getElementById('cmd-palette');
+                palette.classList.add('hidden');
+                palette.classList.remove('flex');
+            }
+        });
+
+        // Close palette on click outside
+        document.getElementById('cmd-palette').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('cmd-palette')) {
+                document.getElementById('cmd-palette').classList.add('hidden');
+                document.getElementById('cmd-palette').classList.remove('flex');
+            }
+        });
+    </script>
+</body></html>
