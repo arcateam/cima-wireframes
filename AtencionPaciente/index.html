@@ -162,6 +162,13 @@
   .rt-new{border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
   .rt-hint{font-size:11px;color:var(--ink-faint)}
   .rt-hint.flash{color:var(--violet);font-weight:700}
+  /* Variable autocomplete (typing #) */
+  .rt-ta-wrap{position:relative}
+  .var-menu{top:calc(100% + 4px);left:0;width:330px}
+  .vitem{display:flex;align-items:center;gap:9px;width:100%;border:0;background:transparent;text-align:left;padding:8px 10px;border-radius:8px;cursor:pointer}
+  .vitem .vkey{font-family:"JetBrains Mono",monospace;font-size:12.5px;font-weight:700;color:var(--violet)}
+  .vitem .vval{margin-left:auto;font-size:12px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:45%}
+  .vitem.sel,.vitem:hover{background:var(--violet-soft)}
   /* Template editor modal */
   .modal-tpl{width:560px}
   .modal-tpl label{display:block;font-size:12px;font-weight:700;color:var(--ink-soft);margin:13px 0 5px}
@@ -464,7 +471,7 @@ const VARS = {
   fecha: '12/06/2026',
 };
 const VAR_KEYS = Object.keys(VARS);
-const RT_HINT = 'Escribe #variable (ej. #edad_paciente) y se reemplaza al instante';
+const RT_HINT = 'Escribe # para ver las variables disponibles — se reemplazan al instante';
 
 function expandVars(text){
   return text.replace(/#([a-záéíóúñ_]+)/gi, (m,k) => {
@@ -537,7 +544,10 @@ function bodyFor(type, d){
           </div>
           <span class="rt-hint" data-rthint>${RT_HINT}</span>
         </div>
-        <textarea class="field" data-k="reason" rows="3" placeholder="Describe el motivo de consulta… (tip: escribe #nombre_paciente)">${d.reason||''}</textarea>`;
+        <div class="rt-ta-wrap">
+          <textarea class="field" data-k="reason" rows="3" placeholder="Describe el motivo de consulta… (tip: escribe # para ver variables)">${d.reason||''}</textarea>
+          <div class="menu var-menu" data-varmenu></div>
+        </div>`;
     case 'history':
       return `<textarea class="field" data-k="history" rows="3" placeholder="Antecedentes patológicos, quirúrgicos, alérgicos, familiares…">${d.history||'Hipertensión arterial (2021). Alergia a Penicilina. Padre con cardiopatía isquémica.'}</textarea>`;
     case 'exam':
@@ -599,6 +609,59 @@ function wireBlock(el, type, data){
     const hint = el.querySelector('[data-rthint]');
     const refit = () => { ta.style.height='auto'; ta.style.height = ta.scrollHeight + 'px'; };
 
+    const flashHint = (msg) => {
+      hint.textContent = msg;
+      hint.classList.add('flash');
+      clearTimeout(hint._t);
+      hint._t = setTimeout(() => { hint.textContent = RT_HINT; hint.classList.remove('flash'); }, 1800);
+    };
+
+    // ---- Autocompletado de variables al escribir # ----
+    const varMenu = el.querySelector('[data-varmenu]');
+    let varSel = 0;
+
+    const tokenAtCaret = () => {
+      const m = ta.value.slice(0, ta.selectionStart).match(/#([a-záéíóúñ_]*)$/i);
+      return m ? m[1].toLowerCase() : null;
+    };
+    const varMatches = (part) => VAR_KEYS.filter(k => k.startsWith(part));
+
+    function renderVarMenu(){
+      const part = tokenAtCaret();
+      const items = part === null ? [] : varMatches(part);
+      if (!items.length){ closeVarMenu(); return; }
+      varSel = Math.min(varSel, items.length - 1);
+      varMenu.innerHTML = `<div class="mhead">Variables del paciente</div>` + items.map((k,i) => `
+        <button class="vitem ${i===varSel?'sel':''}" data-vk="${k}">
+          <span class="vkey">#${k}</span><span class="vval">${VARS[k]}</span>
+        </button>`).join('');
+      varMenu.classList.add('open');
+      varMenu.querySelectorAll('.vitem').forEach(b =>
+        b.onmousedown = (e) => { e.preventDefault(); pickVar(b.dataset.vk); });
+    }
+    function closeVarMenu(){ varMenu.classList.remove('open'); varSel = 0; }
+    function pickVar(k){
+      const pos = ta.selectionStart;
+      const before = ta.value.slice(0, pos).replace(/#[a-záéíóúñ_]*$/i, VARS[k]);
+      ta.value = before + ta.value.slice(pos);
+      ta.setSelectionRange(before.length, before.length);
+      closeVarMenu();
+      refit(); ta.focus();
+      flashHint('✨ Variable reemplazada con datos del paciente');
+      scheduleSummary();
+    }
+
+    ta.addEventListener('keydown', e => {
+      if (!varMenu.classList.contains('open')) return;
+      const items = varMatches(tokenAtCaret() ?? '');
+      if (e.key === 'ArrowDown'){ e.preventDefault(); varSel = (varSel+1) % items.length; renderVarMenu(); }
+      else if (e.key === 'ArrowUp'){ e.preventDefault(); varSel = (varSel-1+items.length) % items.length; renderVarMenu(); }
+      else if (e.key === 'Enter' || e.key === 'Tab'){ e.preventDefault(); if (items[varSel]) pickVar(items[varSel]); }
+      else if (e.key === 'Escape'){ closeVarMenu(); }
+    });
+    ta.addEventListener('click', renderVarMenu);
+    ta.addEventListener('blur', () => setTimeout(closeVarMenu, 150));
+
     // Reemplazo en tiempo real de #variables mientras escribe
     ta.addEventListener('input', () => {
       const pos = ta.selectionStart;
@@ -608,12 +671,10 @@ function wireBlock(el, type, data){
         ta.value = before + after;
         ta.setSelectionRange(before.length, before.length);
         refit();
-        hint.textContent = '✨ Variable reemplazada con datos del paciente';
-        hint.classList.add('flash');
-        clearTimeout(hint._t);
-        hint._t = setTimeout(() => { hint.textContent = RT_HINT; hint.classList.remove('flash'); }, 1800);
+        flashHint('✨ Variable reemplazada con datos del paciente');
         scheduleSummary();
       }
+      renderVarMenu();
     });
 
     // Dropdown de plantillas de texto
