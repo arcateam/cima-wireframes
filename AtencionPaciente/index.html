@@ -45,18 +45,43 @@
   .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#0ea5e9,#1a73e8);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none}
 
   /* ===== Layout ===== */
-  .layout{display:grid;grid-template-columns:260px 1fr 320px;height:calc(100vh - 58px)}
-  @media(max-width:1100px){.layout{grid-template-columns:230px 1fr}.right{display:none}}
+  .layout{display:grid;grid-template-columns:330px 1fr 320px;height:calc(100vh - 58px)}
+  @media(max-width:1100px){.layout{grid-template-columns:290px 1fr}.right{display:none}}
 
-  /* ===== Left panel ===== */
-  .left{background:#fbfcfe;border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 14px}
-  .left h2{font-size:17px;margin:4px 8px 14px}
-  .tpl{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:10px 12px;border-radius:9px;font-weight:600;font-size:13.5px;color:var(--ink);cursor:pointer;margin-bottom:2px}
+  /* ===== Left panel: AI assistant (always visible) ===== */
+  .left{background:#fbfcfe;border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 14px;overflow-y:auto}
+  .lhead{display:flex;align-items:center;gap:8px;font-size:15.5px;font-weight:800;margin:2px 6px 6px;color:#3b3463}
+  .lhead svg{width:16px;height:16px;color:var(--violet)}
+  .lsub{font-size:11.5px;color:var(--ink-faint);margin:0 6px 14px;line-height:1.45}
+  .acard{background:#fff;border:1px solid #ddd0fa;border-radius:12px;padding:12px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .acard h3{margin:0;font-size:13px;display:flex;align-items:center;gap:7px}
+  .acard h3[data-ctoggle]{cursor:pointer;user-select:none}
+  .acard h3 svg{width:14px;height:14px;color:var(--violet)}
+  .acard h3 .ai-tag{margin-left:auto}
+  .acard .cchev{color:var(--ink-faint);transition:transform .15s}
+  .acard.collapsed .cchev{transform:rotate(-90deg)}
+  .acard .cbody{margin-top:10px}
+  .acard.collapsed .cbody{display:none}
+  .acard .ai-text{font-size:12.5px;padding:10px 11px}
+  .linklike{background:none;border:0;color:var(--violet);font-weight:700;font-size:12px;cursor:pointer;padding:7px 2px 0;display:inline-block}
+  .linklike:hover{text-decoration:underline}
+  .left .grow{flex:1}
+  /* Format selector (center, dropdown button) */
+  .format-bar{max-width:760px;margin:0 auto 18px;display:flex;align-items:center;gap:10px}
+  .fmt-label{font-size:12px;color:var(--ink-soft);font-weight:600}
+  .fmt-wrap{position:relative}
+  .fmt-btn{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px 14px;font-weight:700;font-size:13.5px;color:var(--ink);cursor:pointer;box-shadow:var(--shadow)}
+  .fmt-btn:hover{border-color:var(--blue)}
+  .fmt-btn svg{width:16px;height:16px;color:var(--blue)}
+  .fmt-btn .chev2{color:var(--ink-faint);width:14px;height:14px}
+  .fmt-menu{top:46px;left:0;width:290px}
+  .tpl{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:10px 12px;border-radius:9px;font-weight:600;font-size:13.5px;color:var(--ink);cursor:pointer;margin-bottom:2px;font-family:Inter}
   .tpl svg{width:17px;height:17px;color:var(--ink-soft);flex:none}
   .tpl:hover{background:var(--chip)}
   .tpl.active{background:var(--blue-soft);color:var(--blue);box-shadow:inset 0 0 0 1px #cfe0fb}
   .tpl.active svg{color:var(--blue)}
-  .left .grow{flex:1}
+  .tpl .checkmark{margin-left:auto;width:15px;height:15px;color:var(--blue)}
+  .fmt-manage{border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
   .btn-ghost{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px;font-weight:600;color:var(--ink);cursor:pointer}
   .btn-ghost:hover{border-color:var(--ink-faint)}
   .btn-ghost svg{width:15px;height:15px}
@@ -120,6 +145,31 @@
   .addrow{margin-top:8px;border:1px dashed var(--line);background:transparent;border-radius:8px;padding:8px 12px;color:var(--ink-soft);font-weight:600;cursor:pointer;font-size:13px}
   .addrow:hover{border-color:var(--blue);color:var(--blue)}
 
+  /* Text templates (Motivo de Consulta) */
+  .rt-bar{display:flex;align-items:center;gap:10px;margin-bottom:9px;flex-wrap:wrap}
+  .rt-wrap{position:relative}
+  .rt-btn{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 11px;font-weight:600;font-size:12.5px;color:var(--ink);cursor:pointer}
+  .rt-btn:hover{border-color:var(--blue);color:var(--blue)}
+  .rt-btn svg{width:14px;height:14px}
+  .rt-menu{top:38px;left:0;width:310px}
+  .rt-item{display:flex;align-items:center;gap:2px}
+  .rt-pick{flex:1;display:flex;align-items:center;gap:9px;border:0;background:transparent;text-align:left;padding:9px 10px;border-radius:8px;cursor:pointer;font:inherit;font-weight:600;font-size:13px;color:var(--ink)}
+  .rt-pick:hover{background:var(--blue-soft)}
+  .rt-pick svg{width:15px;height:15px;color:var(--ink-soft);flex:none}
+  .rt-edit{width:28px;height:28px;border:0;background:transparent;border-radius:6px;color:var(--ink-faint);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}
+  .rt-edit:hover{background:var(--chip);color:var(--ink)}
+  .rt-edit svg{width:13px;height:13px}
+  .rt-new{border-top:1px solid var(--line);margin-top:6px;padding-top:6px}
+  .rt-hint{font-size:11px;color:var(--ink-faint)}
+  .rt-hint.flash{color:var(--violet);font-weight:700}
+  /* Template editor modal */
+  .modal-tpl{width:560px}
+  .modal-tpl label{display:block;font-size:12px;font-weight:700;color:var(--ink-soft);margin:13px 0 5px}
+  .modal-tpl .mono{font-family:"JetBrains Mono",monospace;font-size:13px}
+  .var-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .var-chips .chip{font-family:"JetBrains Mono",monospace;font-size:11.5px}
+  .tpl-preview{background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.55;color:var(--ink-soft);min-height:40px;white-space:pre-wrap}
+
   .dx-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
   .chip{display:inline-flex;align-items:center;gap:6px;background:var(--blue-soft);color:var(--blue);border:0;border-radius:999px;padding:6px 12px;font-weight:600;font-size:12.5px;cursor:pointer}
   .chip:hover{background:#d9e7fd}
@@ -135,20 +185,25 @@
   .btn-ai svg{width:14px;height:14px}
   .ai-note{font-size:11px;color:var(--ink-faint)}
 
-  /* AI suggestions block */
-  .sug{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:11px 12px;margin-bottom:8px;background:#fff}
-  .sug.done{opacity:.45;text-decoration:line-through}
-  .sug .sicon{width:28px;height:28px;border-radius:8px;background:var(--violet-soft);color:var(--violet);display:flex;align-items:center;justify-content:center;flex:none}
-  .sug .sicon svg{width:14px;height:14px}
-  .sug p{margin:0;line-height:1.45;flex:1}
-  .sug p b{display:block;font-size:13px}
-  .sug p span{font-size:12px;color:var(--ink-soft)}
-  .sug-act{display:flex;gap:4px}
-  .sug-act button{border:0;background:transparent;width:26px;height:26px;border-radius:6px;cursor:pointer;color:var(--ink-faint);display:flex;align-items:center;justify-content:center}
-  .sug-act button:hover{background:var(--chip)}
-  .sug-act .ok:hover{color:var(--green)}
-  .sug-act .no:hover{color:var(--red)}
-  .sug-act svg{width:14px;height:14px}
+  /* AI suggestions (collapsible items) */
+  .sug{border:1px solid var(--line);border-radius:9px;margin-bottom:8px;background:#fff;overflow:hidden}
+  .sug.done{opacity:.45}
+  .sug.done .sug-head b{text-decoration:line-through}
+  .sug-head{display:flex;align-items:center;gap:9px;width:100%;border:0;background:transparent;text-align:left;padding:10px 11px;cursor:pointer;font:inherit}
+  .sug-head:hover{background:#fbfaff}
+  .sug-head b{flex:1;font-size:12.5px;line-height:1.35}
+  .sug .sicon{width:26px;height:26px;border-radius:7px;background:var(--violet-soft);color:var(--violet);display:flex;align-items:center;justify-content:center;flex:none}
+  .sug .sicon svg{width:13px;height:13px}
+  .schev{width:14px;height:14px;color:var(--ink-faint);flex:none;transition:transform .15s}
+  .sug.open .schev{transform:rotate(180deg)}
+  .sbody{display:none;padding:0 12px 11px}
+  .sug.open .sbody{display:block}
+  .sbody>span{font-size:12px;color:var(--ink-soft);line-height:1.5;display:block;margin-bottom:9px}
+  .sug-actions{display:flex;gap:7px}
+  .btn-ai.small{padding:5px 10px;font-size:11.5px}
+  .btn-ai.small svg{width:12px;height:12px}
+  .btn-ai.no{color:var(--red);border-color:#f3caca}
+  .btn-ai.no:hover{background:#fde8e8}
 
   /* Slash composer */
   .composer{position:relative;margin-top:4px}
@@ -244,12 +299,31 @@
 
 <div class="layout">
 
-  <!-- ================= LEFT: TEMPLATES ================= -->
+  <!-- ================= LEFT: AI ASSISTANT (always visible) ================= -->
   <aside class="left">
-    <h2>Plantillas</h2>
-    <div id="tplList"></div>
+    <div class="lhead"><i data-lucide="sparkles"></i> Asistente IA</div>
+    <p class="lsub">Ayudas para el médico durante la atención. No se guardan en la historia clínica.</p>
+
+    <div class="acard">
+      <h3 data-ctoggle><i data-lucide="user-round"></i> Resumen del paciente <span class="ai-tag">IA</span><i data-lucide="chevron-down" class="cchev"></i></h3>
+      <div class="cbody">
+        <div class="ai-text" id="aiPatientText"></div>
+        <button class="linklike" id="sumToggle">Ver más</button>
+        <div class="ai-foot">
+          <button class="btn-ai" id="regenPatient"><i data-lucide="refresh-cw"></i> Regenerar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="acard">
+      <h3 data-ctoggle><i data-lucide="lightbulb"></i> Sugerencias <span class="ai-tag">IA</span><i data-lucide="chevron-down" class="cchev"></i></h3>
+      <div class="cbody">
+        <div id="leftSugs"></div>
+        <span class="ai-note">Generadas según la información de la consulta (demostración). Verifique antes de usar clínicamente.</span>
+      </div>
+    </div>
+
     <div class="grow"></div>
-    <button class="btn-ghost" onclick="toast('Gestión de plantillas (mock)')"><i data-lucide="settings-2"></i> Gestionar plantillas</button>
     <div class="help"><i data-lucide="help-circle"></i> Ayuda</div>
   </aside>
 
@@ -267,6 +341,15 @@
       <div class="phead-actions">
         <button class="sqbtn" title="Imprimir" onclick="toast('Imprimiendo expediente (mock)')"><i data-lucide="printer"></i></button>
         <button class="sqbtn" title="Compartir" onclick="toast('Enlace copiado (mock)')"><i data-lucide="share-2"></i></button>
+      </div>
+    </div>
+
+    <!-- Format selector button -->
+    <div class="format-bar">
+      <span class="fmt-label">Formato de atención:</span>
+      <div class="fmt-wrap">
+        <button class="fmt-btn" id="fmtBtn"></button>
+        <div class="menu fmt-menu" id="fmtMenu"></div>
       </div>
     </div>
 
@@ -293,6 +376,25 @@
     <div class="summary-card" id="summaryCard"></div>
     <div class="sfoot"><i data-lucide="sparkles"></i> Generado automáticamente por IA · se actualiza mientras escribes</div>
   </aside>
+</div>
+
+<!-- Text template editor modal -->
+<div class="overlay" id="tplOverlay">
+  <div class="modal modal-tpl">
+    <h3 id="tplModalTitle">Nueva plantilla de texto</h3>
+    <p>Escribe tu texto con variables (estilo template literal). Al usar la plantilla, las variables se reemplazan con los datos del paciente actual.</p>
+    <label>Nombre de la plantilla</label>
+    <input class="field" id="tplName" placeholder="Ej: Dolor abdominal">
+    <label>Contenido</label>
+    <textarea class="field mono" id="tplText" rows="5" placeholder="Paciente #nombre_paciente, de #edad_paciente años, consulta por…"></textarea>
+    <div class="var-chips" id="varChips"></div>
+    <label>Vista previa con datos del paciente</label>
+    <div class="tpl-preview" id="tplPreview"></div>
+    <div class="mrow" style="margin-top:18px">
+      <button class="btn-sec" onclick="closeTplEditor()">Cancelar</button>
+      <button class="btn-primary" onclick="saveTplEditor()">Guardar plantilla</button>
+    </div>
+  </div>
 </div>
 
 <!-- Toast + modal -->
@@ -325,14 +427,12 @@ const BLOCK_DEFS = {
   exam:     { title:'Examen Físico',         icon:'stethoscope',    cmd:'examen' },
   diagnosis:{ title:'Diagnóstico',           icon:'file-check-2',   cmd:'diagnostico' },
   plan:     { title:'Plan de Manejo',        icon:'list-checks',    cmd:'plan' },
-  aiSummary:{ title:'Resumen IA del Paciente', icon:'sparkles',     cmd:'ia-resumen',     ai:true },
-  aiSuggest:{ title:'Sugerencias IA',        icon:'lightbulb',      cmd:'ia-sugerencias', ai:true },
 };
 
-/* ---- Templates (left panel) ---- */
+/* ---- Formatos de atención (dropdown) ---- */
 const TEMPLATES = [
   { id:'cardio', name:'Seguimiento Cardiología', icon:'heart-pulse',
-    blocks:['reason','vitals','medication','diagnosis','plan','aiSuggest'],
+    blocks:['reason','vitals','medication','diagnosis','plan'],
     prefill:{
       reason: REASON_CARDIO,
       vitals: { ta:'150/95', fc:'96', fr:'18', temp:'37.8', spo2:'97', peso:'82' },
@@ -341,8 +441,8 @@ const TEMPLATES = [
       plan:'Se ordena ecografía abdominal y panel metabólico completo. Analgesia con antiespasmódico. Control de TA en próxima cita. Cita de control en 2 semanas; revisar resultados de laboratorio.'
     }},
   { id:'general',  name:'Chequeo General',      icon:'shield-plus',  blocks:['reason','vitals','history','exam','plan'] },
-  { id:'diabetes', name:'Manejo de Diabetes',   icon:'droplets',     blocks:['reason','vitals','medication','plan','aiSuggest'] },
-  { id:'intake',   name:'Ingreso Paciente Nuevo', icon:'user-plus',  blocks:['reason','history','vitals','aiSummary'] },
+  { id:'diabetes', name:'Manejo de Diabetes',   icon:'droplets',     blocks:['reason','vitals','medication','plan'] },
+  { id:'intake',   name:'Ingreso Paciente Nuevo', icon:'user-plus',  blocks:['reason','history','vitals'] },
   { id:'pedia',    name:'Consulta Pediátrica',  icon:'baby',         blocks:['reason','vitals','exam','plan'] },
   { id:'derma',    name:'Consulta Dermatología',icon:'scan-face',    blocks:['reason','exam','diagnosis','plan'] },
 ];
@@ -354,6 +454,34 @@ const AI_SUGGESTIONS = [
 ];
 
 const DX_SUGGESTIONS = ['K35.8 — Apendicitis aguda', 'R10.3 — Dolor en fosa ilíaca derecha', 'I10 — Hipertensión esencial'];
+
+/* ---- Variables de paciente para plantillas de texto ---- */
+const VARS = {
+  nombre_paciente: 'Alejandro Rodríguez',
+  edad_paciente: '58',
+  sexo_paciente: 'masculino',
+  id_paciente: '102938475',
+  fecha: '12/06/2026',
+};
+const VAR_KEYS = Object.keys(VARS);
+const RT_HINT = 'Escribe #variable (ej. #edad_paciente) y se reemplaza al instante';
+
+function expandVars(text){
+  return text.replace(/#([a-záéíóúñ_]+)/gi, (m,k) => {
+    const v = VARS[k.toLowerCase()];
+    return v !== undefined ? v : m;
+  });
+}
+
+/* Plantillas de texto del médico (editables, mock en memoria) */
+let TEXT_TEMPLATES = [
+  { name:'Consulta general',
+    text:'Paciente #nombre_paciente, de #edad_paciente años, #sexo_paciente, acude el #fecha por cuadro clínico consistente en ' },
+  { name:'Dolor abdominal',
+    text:'Paciente de #edad_paciente años, #sexo_paciente, con antecedente de hipertensión arterial y uso de Losartán. Consulta por dolor abdominal agudo en fosa ilíaca derecha, intensidad 7/10, de 4 horas de evolución.' },
+  { name:'Control de hipertensión',
+    text:'#nombre_paciente, #edad_paciente años, asiste a control de hipertensión arterial. Refiere adecuada adherencia al tratamiento farmacológico. Sin síntomas nuevos desde la última consulta.' },
+];
 
 /* =========================================================
    State
@@ -402,7 +530,14 @@ function addBlock(type, data={}, opts={}){
 function bodyFor(type, d){
   switch(type){
     case 'reason':
-      return `<textarea class="field" data-k="reason" rows="3" placeholder="Describe el motivo de consulta…">${d.reason||''}</textarea>`;
+      return `<div class="rt-bar">
+          <div class="rt-wrap">
+            <button class="rt-btn" data-rtbtn><i data-lucide="book-text"></i> Plantillas de texto <i data-lucide="chevron-down"></i></button>
+            <div class="menu rt-menu" data-rtmenu></div>
+          </div>
+          <span class="rt-hint" data-rthint>${RT_HINT}</span>
+        </div>
+        <textarea class="field" data-k="reason" rows="3" placeholder="Describe el motivo de consulta… (tip: escribe #nombre_paciente)">${d.reason||''}</textarea>`;
     case 'history':
       return `<textarea class="field" data-k="history" rows="3" placeholder="Antecedentes patológicos, quirúrgicos, alérgicos, familiares…">${d.history||'Hipertensión arterial (2021). Alergia a Penicilina. Padre con cardiopatía isquémica.'}</textarea>`;
     case 'exam':
@@ -438,23 +573,6 @@ function bodyFor(type, d){
       return `<input class="field" data-k="dx" value="${d.dx||''}" placeholder="Diagnóstico principal (CIE-10)…">
         <p class="chips-label"><i data-lucide="sparkles"></i> Sugerencias de la IA según la nota:</p>
         <div class="dx-chips">${DX_SUGGESTIONS.map(s=>`<button class="chip" data-dxchip>${s}</button>`).join('')}</div>`;
-    case 'aiSummary':
-      return `<div class="ai-text" data-aitext></div>
-        <div class="ai-foot">
-          <button class="btn-ai" data-regen><i data-lucide="refresh-cw"></i> Regenerar</button>
-          <span class="ai-note">Generado a partir del expediente y notas previas. Verifique antes de usar clínicamente.</span>
-        </div>`;
-    case 'aiSuggest':
-      return `<div data-suglist>${AI_SUGGESTIONS.map((s,i)=>`
-        <div class="sug" data-sug="${i}">
-          <span class="sicon"><i data-lucide="lightbulb"></i></span>
-          <p><b>${s.t}</b><span>${s.d}</span></p>
-          <div class="sug-act">
-            <button class="ok" title="Aceptar"><i data-lucide="check"></i></button>
-            <button class="no" title="Descartar"><i data-lucide="x"></i></button>
-          </div>
-        </div>`).join('')}</div>
-        <span class="ai-note">Sugerencias generadas por IA según la información de la consulta (demostración).</span>`;
   }
   return '';
 }
@@ -475,6 +593,60 @@ function wireBlock(el, type, data){
     const fit = () => { t.style.height='auto'; t.style.height = t.scrollHeight + 'px'; };
     t.addEventListener('input', fit); setTimeout(fit, 0);
   });
+
+  if (type === 'reason'){
+    const ta = el.querySelector('[data-k="reason"]');
+    const hint = el.querySelector('[data-rthint]');
+    const refit = () => { ta.style.height='auto'; ta.style.height = ta.scrollHeight + 'px'; };
+
+    // Reemplazo en tiempo real de #variables mientras escribe
+    ta.addEventListener('input', () => {
+      const pos = ta.selectionStart;
+      const before = expandVars(ta.value.slice(0, pos));
+      const after  = expandVars(ta.value.slice(pos));
+      if (before + after !== ta.value){
+        ta.value = before + after;
+        ta.setSelectionRange(before.length, before.length);
+        refit();
+        hint.textContent = '✨ Variable reemplazada con datos del paciente';
+        hint.classList.add('flash');
+        clearTimeout(hint._t);
+        hint._t = setTimeout(() => { hint.textContent = RT_HINT; hint.classList.remove('flash'); }, 1800);
+        scheduleSummary();
+      }
+    });
+
+    // Dropdown de plantillas de texto
+    const btn  = el.querySelector('[data-rtbtn]');
+    const menu = el.querySelector('[data-rtmenu]');
+    function renderRtMenu(){
+      menu.innerHTML = `<div class="mhead">Mis plantillas de texto</div>` +
+        TEXT_TEMPLATES.map((t,i) => `
+          <div class="rt-item">
+            <button class="rt-pick" data-i="${i}"><i data-lucide="file-text"></i>${t.name}</button>
+            <button class="rt-edit" data-i="${i}" title="Editar plantilla"><i data-lucide="pencil"></i></button>
+          </div>`).join('') +
+        `<div class="rt-new"><div class="rt-item"><button class="rt-pick" data-new><i data-lucide="plus"></i>Nueva plantilla…</button></div></div>`;
+      lucide.createIcons();
+      menu.querySelectorAll('.rt-pick[data-i]').forEach(b => b.onclick = () => {
+        menu.classList.remove('open');
+        const t = TEXT_TEMPLATES[+b.dataset.i];
+        ta.value = expandVars(t.text);
+        refit(); ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length);
+        toast(`Plantilla «${t.name}» aplicada con datos del paciente`);
+        scheduleSummary();
+      });
+      menu.querySelectorAll('.rt-edit').forEach(b => b.onclick = (e) => {
+        e.stopPropagation(); menu.classList.remove('open'); openTplEditor(+b.dataset.i);
+      });
+      menu.querySelector('[data-new]').onclick = () => { menu.classList.remove('open'); openTplEditor(-1); };
+    }
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      if (menu.classList.contains('open')){ menu.classList.remove('open'); return; }
+      renderRtMenu(); menu.classList.add('open');
+    };
+  }
 
   if (type === 'medication'){
     const body = el.querySelector('[data-medbody]');
@@ -497,20 +669,6 @@ function wireBlock(el, type, data){
     });
   }
 
-  if (type === 'aiSummary'){
-    const target = el.querySelector('[data-aitext]');
-    const gen = () => typewriter(target,
-      `Varón de ${PATIENT.age} años, hipertenso conocido en manejo con Losartán 50 mg desde 2021, con buen apego al tratamiento. Última TA registrada 138/88 (03/2026). Alergia documentada a Penicilina. Sin hospitalizaciones recientes. Hoy consulta por dolor abdominal agudo en fosa ilíaca derecha de 4 horas de evolución, intensidad 7/10, sin fiebre referida al inicio del cuadro.`);
-    el.querySelector('[data-regen]').onclick = gen;
-    gen();
-  }
-
-  if (type === 'aiSuggest'){
-    el.querySelectorAll('.sug').forEach(s => {
-      s.querySelector('.ok').onclick = () => { s.classList.add('done'); toast('Sugerencia aceptada y añadida al plan (mock)'); scheduleSummary(); };
-      s.querySelector('.no').onclick = () => { s.style.display='none'; scheduleSummary(); };
-    });
-  }
 }
 
 function typewriter(el, text){
@@ -524,26 +682,102 @@ function typewriter(el, text){
 }
 
 /* =========================================================
-   Templates (left panel)
+   Formatos de atención (botón con dropdown)
 ========================================================= */
-const $tplList = document.getElementById('tplList');
-TEMPLATES.forEach((t, idx) => {
-  const b = document.createElement('button');
-  b.className = 'tpl' + (idx===0 ? ' active' : '');
-  b.innerHTML = `<i data-lucide="${t.icon}"></i>${t.name}`;
-  b.onclick = () => loadTemplate(t, b);
-  $tplList.appendChild(b);
-});
+const $fmtBtn  = document.getElementById('fmtBtn');
+const $fmtMenu = document.getElementById('fmtMenu');
+let currentTpl = TEMPLATES[0];
 
-function loadTemplate(t, btn){
-  document.querySelectorAll('.tpl').forEach(x => x.classList.remove('active'));
-  btn.classList.add('active');
+function renderFmtBtn(){
+  $fmtBtn.innerHTML = `<i data-lucide="${currentTpl.icon}"></i><span>${currentTpl.name}</span><i data-lucide="chevron-down" class="chev2"></i>`;
+  lucide.createIcons();
+}
+
+function renderFmtMenu(){
+  $fmtMenu.innerHTML = `<div class="mhead">Cambiar formato de atención</div>` +
+    TEMPLATES.map(t => `
+      <button class="tpl ${t.id===currentTpl.id?'active':''}" data-fmt="${t.id}">
+        <i data-lucide="${t.icon}"></i>${t.name}
+        ${t.id===currentTpl.id ? '<i data-lucide="check" class="checkmark"></i>' : ''}
+      </button>`).join('') +
+    `<div class="fmt-manage"><button class="tpl" data-manage><i data-lucide="settings-2"></i>Gestionar formatos…</button></div>`;
+  lucide.createIcons();
+  $fmtMenu.querySelectorAll('[data-fmt]').forEach(b => b.onclick = () => {
+    $fmtMenu.classList.remove('open');
+    loadTemplate(TEMPLATES.find(t => t.id === b.dataset.fmt));
+  });
+  $fmtMenu.querySelector('[data-manage]').onclick = () => {
+    $fmtMenu.classList.remove('open');
+    toast('Gestión de formatos de atención (mock)');
+  };
+}
+
+$fmtBtn.onclick = (e) => {
+  e.stopPropagation();
+  if ($fmtMenu.classList.contains('open')) { $fmtMenu.classList.remove('open'); return; }
+  renderFmtMenu();
+  $fmtMenu.classList.add('open');
+};
+
+function loadTemplate(t){
+  currentTpl = t;
+  renderFmtBtn();
   $blocks.innerHTML = ''; blocks = [];
   const p = t.prefill || {};
   t.blocks.forEach(type => addBlock(type, p, {silent:true}));
-  toast(`Plantilla «${t.name}» cargada`);
+  toast(`Formato «${t.name}» cargado`);
   scheduleSummary();
 }
+
+/* =========================================================
+   Panel izquierdo: Asistente IA (siempre visible, no se guarda)
+========================================================= */
+const AI_PATIENT_SHORT = `Varón de ${PATIENT.age} años, hipertenso en manejo con Losartán 50 mg. Consulta hoy por dolor abdominal agudo en fosa ilíaca derecha, 7/10, de 4 horas de evolución.`;
+const AI_PATIENT_FULL = `Varón de ${PATIENT.age} años, hipertenso conocido en manejo con Losartán 50 mg desde 2021, con buen apego al tratamiento. Última TA registrada 138/88 (03/2026). Alergia documentada a Penicilina. Sin hospitalizaciones recientes ni cirugías previas. Padre con cardiopatía isquémica. Hoy consulta por dolor abdominal agudo en fosa ilíaca derecha de 4 horas de evolución, intensidad 7/10, sin fiebre referida al inicio del cuadro.`;
+
+const $sumText = document.getElementById('aiPatientText');
+const $sumToggle = document.getElementById('sumToggle');
+let sumExpanded = false;
+
+function renderPatientSummary(animate){
+  const txt = sumExpanded ? AI_PATIENT_FULL : AI_PATIENT_SHORT;
+  if (animate) typewriter($sumText, txt);
+  else { clearInterval($sumText._tw); $sumText.textContent = txt; }
+  $sumToggle.textContent = sumExpanded ? 'Ver menos' : 'Ver más';
+}
+$sumToggle.onclick = () => { sumExpanded = !sumExpanded; renderPatientSummary(false); };
+document.getElementById('regenPatient').onclick = () => renderPatientSummary(true);
+
+function renderLeftSugs(){
+  const list = document.getElementById('leftSugs');
+  list.innerHTML = AI_SUGGESTIONS.map(s => `
+    <div class="sug">
+      <button class="sug-head">
+        <span class="sicon"><i data-lucide="lightbulb"></i></span>
+        <b>${s.t}</b>
+        <i data-lucide="chevron-down" class="schev"></i>
+      </button>
+      <div class="sbody">
+        <span>${s.d}</span>
+        <div class="sug-actions">
+          <button class="btn-ai small ok"><i data-lucide="check"></i> Aceptar</button>
+          <button class="btn-ai small no"><i data-lucide="x"></i> Descartar</button>
+        </div>
+      </div>
+    </div>`).join('');
+  lucide.createIcons();
+  list.querySelectorAll('.sug').forEach(s => {
+    s.querySelector('.sug-head').onclick = () => s.classList.toggle('open');
+    s.querySelector('.ok').onclick = () => { s.classList.remove('open'); s.classList.add('done'); toast('Sugerencia aceptada y añadida al plan (mock)'); };
+    s.querySelector('.no').onclick = () => { s.style.display = 'none'; };
+  });
+}
+
+document.querySelectorAll('.acard h3[data-ctoggle]').forEach(h =>
+  h.onclick = () => h.closest('.acard').classList.toggle('collapsed'));
+
+renderPatientSummary(true);
+renderLeftSugs();
 
 /* =========================================================
    Slash composer (Notion-style)
@@ -574,7 +808,6 @@ function renderMenu(filter){
 function pick(type){
   closeMenu();
   $slash.value = '';
-  const t = TEMPLATES[0]; // reuse cardio prefill when relevant? keep blank
   addBlock(type, {});
   $slash.focus();
 }
@@ -602,9 +835,58 @@ document.getElementById('plusBtn').onclick = () => {
 };
 document.addEventListener('click', e => {
   if (!e.target.closest('.composer')) closeMenu();
+  if (!e.target.closest('.fmt-wrap')) document.getElementById('fmtMenu').classList.remove('open');
+  if (!e.target.closest('.rt-wrap')) document.querySelectorAll('.rt-menu').forEach(m => m.classList.remove('open'));
   if (!e.target.closest('#aiPop') && !e.target.closest('#aiAssistBtn'))
     document.getElementById('aiPop').classList.remove('open');
 });
+
+/* =========================================================
+   Editor de plantillas de texto (modal)
+========================================================= */
+const $tplOverlay = document.getElementById('tplOverlay');
+const $tplName    = document.getElementById('tplName');
+const $tplText    = document.getElementById('tplText');
+const $tplPreview = document.getElementById('tplPreview');
+let editingTplIdx = -1;
+
+document.getElementById('varChips').innerHTML =
+  VAR_KEYS.map(k => `<button class="chip" data-var="${k}">#${k}</button>`).join('');
+document.querySelectorAll('#varChips .chip').forEach(c => c.onclick = () => {
+  const s = $tplText.selectionStart, e = $tplText.selectionEnd;
+  const token = '#' + c.dataset.var;
+  $tplText.value = $tplText.value.slice(0, s) + token + $tplText.value.slice(e);
+  const p = s + token.length;
+  $tplText.focus(); $tplText.setSelectionRange(p, p);
+  updTplPreview();
+});
+
+function updTplPreview(){
+  $tplPreview.textContent = $tplText.value.trim()
+    ? expandVars($tplText.value)
+    : 'La vista previa aparecerá aquí…';
+}
+$tplText.addEventListener('input', updTplPreview);
+
+function openTplEditor(idx){
+  editingTplIdx = idx;
+  document.getElementById('tplModalTitle').textContent =
+    idx >= 0 ? 'Editar plantilla de texto' : 'Nueva plantilla de texto';
+  $tplName.value = idx >= 0 ? TEXT_TEMPLATES[idx].name : '';
+  $tplText.value = idx >= 0 ? TEXT_TEMPLATES[idx].text : '';
+  updTplPreview();
+  $tplOverlay.classList.add('open');
+  $tplName.focus();
+}
+function closeTplEditor(){ $tplOverlay.classList.remove('open'); }
+function saveTplEditor(){
+  const name = $tplName.value.trim(), text = $tplText.value.trim();
+  if (!name || !text){ toast('Completa nombre y contenido de la plantilla'); return; }
+  if (editingTplIdx >= 0) TEXT_TEMPLATES[editingTplIdx] = { name, text };
+  else TEXT_TEMPLATES.push({ name, text });
+  closeTplEditor();
+  toast(`Plantilla «${name}» guardada`);
+}
 
 /* =========================================================
    Executive summary (right panel) — mock "live AI"
@@ -693,10 +975,10 @@ function toast(msg){
 }
 
 /* =========================================================
-   Init: load default template (Cardiology, prefilled)
+   Init: load default format (Cardiology, prefilled)
 ========================================================= */
 lucide.createIcons();
-loadTemplate(TEMPLATES[0], document.querySelector('.tpl'));
+loadTemplate(TEMPLATES[0]);
 </script>
 </body>
 </html>
