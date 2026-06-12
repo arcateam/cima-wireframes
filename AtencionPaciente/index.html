@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cimedical — Atención al Paciente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  :root{
+    --blue:#1a73e8; --blue-dark:#1557b0; --blue-soft:#e8f0fe;
+    --ink:#1f2937; --ink-soft:#6b7280; --ink-faint:#9ca3af;
+    --bg:#f6f8fb; --panel:#ffffff; --line:#e5e7eb;
+    --chip:#eef2f7; --green:#16a34a; --amber:#d97706; --red:#dc2626;
+    --violet:#7c3aed; --violet-soft:#f3eefe;
+    --radius:10px;
+    --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 14px rgba(16,24,40,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+  button{font-family:inherit}
+  ::placeholder{color:var(--ink-faint)}
+
+  /* ===== Topbar ===== */
+  .topbar{display:flex;align-items:center;gap:22px;background:#fff;border-bottom:1px solid var(--line);padding:0 20px;height:58px;position:sticky;top:0;z-index:50}
+  .brand{display:flex;align-items:center;gap:8px;font-size:19px;font-weight:800;color:var(--blue);letter-spacing:-.3px}
+  .brand .logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#1a73e8,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff}
+  .brand .logo svg{width:16px;height:16px}
+  .nav{display:flex;gap:18px;font-weight:600;color:var(--ink-soft)}
+  .nav a{color:inherit;text-decoration:none;padding:18px 2px 15px;border-bottom:3px solid transparent}
+  .nav a.active{color:var(--ink);border-bottom-color:var(--blue)}
+  .search{flex:0 1 340px;display:flex;align-items:center;gap:8px;background:var(--chip);border:1px solid transparent;border-radius:8px;padding:7px 12px;color:var(--ink-faint)}
+  .search:focus-within{border-color:var(--blue);background:#fff}
+  .search input{border:0;outline:0;background:transparent;flex:1;font:inherit;color:var(--ink)}
+  .search svg{width:15px;height:15px;flex:none}
+  .topbar .spacer{flex:1}
+  .iconbtn{width:36px;height:36px;border:0;background:transparent;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);cursor:pointer;position:relative}
+  .iconbtn:hover{background:var(--chip);color:var(--ink)}
+  .iconbtn svg{width:18px;height:18px}
+  .iconbtn .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--red);border:1.5px solid #fff}
+  .btn-primary{background:var(--blue);color:#fff;border:0;border-radius:8px;padding:9px 16px;font-weight:700;font-size:13.5px;cursor:pointer}
+  .btn-primary:hover{background:var(--blue-dark)}
+  .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#0ea5e9,#1a73e8);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none}
+
+  /* ===== Layout ===== */
+  .layout{display:grid;grid-template-columns:260px 1fr 320px;height:calc(100vh - 58px)}
+  @media(max-width:1100px){.layout{grid-template-columns:230px 1fr}.right{display:none}}
+
+  /* ===== Left panel ===== */
+  .left{background:#fbfcfe;border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 14px}
+  .left h2{font-size:17px;margin:4px 8px 14px}
+  .tpl{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:10px 12px;border-radius:9px;font-weight:600;font-size:13.5px;color:var(--ink);cursor:pointer;margin-bottom:2px}
+  .tpl svg{width:17px;height:17px;color:var(--ink-soft);flex:none}
+  .tpl:hover{background:var(--chip)}
+  .tpl.active{background:var(--blue-soft);color:var(--blue);box-shadow:inset 0 0 0 1px #cfe0fb}
+  .tpl.active svg{color:var(--blue)}
+  .left .grow{flex:1}
+  .btn-ghost{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px;font-weight:600;color:var(--ink);cursor:pointer}
+  .btn-ghost:hover{border-color:var(--ink-faint)}
+  .btn-ghost svg{width:15px;height:15px}
+  .help{display:flex;align-items:center;gap:8px;color:var(--ink-soft);font-weight:600;padding:14px 10px 2px;font-size:13px}
+  .help svg{width:16px;height:16px}
+
+  /* ===== Center ===== */
+  .center{overflow-y:auto;padding:26px 36px 120px}
+  .patient-head{display:flex;align-items:flex-start;justify-content:space-between;max-width:760px;margin:0 auto 20px}
+  .patient-head h1{margin:0 0 6px;font-size:22px}
+  .pmeta{display:flex;align-items:center;gap:14px;color:var(--ink-soft);font-size:13px;flex-wrap:wrap}
+  .pmeta b{color:var(--ink)}
+  .badge-crit{background:#fde8e8;color:var(--red);font-size:10.5px;font-weight:800;letter-spacing:.6px;padding:4px 9px;border-radius:6px}
+  .phead-actions{display:flex;gap:8px}
+  .sqbtn{width:38px;height:38px;border:1px solid var(--line);background:#fff;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);cursor:pointer}
+  .sqbtn:hover{color:var(--ink);border-color:var(--ink-faint)}
+  .sqbtn svg{width:16px;height:16px}
+
+  .editor{max-width:760px;margin:0 auto}
+
+  /* Blocks */
+  .block{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:14px;box-shadow:var(--shadow);position:relative;transition:box-shadow .15s}
+  .block:focus-within{border-color:#bcd3f7;box-shadow:0 0 0 3px rgba(26,115,232,.08),var(--shadow)}
+  .block.ai{border-color:#ddd0fa;background:linear-gradient(180deg,#fdfcff, #fff)}
+  .block-head{display:flex;align-items:center;gap:9px;padding:13px 14px 9px;cursor:default}
+  .block-head .bicon{width:17px;height:17px;color:var(--ink-soft);flex:none}
+  .block.ai .bicon{color:var(--violet)}
+  .block-head h3{margin:0;font-size:14px;flex:1}
+  .ai-tag{background:var(--violet-soft);color:var(--violet);font-size:10px;font-weight:800;letter-spacing:.5px;padding:3px 7px;border-radius:5px}
+  .bact{display:flex;gap:2px;opacity:0;transition:opacity .12s}
+  .block:hover .bact{opacity:1}
+  .bact button{width:26px;height:26px;border:0;background:transparent;border-radius:6px;color:var(--ink-faint);cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .bact button:hover{background:var(--chip);color:var(--ink)}
+  .bact svg{width:14px;height:14px}
+  .chev{transition:transform .15s}
+  .block.collapsed .chev{transform:rotate(-90deg)}
+  .block.collapsed .block-body{display:none}
+  .block-body{padding:0 14px 14px}
+  .drag{cursor:grab;color:var(--ink-faint)}
+
+  textarea.field, input.field{width:100%;border:1px solid transparent;background:var(--chip);border-radius:8px;padding:10px 12px;font:inherit;color:var(--ink);resize:none;outline:0;line-height:1.5}
+  textarea.field:focus, input.field:focus{border-color:var(--blue);background:#fff}
+
+  .vit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:900px){.vit-grid{grid-template-columns:repeat(2,1fr)}}
+  .vit{background:var(--chip);border-radius:8px;padding:9px 12px}
+  .vit label{display:block;font-size:11px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+  .vit .vrow{display:flex;align-items:baseline;gap:5px}
+  .vit input{border:0;background:transparent;outline:0;font:inherit;font-weight:700;font-size:15px;width:100%;color:var(--ink)}
+  .vit .unit{font-size:11px;color:var(--ink-faint);flex:none}
+  .vit.warn{box-shadow:inset 0 0 0 1.5px #fbd5a5;background:#fff8ee}
+  .vit.warn input{color:var(--amber)}
+
+  table.med{width:100%;border-collapse:collapse}
+  table.med th{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink-soft);text-align:left;padding:4px 8px 7px;font-weight:700}
+  table.med td{padding:3px 4px}
+  table.med input{width:100%;border:1px solid transparent;background:var(--chip);border-radius:7px;padding:8px 10px;font:inherit;outline:0}
+  table.med input:focus{border-color:var(--blue);background:#fff}
+  .row-del{width:26px;height:26px;border:0;background:transparent;border-radius:6px;color:var(--ink-faint);cursor:pointer}
+  .row-del:hover{color:var(--red);background:#fde8e8}
+  .addrow{margin-top:8px;border:1px dashed var(--line);background:transparent;border-radius:8px;padding:8px 12px;color:var(--ink-soft);font-weight:600;cursor:pointer;font-size:13px}
+  .addrow:hover{border-color:var(--blue);color:var(--blue)}
+
+  .dx-chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:var(--blue-soft);color:var(--blue);border:0;border-radius:999px;padding:6px 12px;font-weight:600;font-size:12.5px;cursor:pointer}
+  .chip:hover{background:#d9e7fd}
+  .chip.ghost{background:var(--chip);color:var(--ink-soft)}
+  .chips-label{font-size:11.5px;color:var(--ink-faint);margin:10px 0 0;display:flex;align-items:center;gap:5px}
+  .chips-label svg{width:12px;height:12px;color:var(--violet)}
+
+  /* AI summary block */
+  .ai-text{background:var(--violet-soft);border-radius:8px;padding:12px 14px;line-height:1.6;color:#3b3463;min-height:46px;white-space:pre-wrap}
+  .ai-foot{display:flex;align-items:center;gap:10px;margin-top:10px}
+  .btn-ai{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #ddd0fa;color:var(--violet);font-weight:700;font-size:12.5px;border-radius:8px;padding:7px 12px;cursor:pointer}
+  .btn-ai:hover{background:var(--violet-soft)}
+  .btn-ai svg{width:14px;height:14px}
+  .ai-note{font-size:11px;color:var(--ink-faint)}
+
+  /* AI suggestions block */
+  .sug{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:11px 12px;margin-bottom:8px;background:#fff}
+  .sug.done{opacity:.45;text-decoration:line-through}
+  .sug .sicon{width:28px;height:28px;border-radius:8px;background:var(--violet-soft);color:var(--violet);display:flex;align-items:center;justify-content:center;flex:none}
+  .sug .sicon svg{width:14px;height:14px}
+  .sug p{margin:0;line-height:1.45;flex:1}
+  .sug p b{display:block;font-size:13px}
+  .sug p span{font-size:12px;color:var(--ink-soft)}
+  .sug-act{display:flex;gap:4px}
+  .sug-act button{border:0;background:transparent;width:26px;height:26px;border-radius:6px;cursor:pointer;color:var(--ink-faint);display:flex;align-items:center;justify-content:center}
+  .sug-act button:hover{background:var(--chip)}
+  .sug-act .ok:hover{color:var(--green)}
+  .sug-act .no:hover{color:var(--red)}
+  .sug-act svg{width:14px;height:14px}
+
+  /* Slash composer */
+  .composer{position:relative;margin-top:4px}
+  .composer .slashline{display:flex;align-items:center;gap:8px;padding:10px 6px;color:var(--ink-faint);border-radius:8px}
+  .composer input{flex:1;border:0;outline:0;background:transparent;font:inherit;color:var(--ink);font-family:"JetBrains Mono",monospace;font-size:13.5px}
+  .composer .plus{width:26px;height:26px;border:1px solid var(--line);background:#fff;border-radius:7px;color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}
+  .composer .plus:hover{color:var(--blue);border-color:var(--blue)}
+  .composer .plus svg{width:14px;height:14px}
+  .menu{position:absolute;top:44px;left:30px;width:300px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(16,24,40,.16);padding:7px;z-index:40;max-height:330px;overflow:auto;display:none}
+  .menu.open{display:block}
+  .menu .mhead{font-size:10.5px;font-weight:800;letter-spacing:.6px;color:var(--ink-faint);padding:7px 10px 5px;text-transform:uppercase}
+  .mitem{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:9px 10px;border-radius:8px;cursor:pointer;font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;color:var(--ink)}
+  .mitem .pre{color:var(--blue);font-weight:700}
+  .mitem.ai .pre{color:var(--violet)}
+  .mitem.sel,.mitem:hover{background:var(--blue-soft)}
+  .mitem.ai.sel,.mitem.ai:hover{background:var(--violet-soft)}
+  .mitem small{margin-left:auto;font-family:Inter;color:var(--ink-faint);font-weight:500}
+
+  /* ===== Right panel ===== */
+  .right{background:#fff;border-left:1px solid var(--line);overflow-y:auto;padding:20px 18px}
+  .right-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .right-head h2{font-size:16px;margin:0}
+  .live{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--violet);background:var(--violet-soft);padding:4px 9px;border-radius:999px}
+  .live .pulse{width:7px;height:7px;border-radius:50%;background:var(--violet);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  .summary-card{border-left:3px solid var(--blue);padding-left:12px;margin-top:14px;transition:opacity .25s}
+  .summary-card.updating{opacity:.35}
+  .ssec{background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:10px}
+  .ssec h4{margin:0 0 4px;font-size:12.5px}
+  .ssec p{margin:0;line-height:1.5;color:#374151;font-size:13px}
+  .ssec ul{margin:2px 0 0;padding-left:16px;color:#374151;font-size:13px;line-height:1.55}
+  .sfoot{font-size:11px;color:var(--ink-faint);display:flex;align-items:center;gap:5px;margin-top:12px}
+  .sfoot svg{width:12px;height:12px;color:var(--violet)}
+
+  /* AI assistant dropdown (topbar) */
+  .ai-pop{position:fixed;top:62px;right:170px;width:330px;background:#fff;border:1px solid #ddd0fa;border-radius:14px;box-shadow:0 18px 44px rgba(60,30,140,.18);z-index:60;display:none;overflow:hidden}
+  .ai-pop.open{display:block}
+  .ai-pop header{display:flex;align-items:center;gap:8px;padding:13px 15px;background:linear-gradient(135deg,#f6f1ff,#eef4ff);font-weight:700;font-size:13.5px;color:#3b3463}
+  .ai-pop header svg{width:15px;height:15px;color:var(--violet)}
+  .ai-pop .body{padding:12px 14px}
+  .ai-pop .qa{font-size:12.5px;color:var(--ink-soft);margin:0 0 10px}
+  .ai-q{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 11px;font:inherit;font-size:12.5px;color:var(--ink);cursor:pointer;margin-bottom:7px}
+  .ai-q:hover{border-color:var(--violet);background:var(--violet-soft)}
+  .ai-ans{background:var(--violet-soft);border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.55;color:#3b3463;margin-top:4px;display:none}
+
+  /* Toast */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,16px);background:#111827;color:#fff;padding:11px 18px;border-radius:10px;font-weight:600;font-size:13px;opacity:0;pointer-events:none;transition:all .25s;z-index:80;display:flex;gap:8px;align-items:center}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  .toast svg{width:15px;height:15px;color:#86efac}
+
+  /* Modal */
+  .overlay{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:90}
+  .overlay.open{display:flex}
+  .modal{background:#fff;border-radius:16px;width:440px;max-width:92vw;padding:26px;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+  .modal h3{margin:0 0 8px;font-size:17px}
+  .modal p{margin:0 0 18px;color:var(--ink-soft);line-height:1.55}
+  .modal .mrow{display:flex;gap:10px;justify-content:flex-end}
+  .btn-sec{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 16px;font-weight:600;cursor:pointer}
+</style>
+</head>
+<body>
+
+<!-- ================= TOPBAR ================= -->
+<header class="topbar">
+  <div class="brand"><span class="logo"><i data-lucide="activity"></i></span>Cimedical</div>
+  <nav class="nav">
+    <a href="#" class="active">Hoy</a>
+    <a href="#">Pendientes</a>
+    <a href="#">Archivo</a>
+  </nav>
+  <div class="search">
+    <i data-lucide="search"></i>
+    <input placeholder="Buscar pacientes o expedientes (Ctrl+K)">
+  </div>
+  <div class="spacer"></div>
+  <button class="iconbtn" title="Notificaciones"><i data-lucide="bell"></i><span class="dot"></span></button>
+  <button class="iconbtn" id="aiAssistBtn" title="Asistente IA"><i data-lucide="sparkles"></i></button>
+  <button class="btn-primary" id="finishBtn">Finalizar Consulta</button>
+  <div class="avatar">JM</div>
+</header>
+
+<!-- AI assistant popup (mock) -->
+<div class="ai-pop" id="aiPop">
+  <header><i data-lucide="sparkles"></i> Asistente IA de Cimedical</header>
+  <div class="body">
+    <p class="qa">Pregunta sobre el paciente o la consulta actual:</p>
+    <button class="ai-q" data-ans="Según el expediente, el paciente reporta alergia a la <b>Penicilina</b> (registrada en 2019). No hay otras alergias documentadas.">¿El paciente tiene alergias registradas?</button>
+    <button class="ai-q" data-ans="El paciente toma <b>Losartán 50&nbsp;mg</b> desde 2021. No se reportan interacciones relevantes con analgésicos comunes; evitar AINEs prolongados por la hipertensión.">¿Interacciones con su medicación actual?</button>
+    <button class="ai-q" data-ans="Última consulta: <b>14/03/2026</b> — control de hipertensión. TA 138/88, se mantuvo Losartán y se recomendó dieta hiposódica.">Resumen de la última consulta</button>
+    <div class="ai-ans" id="aiAns"></div>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- ================= LEFT: TEMPLATES ================= -->
+  <aside class="left">
+    <h2>Plantillas</h2>
+    <div id="tplList"></div>
+    <div class="grow"></div>
+    <button class="btn-ghost" onclick="toast('Gestión de plantillas (mock)')"><i data-lucide="settings-2"></i> Gestionar plantillas</button>
+    <div class="help"><i data-lucide="help-circle"></i> Ayuda</div>
+  </aside>
+
+  <!-- ================= CENTER: EDITOR ================= -->
+  <main class="center">
+    <div class="patient-head">
+      <div>
+        <h1>Alejandro Rodríguez</h1>
+        <div class="pmeta">
+          <span>Edad: <b>58 años</b></span>
+          <span>ID: <b>102938475</b></span>
+          <span class="badge-crit">HISTORIAL CRÍTICO</span>
+        </div>
+      </div>
+      <div class="phead-actions">
+        <button class="sqbtn" title="Imprimir" onclick="toast('Imprimiendo expediente (mock)')"><i data-lucide="printer"></i></button>
+        <button class="sqbtn" title="Compartir" onclick="toast('Enlace copiado (mock)')"><i data-lucide="share-2"></i></button>
+      </div>
+    </div>
+
+    <div class="editor">
+      <div id="blocks"></div>
+
+      <!-- Notion-style slash composer -->
+      <div class="composer">
+        <div class="slashline">
+          <button class="plus" id="plusBtn" title="Agregar componente"><i data-lucide="plus"></i></button>
+          <input id="slashInput" placeholder="Escribe / para agregar un componente…" autocomplete="off">
+        </div>
+        <div class="menu" id="slashMenu"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= RIGHT: EXECUTIVE SUMMARY ================= -->
+  <aside class="right">
+    <div class="right-head">
+      <h2>Resumen Ejecutivo</h2>
+      <span class="live"><span class="pulse"></span> IA en vivo</span>
+    </div>
+    <div class="summary-card" id="summaryCard"></div>
+    <div class="sfoot"><i data-lucide="sparkles"></i> Generado automáticamente por IA · se actualiza mientras escribes</div>
+  </aside>
+</div>
+
+<!-- Toast + modal -->
+<div class="toast" id="toast"><i data-lucide="check-circle-2"></i><span id="toastMsg"></span></div>
+<div class="overlay" id="finishOverlay">
+  <div class="modal">
+    <h3>Finalizar consulta</h3>
+    <p>Se generará la nota clínica definitiva con el resumen de IA y se firmará digitalmente el expediente <b>102938475</b>. (Demostración: no se guarda nada.)</p>
+    <div class="mrow">
+      <button class="btn-sec" onclick="closeFinish()">Cancelar</button>
+      <button class="btn-primary" onclick="closeFinish();toast('Consulta finalizada y firmada (mock)')">Confirmar y firmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   Mock data
+========================================================= */
+const PATIENT = { name:'Alejandro Rodríguez', age:58 };
+
+const REASON_CARDIO = 'Paciente de 58 años, masculino, con antecedente de hipertensión arterial y uso de Losartán. Consulta por dolor abdominal agudo en fosa ilíaca derecha, intensidad 7/10, de 4 horas de evolución.';
+
+/* ---- Block catalog ---- */
+const BLOCK_DEFS = {
+  reason:   { title:'Motivo de Consulta',    icon:'clipboard-list', cmd:'motivo' },
+  vitals:   { title:'Signos Vitales',        icon:'heart-pulse',    cmd:'vitales' },
+  medication:{title:'Medicación',            icon:'pill',           cmd:'medicacion' },
+  history:  { title:'Antecedentes Médicos',  icon:'history',        cmd:'antecedentes' },
+  exam:     { title:'Examen Físico',         icon:'stethoscope',    cmd:'examen' },
+  diagnosis:{ title:'Diagnóstico',           icon:'file-check-2',   cmd:'diagnostico' },
+  plan:     { title:'Plan de Manejo',        icon:'list-checks',    cmd:'plan' },
+  aiSummary:{ title:'Resumen IA del Paciente', icon:'sparkles',     cmd:'ia-resumen',     ai:true },
+  aiSuggest:{ title:'Sugerencias IA',        icon:'lightbulb',      cmd:'ia-sugerencias', ai:true },
+};
+
+/* ---- Templates (left panel) ---- */
+const TEMPLATES = [
+  { id:'cardio', name:'Seguimiento Cardiología', icon:'heart-pulse',
+    blocks:['reason','vitals','medication','diagnosis','plan','aiSuggest'],
+    prefill:{
+      reason: REASON_CARDIO,
+      vitals: { ta:'150/95', fc:'96', fr:'18', temp:'37.8', spo2:'97', peso:'82' },
+      meds: [ ['Losartán','50 mg','Cada 24 h'], ['Hioscina (butilbromuro)','10 mg','Cada 8 h, 3 días'] ],
+      dx: 'R10.3 — Dolor abdominal localizado en fosa ilíaca derecha',
+      plan:'Se ordena ecografía abdominal y panel metabólico completo. Analgesia con antiespasmódico. Control de TA en próxima cita. Cita de control en 2 semanas; revisar resultados de laboratorio.'
+    }},
+  { id:'general',  name:'Chequeo General',      icon:'shield-plus',  blocks:['reason','vitals','history','exam','plan'] },
+  { id:'diabetes', name:'Manejo de Diabetes',   icon:'droplets',     blocks:['reason','vitals','medication','plan','aiSuggest'] },
+  { id:'intake',   name:'Ingreso Paciente Nuevo', icon:'user-plus',  blocks:['reason','history','vitals','aiSummary'] },
+  { id:'pedia',    name:'Consulta Pediátrica',  icon:'baby',         blocks:['reason','vitals','exam','plan'] },
+  { id:'derma',    name:'Consulta Dermatología',icon:'scan-face',    blocks:['reason','exam','diagnosis','plan'] },
+];
+
+const AI_SUGGESTIONS = [
+  { t:'Posible apendicitis aguda', d:'Dolor en FID + 4 h de evolución. Considere escala de Alvarado y ecografía abdominal.' },
+  { t:'Ajuste de antihipertensivo', d:'TA 150/95 bajo Losartán 50 mg. Evaluar aumentar dosis o agregar segundo agente.' },
+  { t:'Evitar AINEs prolongados', d:'Paciente hipertenso: prefiera antiespasmódicos o paracetamol para manejo del dolor.' },
+];
+
+const DX_SUGGESTIONS = ['K35.8 — Apendicitis aguda', 'R10.3 — Dolor en fosa ilíaca derecha', 'I10 — Hipertensión esencial'];
+
+/* =========================================================
+   State
+========================================================= */
+let blocks = [];        // [{id,type}]
+let uid = 0;
+const $blocks = document.getElementById('blocks');
+
+/* =========================================================
+   Block rendering
+========================================================= */
+function addBlock(type, data={}, opts={}){
+  const id = 'b' + (++uid);
+  blocks.push({id,type});
+  const def = BLOCK_DEFS[type];
+
+  const el = document.createElement('section');
+  el.className = 'block' + (def.ai ? ' ai' : '');
+  el.id = id;
+  el.innerHTML = `
+    <div class="block-head">
+      <i data-lucide="grip-vertical" class="bicon drag"></i>
+      <i data-lucide="${def.icon}" class="bicon"></i>
+      <h3>${def.title}</h3>
+      ${def.ai ? '<span class="ai-tag">IA</span>' : ''}
+      <div class="bact">
+        <button title="Colapsar" data-act="collapse"><i data-lucide="chevron-down" class="chev"></i></button>
+        <button title="Eliminar" data-act="del"><i data-lucide="trash-2"></i></button>
+      </div>
+    </div>
+    <div class="block-body">${bodyFor(type, data)}</div>`;
+  $blocks.appendChild(el);
+
+  el.querySelector('[data-act="del"]').onclick = () => {
+    blocks = blocks.filter(b => b.id !== id);
+    el.remove(); scheduleSummary();
+  };
+  el.querySelector('[data-act="collapse"]').onclick = () => el.classList.toggle('collapsed');
+
+  wireBlock(el, type, data);
+  lucide.createIcons();
+  if (!opts.silent) scheduleSummary();
+  return el;
+}
+
+function bodyFor(type, d){
+  switch(type){
+    case 'reason':
+      return `<textarea class="field" data-k="reason" rows="3" placeholder="Describe el motivo de consulta…">${d.reason||''}</textarea>`;
+    case 'history':
+      return `<textarea class="field" data-k="history" rows="3" placeholder="Antecedentes patológicos, quirúrgicos, alérgicos, familiares…">${d.history||'Hipertensión arterial (2021). Alergia a Penicilina. Padre con cardiopatía isquémica.'}</textarea>`;
+    case 'exam':
+      return `<textarea class="field" data-k="exam" rows="3" placeholder="Hallazgos del examen físico…">${d.exam||''}</textarea>`;
+    case 'plan':
+      return `<textarea class="field" data-k="plan" rows="3" placeholder="Órdenes, medicación, seguimiento…">${d.plan||''}</textarea>`;
+    case 'vitals': {
+      const v = d.vitals || {};
+      const cell = (k,label,unit,val,warn) => `
+        <div class="vit ${warn?'warn':''}">
+          <label>${label}</label>
+          <div class="vrow"><input data-k="vit-${k}" value="${val||''}" placeholder="--"><span class="unit">${unit}</span></div>
+        </div>`;
+      return `<div class="vit-grid">
+        ${cell('ta','Tensión Arterial','mmHg',v.ta, v.ta==='150/95')}
+        ${cell('fc','Frec. Cardíaca','lpm',v.fc)}
+        ${cell('fr','Frec. Respiratoria','rpm',v.fr)}
+        ${cell('temp','Temperatura','°C',v.temp, parseFloat(v.temp)>=37.5)}
+        ${cell('spo2','SpO₂','%',v.spo2)}
+        ${cell('peso','Peso','kg',v.peso)}
+      </div>`;
+    }
+    case 'medication': {
+      const rows = (d.meds && d.meds.length ? d.meds : [['','','']])
+        .map(m => medRow(m[0],m[1],m[2])).join('');
+      return `<table class="med">
+          <thead><tr><th style="width:40%">Medicamento</th><th>Dosis</th><th>Frecuencia</th><th></th></tr></thead>
+          <tbody data-medbody>${rows}</tbody>
+        </table>
+        <button class="addrow" data-addmed>+ Agregar medicamento</button>`;
+    }
+    case 'diagnosis':
+      return `<input class="field" data-k="dx" value="${d.dx||''}" placeholder="Diagnóstico principal (CIE-10)…">
+        <p class="chips-label"><i data-lucide="sparkles"></i> Sugerencias de la IA según la nota:</p>
+        <div class="dx-chips">${DX_SUGGESTIONS.map(s=>`<button class="chip" data-dxchip>${s}</button>`).join('')}</div>`;
+    case 'aiSummary':
+      return `<div class="ai-text" data-aitext></div>
+        <div class="ai-foot">
+          <button class="btn-ai" data-regen><i data-lucide="refresh-cw"></i> Regenerar</button>
+          <span class="ai-note">Generado a partir del expediente y notas previas. Verifique antes de usar clínicamente.</span>
+        </div>`;
+    case 'aiSuggest':
+      return `<div data-suglist>${AI_SUGGESTIONS.map((s,i)=>`
+        <div class="sug" data-sug="${i}">
+          <span class="sicon"><i data-lucide="lightbulb"></i></span>
+          <p><b>${s.t}</b><span>${s.d}</span></p>
+          <div class="sug-act">
+            <button class="ok" title="Aceptar"><i data-lucide="check"></i></button>
+            <button class="no" title="Descartar"><i data-lucide="x"></i></button>
+          </div>
+        </div>`).join('')}</div>
+        <span class="ai-note">Sugerencias generadas por IA según la información de la consulta (demostración).</span>`;
+  }
+  return '';
+}
+
+function medRow(n='',dos='',fr=''){
+  return `<tr>
+    <td><input data-med="name" value="${n}" placeholder="Nombre"></td>
+    <td><input data-med="dose" value="${dos}" placeholder="Dosis"></td>
+    <td><input data-med="freq" value="${fr}" placeholder="Frecuencia"></td>
+    <td><button class="row-del" title="Quitar">✕</button></td>
+  </tr>`;
+}
+
+function wireBlock(el, type, data){
+  el.querySelectorAll('input,textarea').forEach(i => i.addEventListener('input', scheduleSummary));
+
+  el.querySelectorAll('textarea.field').forEach(t => {
+    const fit = () => { t.style.height='auto'; t.style.height = t.scrollHeight + 'px'; };
+    t.addEventListener('input', fit); setTimeout(fit, 0);
+  });
+
+  if (type === 'medication'){
+    const body = el.querySelector('[data-medbody]');
+    el.querySelector('[data-addmed]').onclick = () => {
+      body.insertAdjacentHTML('beforeend', medRow());
+      const tr = body.lastElementChild;
+      tr.querySelectorAll('input').forEach(i => i.addEventListener('input', scheduleSummary));
+      tr.querySelector('.row-del').onclick = () => { tr.remove(); scheduleSummary(); };
+      tr.querySelector('input').focus();
+    };
+    body.querySelectorAll('tr').forEach(tr =>
+      tr.querySelector('.row-del').onclick = () => { tr.remove(); scheduleSummary(); });
+  }
+
+  if (type === 'diagnosis'){
+    el.querySelectorAll('[data-dxchip]').forEach(c => c.onclick = () => {
+      el.querySelector('[data-k="dx"]').value = c.textContent;
+      toast('Diagnóstico aplicado desde sugerencia IA');
+      scheduleSummary();
+    });
+  }
+
+  if (type === 'aiSummary'){
+    const target = el.querySelector('[data-aitext]');
+    const gen = () => typewriter(target,
+      `Varón de ${PATIENT.age} años, hipertenso conocido en manejo con Losartán 50 mg desde 2021, con buen apego al tratamiento. Última TA registrada 138/88 (03/2026). Alergia documentada a Penicilina. Sin hospitalizaciones recientes. Hoy consulta por dolor abdominal agudo en fosa ilíaca derecha de 4 horas de evolución, intensidad 7/10, sin fiebre referida al inicio del cuadro.`);
+    el.querySelector('[data-regen]').onclick = gen;
+    gen();
+  }
+
+  if (type === 'aiSuggest'){
+    el.querySelectorAll('.sug').forEach(s => {
+      s.querySelector('.ok').onclick = () => { s.classList.add('done'); toast('Sugerencia aceptada y añadida al plan (mock)'); scheduleSummary(); };
+      s.querySelector('.no').onclick = () => { s.style.display='none'; scheduleSummary(); };
+    });
+  }
+}
+
+function typewriter(el, text){
+  el.textContent = '';
+  let i = 0;
+  clearInterval(el._tw);
+  el._tw = setInterval(() => {
+    el.textContent = text.slice(0, i += 4);
+    if (i >= text.length) clearInterval(el._tw);
+  }, 12);
+}
+
+/* =========================================================
+   Templates (left panel)
+========================================================= */
+const $tplList = document.getElementById('tplList');
+TEMPLATES.forEach((t, idx) => {
+  const b = document.createElement('button');
+  b.className = 'tpl' + (idx===0 ? ' active' : '');
+  b.innerHTML = `<i data-lucide="${t.icon}"></i>${t.name}`;
+  b.onclick = () => loadTemplate(t, b);
+  $tplList.appendChild(b);
+});
+
+function loadTemplate(t, btn){
+  document.querySelectorAll('.tpl').forEach(x => x.classList.remove('active'));
+  btn.classList.add('active');
+  $blocks.innerHTML = ''; blocks = [];
+  const p = t.prefill || {};
+  t.blocks.forEach(type => addBlock(type, p, {silent:true}));
+  toast(`Plantilla «${t.name}» cargada`);
+  scheduleSummary();
+}
+
+/* =========================================================
+   Slash composer (Notion-style)
+========================================================= */
+const $slash = document.getElementById('slashInput');
+const $menu  = document.getElementById('slashMenu');
+let menuSel = 0;
+
+function menuItems(filter){
+  const f = (filter||'').toLowerCase();
+  return Object.entries(BLOCK_DEFS).filter(([k,d]) =>
+    !f || d.cmd.includes(f) || d.title.toLowerCase().includes(f));
+}
+
+function renderMenu(filter){
+  const items = menuItems(filter);
+  if (!items.length){ $menu.classList.remove('open'); return; }
+  menuSel = Math.min(menuSel, items.length-1);
+  $menu.innerHTML = `<div class="mhead">Componentes</div>` + items.map(([k,d],i)=>`
+    <button class="mitem ${d.ai?'ai':''} ${i===menuSel?'sel':''}" data-type="${k}">
+      <span class="pre">//</span> ${d.title}
+      ${d.ai ? '<small>✦ IA</small>' : ''}
+    </button>`).join('');
+  $menu.classList.add('open');
+  $menu.querySelectorAll('.mitem').forEach(m => m.onclick = () => pick(m.dataset.type));
+}
+
+function pick(type){
+  closeMenu();
+  $slash.value = '';
+  const t = TEMPLATES[0]; // reuse cardio prefill when relevant? keep blank
+  addBlock(type, {});
+  $slash.focus();
+}
+
+function closeMenu(){ $menu.classList.remove('open'); menuSel = 0; }
+
+$slash.addEventListener('input', () => {
+  const v = $slash.value;
+  if (v.startsWith('/')) renderMenu(v.slice(1).replace(/^\//,''));
+  else closeMenu();
+});
+$slash.addEventListener('keydown', e => {
+  if (!$menu.classList.contains('open')){
+    if (e.key === '/' && $slash.value === '') { /* opening, handled on input */ }
+    return;
+  }
+  const items = menuItems($slash.value.slice(1).replace(/^\//,''));
+  if (e.key === 'ArrowDown'){ e.preventDefault(); menuSel = (menuSel+1) % items.length; renderMenu($slash.value.slice(1)); }
+  else if (e.key === 'ArrowUp'){ e.preventDefault(); menuSel = (menuSel-1+items.length) % items.length; renderMenu($slash.value.slice(1)); }
+  else if (e.key === 'Enter'){ e.preventDefault(); if (items[menuSel]) pick(items[menuSel][0]); }
+  else if (e.key === 'Escape'){ closeMenu(); $slash.value=''; }
+});
+document.getElementById('plusBtn').onclick = () => {
+  $slash.value = '/'; $slash.focus(); renderMenu('');
+};
+document.addEventListener('click', e => {
+  if (!e.target.closest('.composer')) closeMenu();
+  if (!e.target.closest('#aiPop') && !e.target.closest('#aiAssistBtn'))
+    document.getElementById('aiPop').classList.remove('open');
+});
+
+/* =========================================================
+   Executive summary (right panel) — mock "live AI"
+========================================================= */
+const $card = document.getElementById('summaryCard');
+let sumTimer;
+
+function scheduleSummary(){
+  $card.classList.add('updating');
+  clearTimeout(sumTimer);
+  sumTimer = setTimeout(buildSummary, 650);
+}
+
+function val(sel){ const e = document.querySelector(sel); return e ? e.value.trim() : ''; }
+
+function buildSummary(){
+  const reason = val('[data-k="reason"]');
+  const dx     = val('[data-k="dx"]');
+  const plan   = val('[data-k="plan"]');
+  const ta     = val('[data-k="vit-ta"]');
+  const temp   = val('[data-k="vit-temp"]');
+
+  const meds = [...document.querySelectorAll('[data-medbody] tr')]
+    .map(tr => tr.querySelector('[data-med="name"]')?.value.trim())
+    .filter(Boolean);
+
+  const findings = [];
+  if (/abdominal|fosa il/i.test(reason)) findings.push('Dolor abdominal agudo (FID)');
+  if (/hipertensi/i.test(reason) || meds.some(m=>/losart/i.test(m))) findings.push('Antecedente de hipertensión arterial');
+  if (ta && parseInt(ta) >= 140) findings.push(`TA elevada (${ta} mmHg)`);
+  if (temp && parseFloat(temp) >= 37.5) findings.push(`Febrícula (${temp} °C)`);
+  if (!findings.length && reason) findings.push(reason.split('.')[0]);
+
+  const status = dx ? 'En estudio — diagnóstico presuntivo registrado'
+               : reason ? 'Estable pero sintomático'
+               : 'Consulta en curso';
+
+  const actions = [];
+  if (/ecograf|laborator|panel/i.test(plan)) actions.push('Se ordenó ecografía abdominal y panel metabólico');
+  if (meds.length) actions.push('Medicación: ' + meds.join(', '));
+  if (/analgesi|antiespasm|dolor/i.test(plan)) actions.push('Manejo del dolor indicado');
+  if (!actions.length) actions.push('Sin acciones registradas aún');
+
+  const follow = /2 semanas|control/i.test(plan)
+    ? 'Cita de control en 2 semanas'
+    : 'Definir seguimiento al cerrar la consulta';
+
+  const next = /laborator|resultad/i.test(plan)
+    ? 'Revisar resultados de laboratorio'
+    : 'Completar nota clínica y plan de manejo';
+
+  $card.innerHTML = `
+    <div class="ssec"><h4>Estado actual:</h4><p>${status}</p></div>
+    <div class="ssec"><h4>Hallazgos clave:</h4><ul>${findings.map(f=>`<li>${f}</li>`).join('') || '<li>—</li>'}</ul></div>
+    <div class="ssec"><h4>Acciones realizadas:</h4><ul>${actions.map(a=>`<li>${a}</li>`).join('')}</ul></div>
+    <div class="ssec"><h4>Seguimiento:</h4><p>${follow}</p></div>
+    <div class="ssec"><h4>Próximos pasos:</h4><p>${next}${dx ? `<br>Dx: ${dx}` : ''}</p></div>`;
+  $card.classList.remove('updating');
+}
+
+/* =========================================================
+   Topbar extras
+========================================================= */
+document.getElementById('aiAssistBtn').onclick = (e) => {
+  e.stopPropagation();
+  document.getElementById('aiPop').classList.toggle('open');
+};
+document.querySelectorAll('.ai-q').forEach(q => q.onclick = () => {
+  const ans = document.getElementById('aiAns');
+  ans.style.display = 'block';
+  ans.innerHTML = '✦ Pensando…';
+  setTimeout(() => ans.innerHTML = '✦ ' + q.dataset.ans, 700);
+});
+
+document.getElementById('finishBtn').onclick = () =>
+  document.getElementById('finishOverlay').classList.add('open');
+function closeFinish(){ document.getElementById('finishOverlay').classList.remove('open'); }
+
+const $toast = document.getElementById('toast');
+let toastTimer;
+function toast(msg){
+  document.getElementById('toastMsg').textContent = msg;
+  $toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $toast.classList.remove('show'), 2400);
+}
+
+/* =========================================================
+   Init: load default template (Cardiology, prefilled)
+========================================================= */
+lucide.createIcons();
+loadTemplate(TEMPLATES[0], document.querySelector('.tpl'));
+</script>
+</body>
+</html>
